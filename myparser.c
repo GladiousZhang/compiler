@@ -1,7 +1,7 @@
 /****************************************************************************
 *                     U N R E G I S T E R E D   C O P Y
 * 
-* You are on day 41 of your 30 day trial period.
+* You are on day 42 of your 30 day trial period.
 * 
 * This file was produced by an UNREGISTERED COPY of Parser Generator. It is
 * for evaluation purposes only. If you continue to use Parser Generator 30
@@ -18,8 +18,8 @@
 * myparser.c
 * C source file generated from myparser.y.
 * 
-* Date: 05/24/23
-* Time: 09:18:59
+* Date: 05/25/23
+* Time: 18:02:12
 * 
 * AYACC Version: 2.07
 ****************************************************************************/
@@ -46,9 +46,11 @@ Date: 2023Äê5ÔÂ19ÈÕ
 ****************************************************************************/
 
 #include "mylexer.h"
-#include <ctype.h>
+#include "stdlib.h"
+#include "string.h"
+#include "define.h"
 
-#line 52 "myparser.c"
+#line 54 "myparser.c"
 /* repeated because of possible precompiled header */
 #include <yypars.h>
 
@@ -172,9 +174,9 @@ int action;
 			yyinitdebug(yya, 3);
 #endif
 			{
-#line 39 ".\\myparser.y"
+#line 52 ".\\myparser.y"
 return 0;
-#line 178 "myparser.c"
+#line 180 "myparser.c"
 			}
 		}
 		break;
@@ -185,9 +187,9 @@ return 0;
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 40 ".\\myparser.y"
+#line 53 ".\\myparser.y"
 return 0;
-#line 191 "myparser.c"
+#line 193 "myparser.c"
 			}
 		}
 		break;
@@ -198,9 +200,11 @@ return 0;
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 42 ".\\myparser.y"
-printf("CREATE TABLE\n");
-#line 204 "myparser.c"
+#line 55 ".\\myparser.y"
+
+				printf("Table name:%s Table field1:%s\n",yyattribute(1 - 1).cs_var->table,yyattribute(1 - 1).cs_var->fdef->field);
+			 
+#line 208 "myparser.c"
 			}
 		}
 		break;
@@ -211,9 +215,9 @@ printf("CREATE TABLE\n");
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 43 ".\\myparser.y"
+#line 58 ".\\myparser.y"
 printf("SELECT\n");
-#line 217 "myparser.c"
+#line 221 "myparser.c"
 			}
 		}
 		break;
@@ -224,9 +228,9 @@ printf("SELECT\n");
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 44 ".\\myparser.y"
+#line 59 ".\\myparser.y"
 printf("INSERT\n");
-#line 230 "myparser.c"
+#line 234 "myparser.c"
 			}
 		}
 		break;
@@ -237,9 +241,9 @@ printf("INSERT\n");
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 45 ".\\myparser.y"
+#line 60 ".\\myparser.y"
 printf("DELETE\n");
-#line 243 "myparser.c"
+#line 247 "myparser.c"
 			}
 		}
 		break;
@@ -250,9 +254,9 @@ printf("DELETE\n");
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 46 ".\\myparser.y"
+#line 61 ".\\myparser.y"
 printf("UPDATE\n");
-#line 256 "myparser.c"
+#line 260 "myparser.c"
 			}
 		}
 		break;
@@ -263,9 +267,9 @@ printf("UPDATE\n");
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 47 ".\\myparser.y"
-printf("SHOWTABLE\n");
-#line 269 "myparser.c"
+#line 62 ".\\myparser.y"
+printf("SHOW TABLE\n");
+#line 273 "myparser.c"
 			}
 		}
 		break;
@@ -276,9 +280,9 @@ printf("SHOWTABLE\n");
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 48 ".\\myparser.y"
-printf("SHOWDATABASES\n");
-#line 282 "myparser.c"
+#line 63 ".\\myparser.y"
+printf("SHOW DATABASES\n");
+#line 286 "myparser.c"
 			}
 		}
 		break;
@@ -289,9 +293,9 @@ printf("SHOWDATABASES\n");
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 49 ".\\myparser.y"
-printf("DROPTABLE\n");
-#line 295 "myparser.c"
+#line 64 ".\\myparser.y"
+printf("DROP TABLE\n");
+#line 299 "myparser.c"
 			}
 		}
 		break;
@@ -302,9 +306,9 @@ printf("DROPTABLE\n");
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 50 ".\\myparser.y"
-printf("USE\n");
-#line 308 "myparser.c"
+#line 65 ".\\myparser.y"
+printf("DROP DATABASE\n");
+#line 312 "myparser.c"
 			}
 		}
 		break;
@@ -315,9 +319,157 @@ printf("USE\n");
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 51 ".\\myparser.y"
+#line 66 ".\\myparser.y"
+printf("USE\n");
+#line 325 "myparser.c"
+			}
+		}
+		break;
+	case 12:
+		{
+#ifdef YYDEBUG
+			YYSTYPE YYFAR *yya[2];
+			yyinitdebug(yya, 2);
+#endif
+			{
+#line 67 ".\\myparser.y"
 printf("CREATE DATABASE\n");
-#line 321 "myparser.c"
+#line 338 "myparser.c"
+			}
+		}
+		break;
+	case 13:
+		{
+#ifdef YYDEBUG
+			YYSTYPE YYFAR *yya[8];
+			yyinitdebug(yya, 8);
+#endif
+			{
+#line 70 ".\\myparser.y"
+
+						yyval.cs_var = (struct Createstruct *)malloc(sizeof(struct Createstruct));
+						memset(yyval.cs_var,0,sizeof(struct Createstruct));
+						yyval.cs_var->table=yyattribute(3 - 7).yych;
+						yyval.cs_var->fdef=yyattribute(5 - 7).cfdef_var;
+				  
+#line 356 "myparser.c"
+			}
+		}
+		break;
+	case 14:
+		{
+#ifdef YYDEBUG
+			YYSTYPE YYFAR *yya[2];
+			yyinitdebug(yya, 2);
+#endif
+			{
+#line 76 ".\\myparser.y"
+
+		yyval.yych=yyattribute(1 - 1).yych;
+	
+#line 371 "myparser.c"
+			}
+		}
+		break;
+	case 15:
+		{
+#ifdef YYDEBUG
+			YYSTYPE YYFAR *yya[4];
+			yyinitdebug(yya, 4);
+#endif
+			{
+#line 79 ".\\myparser.y"
+
+						yyval.cfdef_var = (struct Createfieldsdef *)malloc(sizeof(struct Createfieldsdef));
+						yyval.cfdef_var=yyattribute(1 - 3).cfdef_var;
+						yyval.cfdef_var->next_fdef=yyattribute(3 - 3).cfdef_var;
+					
+#line 388 "myparser.c"
+			}
+		}
+		break;
+	case 16:
+		{
+#ifdef YYDEBUG
+			YYSTYPE YYFAR *yya[2];
+			yyinitdebug(yya, 2);
+#endif
+			{
+#line 84 ".\\myparser.y"
+
+						yyval.cfdef_var = (struct Createfieldsdef *)malloc(sizeof(struct Createfieldsdef));
+						yyval.cfdef_var=yyattribute(1 - 1).cfdef_var;
+					
+#line 404 "myparser.c"
+			}
+		}
+		break;
+	case 17:
+		{
+#ifdef YYDEBUG
+			YYSTYPE YYFAR *yya[3];
+			yyinitdebug(yya, 3);
+#endif
+			{
+#line 89 ".\\myparser.y"
+
+		yyval.cfdef_var = (struct Createfieldsdef *)malloc(sizeof(struct Createfieldsdef));
+		memset(yyval.cfdef_var,0,sizeof(struct Createfieldsdef));
+		yyval.cfdef_var->field = yyattribute(1 - 2).yych;
+		yyval.cfdef_var->type = yyattribute(2 - 2).c_type->col_type;
+		yyval.cfdef_var->length = yyattribute(2 - 2).c_type->len;
+		yyval.cfdef_var->next_fdef=NULL;
+	
+#line 424 "myparser.c"
+			}
+		}
+		break;
+	case 18:
+		{
+#ifdef YYDEBUG
+			YYSTYPE YYFAR *yya[2];
+			yyinitdebug(yya, 2);
+#endif
+			{
+#line 97 ".\\myparser.y"
+
+		yyval.yych = yyattribute(1 - 1).yych;
+	
+#line 439 "myparser.c"
+			}
+		}
+		break;
+	case 19:
+		{
+#ifdef YYDEBUG
+			YYSTYPE YYFAR *yya[5];
+			yyinitdebug(yya, 5);
+#endif
+			{
+#line 100 ".\\myparser.y"
+
+			yyval.c_type = (struct Col_type *)malloc(sizeof(struct Col_type));
+			yyval.c_type->col_type = enum_CHAR;
+			yyval.c_type->len = yyattribute(3 - 4).int_num;
+		
+#line 456 "myparser.c"
+			}
+		}
+		break;
+	case 20:
+		{
+#ifdef YYDEBUG
+			YYSTYPE YYFAR *yya[2];
+			yyinitdebug(yya, 2);
+#endif
+			{
+#line 105 ".\\myparser.y"
+
+			yyval.c_type = (struct Col_type *)malloc(sizeof(struct Col_type));
+			yyval.c_type->col_type = enum_INT;
+			yyval.c_type->len = 0;
+		
+#line 473 "myparser.c"
 			}
 		}
 		break;
@@ -329,29 +481,25 @@ printf("CREATE DATABASE\n");
 #ifdef YYDEBUG
 YYCONST yysymbol_t YYNEARFAR YYBASED_CODE YYDCDECL yysymbol[] = {
 	{ "$end", 0 },
-	{ "\'!\'", 33 },
 	{ "\'(\'", 40 },
 	{ "\')\'", 41 },
 	{ "\'*\'", 42 },
 	{ "\',\'", 44 },
 	{ "\'.\'", 46 },
 	{ "\';\'", 59 },
-	{ "\'<\'", 60 },
-	{ "\'=\'", 61 },
-	{ "\'>\'", 62 },
 	{ "error", 256 },
 	{ "ID", 257 },
-	{ "CREATE", 258 },
-	{ "DATABASE", 259 },
-	{ "INTEGER", 260 },
-	{ "FLOAT", 261 },
-	{ "STRING", 262 },
-	{ "SHOW", 263 },
-	{ "DATABASES", 264 },
-	{ "DROP", 265 },
-	{ "USE", 266 },
-	{ "TABLE", 267 },
-	{ "CHAR", 268 },
+	{ "CHAR", 258 },
+	{ "INTEGER", 259 },
+	{ "CREATE", 260 },
+	{ "DATABASE", 261 },
+	{ "FLOAT", 262 },
+	{ "STRING", 263 },
+	{ "SHOW", 264 },
+	{ "DATABASES", 265 },
+	{ "DROP", 266 },
+	{ "USE", 267 },
+	{ "TABLE", 268 },
 	{ "INT", 269 },
 	{ "TABLES", 270 },
 	{ "INSERT", 271 },
@@ -363,8 +511,9 @@ YYCONST yysymbol_t YYNEARFAR YYBASED_CODE YYDCDECL yysymbol[] = {
 	{ "DELETE", 277 },
 	{ "UPDATE", 278 },
 	{ "SET", 279 },
-	{ "AND", 280 },
-	{ "OR", 281 },
+	{ "OPERATOR", 280 },
+	{ "AND", 281 },
+	{ "OR", 282 },
 	{ NULL, 0 }
 };
 
@@ -379,7 +528,8 @@ YYCONST char *YYCONST YYNEARFAR YYBASED_CODE YYDCDECL yyrule[] = {
 	"statement: updatesql",
 	"statement: showtablesql",
 	"statement: showdatabasessql",
-	"statement: dropsql",
+	"statement: droptablesql",
+	"statement: dropdatabasesql",
 	"statement: usesql",
 	"statement: createdatabase",
 	"createtablesql: CREATE TABLE table \'(\' fieldsdefinition \')\' \';\'",
@@ -409,10 +559,8 @@ YYCONST char *YYCONST YYNEARFAR YYBASED_CODE YYDCDECL yyrule[] = {
 	"comp_right: table_field",
 	"comp_right: INTEGER",
 	"comp_right: FLOAT",
-	"comp_op: \'<\'",
-	"comp_op: \'>\'",
-	"comp_op: \'=\'",
-	"comp_op: \'!\' \'=\'",
+	"comp_right: STRING",
+	"comp_op: OPERATOR",
 	"insertsql: INSERT INTO table \'(\' insert_fields \')\' VALUES \'(\' insert_values \')\' \';\'",
 	"insertsql: INSERT INTO table VALUES \'(\' insert_values \')\' \';\'",
 	"insert_fields: insert_fields \',\' field",
@@ -424,15 +572,16 @@ YYCONST char *YYCONST YYNEARFAR YYBASED_CODE YYDCDECL yyrule[] = {
 	"insert_value: FLOAT",
 	"deletesql: DELETE FROM table WHERE conditions \';\'",
 	"updatesql: UPDATE table SET setinfo WHERE conditions \';\'",
-	"setinfo: setinfo \',\' field \'=\' value",
-	"setinfo: field \'=\' value",
+	"setinfo: setinfo \',\' field OPERATOR value",
+	"setinfo: field OPERATOR value",
 	"value: insert_value",
 	"showtablesql: SHOW TABLES \';\'",
 	"showdatabasessql: SHOW DATABASES \';\'",
-	"dropsql: DROP TABLE table \';\'",
+	"droptablesql: DROP TABLE table \';\'",
 	"usesql: USE basename \';\'",
 	"basename: ID",
-	"createdatabase: CREATE DATABASE basename \';\'"
+	"createdatabase: CREATE DATABASE basename \';\'",
+	"dropdatabasesql: DROP DATABASE basename \';\'"
 };
 #endif
 
@@ -450,14 +599,15 @@ YYCONST yyreduction_t YYNEARFAR YYBASED_CODE YYDCDECL yyreduction[] = {
 	{ 2, 1, 9 },
 	{ 2, 1, 10 },
 	{ 2, 1, 11 },
-	{ 3, 7, -1 },
-	{ 4, 1, -1 },
-	{ 5, 3, -1 },
-	{ 5, 1, -1 },
-	{ 6, 2, -1 },
-	{ 7, 1, -1 },
-	{ 8, 4, -1 },
-	{ 8, 1, -1 },
+	{ 2, 1, 12 },
+	{ 3, 7, 13 },
+	{ 4, 1, 14 },
+	{ 5, 3, 15 },
+	{ 5, 1, 16 },
+	{ 6, 2, 17 },
+	{ 7, 1, 18 },
+	{ 8, 4, 19 },
+	{ 8, 1, 20 },
 	{ 9, 5, -1 },
 	{ 9, 7, -1 },
 	{ 10, 1, -1 },
@@ -477,10 +627,8 @@ YYCONST yyreduction_t YYNEARFAR YYBASED_CODE YYDCDECL yyreduction[] = {
 	{ 17, 1, -1 },
 	{ 17, 1, -1 },
 	{ 17, 1, -1 },
+	{ 17, 1, -1 },
 	{ 18, 1, -1 },
-	{ 18, 1, -1 },
-	{ 18, 1, -1 },
-	{ 18, 2, -1 },
 	{ 19, 11, -1 },
 	{ 19, 8, -1 },
 	{ 20, 3, -1 },
@@ -500,76 +648,76 @@ YYCONST yyreduction_t YYNEARFAR YYBASED_CODE YYDCDECL yyreduction[] = {
 	{ 29, 4, -1 },
 	{ 30, 3, -1 },
 	{ 31, 1, -1 },
-	{ 32, 4, -1 }
+	{ 32, 4, -1 },
+	{ 33, 4, -1 }
 };
 
 int YYNEAR YYDCDECL yytokenaction_size = 279;
 YYCONST yytokenaction_t YYNEARFAR YYBASED_CODE YYDCDECL yytokenaction[] = {
-	{ 13, YYAT_ACCEPT, 0 },
-	{ 60, YYAT_SHIFT, 71 },
-	{ 46, YYAT_SHIFT, 55 },
-	{ 106, YYAT_SHIFT, 126 },
-	{ 63, YYAT_SHIFT, 79 },
-	{ 76, YYAT_SHIFT, 97 },
-	{ 96, YYAT_SHIFT, 117 },
-	{ 1, YYAT_SHIFT, 21 },
-	{ 2, YYAT_SHIFT, 23 },
-	{ 128, YYAT_SHIFT, 89 },
-	{ 128, YYAT_SHIFT, 90 },
-	{ 128, YYAT_SHIFT, 91 },
-	{ 101, YYAT_SHIFT, 119 },
-	{ 101, YYAT_SHIFT, 120 },
-	{ 2, YYAT_SHIFT, 24 },
+	{ 10, YYAT_ACCEPT, 0 },
+	{ 64, YYAT_SHIFT, 75 },
+	{ 49, YYAT_SHIFT, 59 },
+	{ 109, YYAT_SHIFT, 127 },
+	{ 68, YYAT_SHIFT, 84 },
+	{ 100, YYAT_SHIFT, 118 },
+	{ 69, YYAT_SHIFT, 86 },
+	{ 3, YYAT_SHIFT, 26 },
 	{ 1, YYAT_SHIFT, 22 },
-	{ 60, YYAT_SHIFT, 72 },
-	{ 133, YYAT_SHIFT, 134 },
-	{ 68, YYAT_SHIFT, 87 },
-	{ 65, YYAT_SHIFT, 82 },
-	{ 133, YYAT_SHIFT, 115 },
-	{ 68, YYAT_SHIFT, 88 },
-	{ 65, YYAT_SHIFT, 83 },
+	{ 129, YYAT_SHIFT, 93 },
+	{ 135, YYAT_SHIFT, 136 },
+	{ 128, YYAT_SHIFT, 133 },
+	{ 129, YYAT_SHIFT, 94 },
+	{ 129, YYAT_SHIFT, 95 },
+	{ 3, YYAT_SHIFT, 27 },
+	{ 1, YYAT_SHIFT, 23 },
+	{ 64, YYAT_SHIFT, 76 },
+	{ 69, YYAT_SHIFT, 87 },
+	{ 105, YYAT_SHIFT, 121 },
+	{ 2, YYAT_SHIFT, 24 },
+	{ 115, YYAT_SHIFT, 130 },
+	{ 105, YYAT_SHIFT, 122 },
+	{ 105, YYAT_SHIFT, 123 },
+	{ 100, YYAT_ERROR, 0 },
+	{ 2, YYAT_SHIFT, 25 },
 	{ 134, YYAT_SHIFT, 135 },
-	{ 96, YYAT_ERROR, 0 },
-	{ 67, YYAT_SHIFT, 84 },
-	{ 67, YYAT_SHIFT, 85 },
-	{ 127, YYAT_SHIFT, 132 },
-	{ 114, YYAT_SHIFT, 129 },
-	{ 112, YYAT_SHIFT, 128 },
-	{ 111, YYAT_SHIFT, 127 },
-	{ 105, YYAT_SHIFT, 125 },
-	{ 76, YYAT_SHIFT, 98 },
-	{ 76, YYAT_SHIFT, 99 },
-	{ 76, YYAT_SHIFT, 100 },
-	{ 104, YYAT_SHIFT, 74 },
-	{ 97, YYAT_SHIFT, 118 },
-	{ 95, YYAT_SHIFT, 116 },
-	{ 92, YYAT_SHIFT, 114 },
-	{ 88, YYAT_SHIFT, 58 },
-	{ 87, YYAT_SHIFT, 112 },
-	{ 84, YYAT_SHIFT, 111 },
-	{ 82, YYAT_SHIFT, 109 },
-	{ 77, YYAT_SHIFT, 102 },
-	{ 71, YYAT_SHIFT, 37 },
-	{ 64, YYAT_SHIFT, 81 },
-	{ 56, YYAT_SHIFT, 70 },
-	{ 50, YYAT_SHIFT, 62 },
-	{ 47, YYAT_SHIFT, 30 },
-	{ 44, YYAT_SHIFT, 54 },
-	{ 41, YYAT_SHIFT, 53 },
-	{ 40, YYAT_SHIFT, 52 },
-	{ 38, YYAT_SHIFT, 51 },
-	{ 35, YYAT_SHIFT, 49 },
-	{ 33, YYAT_SHIFT, 48 },
-	{ 31, YYAT_SHIFT, 47 },
-	{ 30, YYAT_REDUCE, 14 },
-	{ 27, YYAT_SHIFT, 45 },
-	{ 24, YYAT_SHIFT, 43 },
-	{ 23, YYAT_SHIFT, 42 },
-	{ 21, YYAT_SHIFT, 26 },
-	{ 7, YYAT_SHIFT, 36 },
-	{ 6, YYAT_SHIFT, 29 },
-	{ 5, YYAT_SHIFT, 28 },
-	{ 3, YYAT_SHIFT, 25 },
+	{ 73, YYAT_SHIFT, 91 },
+	{ 70, YYAT_SHIFT, 89 },
+	{ 134, YYAT_SHIFT, 116 },
+	{ 73, YYAT_SHIFT, 92 },
+	{ 70, YYAT_SHIFT, 90 },
+	{ 113, YYAT_SHIFT, 129 },
+	{ 110, YYAT_SHIFT, 128 },
+	{ 108, YYAT_SHIFT, 126 },
+	{ 103, YYAT_SHIFT, 78 },
+	{ 99, YYAT_SHIFT, 117 },
+	{ 96, YYAT_SHIFT, 115 },
+	{ 92, YYAT_SHIFT, 61 },
+	{ 91, YYAT_SHIFT, 113 },
+	{ 89, YYAT_SHIFT, 111 },
+	{ 86, YYAT_SHIFT, 110 },
+	{ 82, YYAT_SHIFT, 104 },
+	{ 80, YYAT_SHIFT, 101 },
+	{ 75, YYAT_SHIFT, 39 },
+	{ 67, YYAT_SHIFT, 83 },
+	{ 60, YYAT_SHIFT, 74 },
+	{ 53, YYAT_SHIFT, 66 },
+	{ 52, YYAT_SHIFT, 32 },
+	{ 47, YYAT_SHIFT, 58 },
+	{ 46, YYAT_SHIFT, 57 },
+	{ 43, YYAT_SHIFT, 56 },
+	{ 42, YYAT_SHIFT, 55 },
+	{ 40, YYAT_SHIFT, 54 },
+	{ 37, YYAT_SHIFT, 52 },
+	{ 36, YYAT_SHIFT, 51 },
+	{ 33, YYAT_SHIFT, 50 },
+	{ 32, YYAT_REDUCE, 15 },
+	{ 29, YYAT_SHIFT, 48 },
+	{ 26, YYAT_SHIFT, 28 },
+	{ 25, YYAT_SHIFT, 45 },
+	{ 24, YYAT_SHIFT, 44 },
+	{ 7, YYAT_SHIFT, 38 },
+	{ 6, YYAT_SHIFT, 31 },
+	{ 5, YYAT_SHIFT, 30 },
 	{ 0, YYAT_ERROR, 0 },
 	{ -1, YYAT_ERROR, 0 },
 	{ -1, YYAT_ERROR, 0 },
@@ -729,28 +877,20 @@ YYCONST yytokenaction_t YYNEARFAR YYBASED_CODE YYDCDECL yytokenaction[] = {
 	{ -1, YYAT_ERROR, 0 },
 	{ -1, YYAT_ERROR, 0 },
 	{ -1, YYAT_ERROR, 0 },
-	{ 106, YYAT_SHIFT, 103 },
-	{ 106, YYAT_SHIFT, 104 },
+	{ -1, YYAT_ERROR, 0 },
+	{ -1, YYAT_ERROR, 0 },
+	{ 109, YYAT_SHIFT, 102 },
+	{ 109, YYAT_SHIFT, 103 },
 	{ -1, YYAT_ERROR, 0 },
 	{ -1, YYAT_ERROR, 0 },
 	{ -1, YYAT_ERROR, 0 },
 	{ -1, YYAT_ERROR, 0 },
 	{ -1, YYAT_ERROR, 0 },
 	{ -1, YYAT_ERROR, 0 },
+	{ 64, YYAT_SHIFT, 77 },
 	{ -1, YYAT_ERROR, 0 },
-	{ 60, YYAT_SHIFT, 73 },
-	{ -1, YYAT_ERROR, 0 },
-	{ 46, YYAT_SHIFT, 56 },
-	{ 63, YYAT_SHIFT, 80 },
-	{ -1, YYAT_ERROR, 0 },
-	{ -1, YYAT_ERROR, 0 },
-	{ -1, YYAT_ERROR, 0 },
-	{ -1, YYAT_ERROR, 0 },
-	{ -1, YYAT_ERROR, 0 },
-	{ -1, YYAT_ERROR, 0 },
-	{ -1, YYAT_ERROR, 0 },
-	{ -1, YYAT_ERROR, 0 },
-	{ -1, YYAT_ERROR, 0 },
+	{ 49, YYAT_SHIFT, 60 },
+	{ 68, YYAT_SHIFT, 85 },
 	{ -1, YYAT_ERROR, 0 },
 	{ -1, YYAT_ERROR, 0 },
 	{ -1, YYAT_ERROR, 0 },
@@ -763,247 +903,256 @@ YYCONST yytokenaction_t YYNEARFAR YYBASED_CODE YYDCDECL yytokenaction[] = {
 	{ -1, YYAT_ERROR, 0 },
 	{ -1, YYAT_ERROR, 0 },
 	{ -1, YYAT_ERROR, 0 },
-	{ 13, YYAT_SHIFT, 1 },
 	{ -1, YYAT_ERROR, 0 },
 	{ -1, YYAT_ERROR, 0 },
 	{ -1, YYAT_ERROR, 0 },
 	{ -1, YYAT_ERROR, 0 },
-	{ 13, YYAT_SHIFT, 2 },
-	{ -1, YYAT_ERROR, 0 },
-	{ 13, YYAT_SHIFT, 3 },
-	{ 13, YYAT_SHIFT, 4 },
 	{ -1, YYAT_ERROR, 0 },
 	{ -1, YYAT_ERROR, 0 },
 	{ -1, YYAT_ERROR, 0 },
 	{ -1, YYAT_ERROR, 0 },
-	{ 13, YYAT_SHIFT, 5 },
 	{ -1, YYAT_ERROR, 0 },
 	{ -1, YYAT_ERROR, 0 },
-	{ 13, YYAT_SHIFT, 6 },
+	{ -1, YYAT_ERROR, 0 },
+	{ 10, YYAT_SHIFT, 1 },
 	{ -1, YYAT_ERROR, 0 },
 	{ -1, YYAT_ERROR, 0 },
-	{ 13, YYAT_SHIFT, 7 },
-	{ 13, YYAT_SHIFT, 8 }
+	{ -1, YYAT_ERROR, 0 },
+	{ 10, YYAT_SHIFT, 2 },
+	{ -1, YYAT_ERROR, 0 },
+	{ 10, YYAT_SHIFT, 3 },
+	{ 10, YYAT_SHIFT, 4 },
+	{ -1, YYAT_ERROR, 0 },
+	{ -1, YYAT_ERROR, 0 },
+	{ -1, YYAT_ERROR, 0 },
+	{ 10, YYAT_SHIFT, 5 },
+	{ -1, YYAT_ERROR, 0 },
+	{ -1, YYAT_ERROR, 0 },
+	{ 10, YYAT_SHIFT, 6 },
+	{ -1, YYAT_ERROR, 0 },
+	{ -1, YYAT_ERROR, 0 },
+	{ 10, YYAT_SHIFT, 7 },
+	{ 10, YYAT_SHIFT, 8 }
 };
 
 YYCONST yystateaction_t YYNEARFAR YYBASED_CODE YYDCDECL yystateaction[] = {
-	{ 65, 1, YYAT_DEFAULT, 13 },
-	{ -252, 1, YYAT_ERROR, 0 },
-	{ -256, 1, YYAT_ERROR, 0 },
-	{ -203, 1, YYAT_ERROR, 0 },
-	{ 0, 0, YYAT_DEFAULT, 21 },
+	{ 64, 1, YYAT_DEFAULT, 10 },
+	{ -253, 1, YYAT_ERROR, 0 },
+	{ -246, 1, YYAT_ERROR, 0 },
+	{ -254, 1, YYAT_ERROR, 0 },
+	{ 0, 0, YYAT_DEFAULT, 26 },
 	{ -209, 1, YYAT_ERROR, 0 },
-	{ 20, 1, YYAT_DEFAULT, 47 },
+	{ 20, 1, YYAT_DEFAULT, 52 },
 	{ -214, 1, YYAT_ERROR, 0 },
-	{ 0, 0, YYAT_DEFAULT, 71 },
-	{ 0, 0, YYAT_REDUCE, 7 },
-	{ 0, 0, YYAT_REDUCE, 6 },
-	{ 0, 0, YYAT_REDUCE, 8 },
-	{ 0, 0, YYAT_REDUCE, 2 },
-	{ 0, 1, YYAT_ERROR, 0 },
+	{ 0, 0, YYAT_DEFAULT, 75 },
 	{ 0, 0, YYAT_REDUCE, 3 },
-	{ 0, 0, YYAT_REDUCE, 4 },
-	{ 0, 0, YYAT_REDUCE, 5 },
+	{ 0, 1, YYAT_ERROR, 0 },
 	{ 0, 0, YYAT_REDUCE, 9 },
-	{ 0, 0, YYAT_REDUCE, 10 },
 	{ 0, 0, YYAT_REDUCE, 11 },
 	{ 0, 0, YYAT_REDUCE, 12 },
-	{ -197, 1, YYAT_ERROR, 0 },
-	{ 0, 0, YYAT_DEFAULT, 71 },
+	{ 0, 0, YYAT_REDUCE, 4 },
+	{ 0, 0, YYAT_REDUCE, 8 },
+	{ 0, 0, YYAT_REDUCE, 7 },
+	{ 0, 0, YYAT_REDUCE, 13 },
+	{ 0, 0, YYAT_REDUCE, 2 },
+	{ 0, 0, YYAT_REDUCE, 6 },
+	{ 0, 0, YYAT_REDUCE, 10 },
+	{ 0, 0, YYAT_REDUCE, 5 },
+	{ 0, 0, YYAT_DEFAULT, 26 },
+	{ 0, 0, YYAT_DEFAULT, 75 },
+	{ 1, 1, YYAT_ERROR, 0 },
 	{ 0, 1, YYAT_ERROR, 0 },
-	{ -1, 1, YYAT_ERROR, 0 },
-	{ 0, 0, YYAT_DEFAULT, 71 },
-	{ 0, 0, YYAT_REDUCE, 62 },
+	{ -199, 1, YYAT_ERROR, 0 },
+	{ 0, 0, YYAT_DEFAULT, 75 },
+	{ 0, 0, YYAT_REDUCE, 61 },
 	{ -2, 1, YYAT_ERROR, 0 },
-	{ 0, 0, YYAT_DEFAULT, 71 },
-	{ 0, 0, YYAT_REDUCE, 24 },
-	{ 10, 1, YYAT_REDUCE, 18 },
-	{ 11, 1, YYAT_REDUCE, 23 },
+	{ 0, 0, YYAT_DEFAULT, 75 },
 	{ 0, 0, YYAT_REDUCE, 25 },
-	{ 8, 1, YYAT_ERROR, 0 },
-	{ 0, 0, YYAT_REDUCE, 27 },
-	{ -222, 1, YYAT_ERROR, 0 },
-	{ 0, 0, YYAT_DEFAULT, 71 },
-	{ 0, 0, YYAT_REDUCE, 14 },
+	{ 10, 1, YYAT_REDUCE, 19 },
+	{ 9, 1, YYAT_ERROR, 0 },
+	{ 0, 0, YYAT_REDUCE, 28 },
+	{ 0, 0, YYAT_REDUCE, 26 },
+	{ -221, 1, YYAT_ERROR, 0 },
+	{ 9, 1, YYAT_REDUCE, 24 },
+	{ 0, 0, YYAT_DEFAULT, 75 },
+	{ 0, 0, YYAT_REDUCE, 15 },
 	{ -227, 1, YYAT_ERROR, 0 },
 	{ 0, 0, YYAT_REDUCE, 1 },
 	{ -8, 1, YYAT_ERROR, 0 },
 	{ 10, 1, YYAT_ERROR, 0 },
-	{ 0, 0, YYAT_REDUCE, 59 },
 	{ 0, 0, YYAT_REDUCE, 58 },
-	{ -10, 1, YYAT_ERROR, 0 },
-	{ 0, 0, YYAT_REDUCE, 61 },
-	{ -38, 1, YYAT_ERROR, 0 },
-	{ -209, 1, YYAT_ERROR, 0 },
-	{ 0, 0, YYAT_DEFAULT, 88 },
-	{ 0, 0, YYAT_DEFAULT, 71 },
-	{ -229, 1, YYAT_ERROR, 0 },
-	{ 0, 0, YYAT_DEFAULT, 88 },
-	{ 0, 0, YYAT_REDUCE, 63 },
-	{ 0, 0, YYAT_DEFAULT, 88 },
-	{ 0, 0, YYAT_REDUCE, 60 },
-	{ 0, 0, YYAT_DEFAULT, 88 },
-	{ 6, 1, YYAT_ERROR, 0 },
-	{ 0, 0, YYAT_REDUCE, 26 },
-	{ 0, 0, YYAT_REDUCE, 18 },
-	{ 0, 0, YYAT_REDUCE, 28 },
-	{ -43, 1, YYAT_ERROR, 0 },
-	{ 0, 0, YYAT_REDUCE, 29 },
-	{ 0, 0, YYAT_DEFAULT, 104 },
-	{ -40, 1, YYAT_ERROR, 0 },
-	{ -16, 1, YYAT_ERROR, 0 },
-	{ -22, 1, YYAT_ERROR, 0 },
-	{ 0, 0, YYAT_REDUCE, 16 },
-	{ -243, 1, YYAT_ERROR, 0 },
-	{ -23, 1, YYAT_ERROR, 0 },
-	{ 0, 0, YYAT_REDUCE, 47 },
-	{ 0, 0, YYAT_DEFAULT, 128 },
-	{ -213, 1, YYAT_ERROR, 0 },
-	{ 0, 0, YYAT_REDUCE, 21 },
-	{ 0, 0, YYAT_DEFAULT, 104 },
-	{ 0, 0, YYAT_DEFAULT, 104 },
-	{ 0, 0, YYAT_REDUCE, 31 },
-	{ -28, 1, YYAT_ERROR, 0 },
-	{ -16, 1, YYAT_DEFAULT, 106 },
-	{ 0, 0, YYAT_REDUCE, 36 },
-	{ 0, 0, YYAT_DEFAULT, 88 },
-	{ 0, 0, YYAT_DEFAULT, 104 },
-	{ 0, 0, YYAT_DEFAULT, 128 },
-	{ -17, 1, YYAT_ERROR, 0 },
-	{ 0, 0, YYAT_DEFAULT, 88 },
-	{ 1, 1, YYAT_ERROR, 0 },
-	{ 0, 0, YYAT_REDUCE, 20 },
-	{ 0, 0, YYAT_REDUCE, 17 },
-	{ -233, 1, YYAT_ERROR, 0 },
-	{ -218, 1, YYAT_ERROR, 0 },
-	{ 0, 0, YYAT_REDUCE, 51 },
-	{ 0, 0, YYAT_REDUCE, 52 },
-	{ 0, 0, YYAT_REDUCE, 50 },
-	{ -3, 1, YYAT_DEFAULT, 133 },
-	{ 0, 0, YYAT_REDUCE, 49 },
-	{ 0, 0, YYAT_REDUCE, 30 },
-	{ -22, 1, YYAT_DEFAULT, 106 },
-	{ -35, 1, YYAT_DEFAULT, 106 },
-	{ -25, 1, YYAT_ERROR, 0 },
-	{ 0, 0, YYAT_REDUCE, 40 },
-	{ 0, 0, YYAT_REDUCE, 42 },
-	{ 0, 0, YYAT_REDUCE, 41 },
-	{ -248, 1, YYAT_DEFAULT, 47 },
-	{ 0, 0, YYAT_REDUCE, 53 },
-	{ 0, 0, YYAT_DEFAULT, 104 },
-	{ -5, 1, YYAT_DEFAULT, 47 },
-	{ -30, 1, YYAT_ERROR, 0 },
-	{ -56, 1, YYAT_ERROR, 0 },
 	{ 0, 0, YYAT_REDUCE, 57 },
-	{ 0, 0, YYAT_REDUCE, 56 },
-	{ 0, 0, YYAT_REDUCE, 13 },
-	{ 0, 0, YYAT_REDUCE, 15 },
-	{ -230, 1, YYAT_ERROR, 0 },
+	{ -10, 1, YYAT_ERROR, 0 },
 	{ -11, 1, YYAT_ERROR, 0 },
+	{ 0, 0, YYAT_REDUCE, 60 },
+	{ -38, 1, YYAT_ERROR, 0 },
+	{ 0, 0, YYAT_DEFAULT, 92 },
+	{ 0, 0, YYAT_DEFAULT, 75 },
+	{ -210, 1, YYAT_ERROR, 0 },
+	{ -230, 1, YYAT_ERROR, 0 },
+	{ 0, 0, YYAT_DEFAULT, 92 },
+	{ 0, 0, YYAT_REDUCE, 62 },
+	{ 0, 0, YYAT_DEFAULT, 92 },
+	{ 0, 0, YYAT_REDUCE, 63 },
+	{ 0, 0, YYAT_REDUCE, 59 },
+	{ 0, 0, YYAT_DEFAULT, 92 },
+	{ 5, 1, YYAT_ERROR, 0 },
+	{ 0, 0, YYAT_REDUCE, 19 },
+	{ 0, 0, YYAT_REDUCE, 29 },
+	{ 0, 0, YYAT_REDUCE, 30 },
+	{ -43, 1, YYAT_ERROR, 0 },
+	{ 0, 0, YYAT_REDUCE, 27 },
+	{ 0, 0, YYAT_DEFAULT, 103 },
+	{ -236, 1, YYAT_ERROR, 0 },
+	{ -40, 1, YYAT_ERROR, 0 },
+	{ -252, 1, YYAT_ERROR, 0 },
+	{ -14, 1, YYAT_ERROR, 0 },
+	{ 0, 0, YYAT_REDUCE, 17 },
 	{ 0, 0, YYAT_REDUCE, 46 },
-	{ -31, 1, YYAT_ERROR, 0 },
-	{ 0, 0, YYAT_DEFAULT, 128 },
+	{ -15, 1, YYAT_ERROR, 0 },
+	{ 0, 0, YYAT_DEFAULT, 129 },
+	{ -214, 1, YYAT_ERROR, 0 },
 	{ 0, 0, YYAT_REDUCE, 22 },
-	{ 0, 0, YYAT_REDUCE, 32 },
-	{ 0, 0, YYAT_REDUCE, 43 },
-	{ 0, 0, YYAT_REDUCE, 38 },
-	{ 0, 0, YYAT_REDUCE, 39 },
+	{ 0, 0, YYAT_DEFAULT, 103 },
+	{ 0, 0, YYAT_DEFAULT, 103 },
 	{ 0, 0, YYAT_REDUCE, 37 },
-	{ 0, 0, YYAT_REDUCE, 35 },
+	{ -17, 1, YYAT_DEFAULT, 109 },
+	{ 0, 0, YYAT_REDUCE, 32 },
+	{ -239, 1, YYAT_ERROR, 0 },
+	{ 0, 0, YYAT_DEFAULT, 129 },
+	{ 0, 0, YYAT_DEFAULT, 92 },
+	{ 0, 0, YYAT_DEFAULT, 103 },
+	{ 0, 1, YYAT_ERROR, 0 },
+	{ 0, 0, YYAT_REDUCE, 21 },
+	{ 0, 0, YYAT_REDUCE, 18 },
+	{ -20, 1, YYAT_ERROR, 0 },
+	{ 0, 0, YYAT_DEFAULT, 92 },
+	{ -235, 1, YYAT_ERROR, 0 },
+	{ -220, 1, YYAT_ERROR, 0 },
+	{ 0, 0, YYAT_REDUCE, 50 },
+	{ 0, 0, YYAT_REDUCE, 51 },
+	{ 0, 0, YYAT_REDUCE, 49 },
+	{ -5, 1, YYAT_DEFAULT, 134 },
+	{ 0, 0, YYAT_REDUCE, 48 },
+	{ 0, 0, YYAT_REDUCE, 31 },
+	{ -24, 1, YYAT_DEFAULT, 109 },
+	{ -36, 1, YYAT_DEFAULT, 109 },
+	{ 0, 0, YYAT_REDUCE, 52 },
+	{ 0, 0, YYAT_DEFAULT, 103 },
+	{ -6, 1, YYAT_DEFAULT, 52 },
+	{ 0, 0, YYAT_REDUCE, 42 },
+	{ -241, 1, YYAT_DEFAULT, 52 },
+	{ 0, 0, YYAT_REDUCE, 55 },
+	{ 0, 0, YYAT_REDUCE, 56 },
+	{ -247, 1, YYAT_ERROR, 0 },
+	{ -56, 1, YYAT_ERROR, 0 },
+	{ -227, 1, YYAT_ERROR, 0 },
+	{ 0, 0, YYAT_REDUCE, 14 },
+	{ 0, 0, YYAT_REDUCE, 16 },
+	{ -9, 1, YYAT_ERROR, 0 },
+	{ 0, 0, YYAT_REDUCE, 45 },
+	{ -39, 1, YYAT_ERROR, 0 },
+	{ 0, 0, YYAT_DEFAULT, 129 },
+	{ 0, 0, YYAT_REDUCE, 23 },
 	{ 0, 0, YYAT_REDUCE, 33 },
 	{ 0, 0, YYAT_REDUCE, 34 },
-	{ 0, 0, YYAT_DEFAULT, 128 },
+	{ 0, 0, YYAT_REDUCE, 35 },
+	{ 0, 0, YYAT_REDUCE, 39 },
+	{ 0, 0, YYAT_REDUCE, 40 },
+	{ 0, 0, YYAT_REDUCE, 41 },
+	{ 0, 0, YYAT_REDUCE, 36 },
+	{ 0, 0, YYAT_REDUCE, 38 },
+	{ 0, 0, YYAT_DEFAULT, 129 },
+	{ 0, 0, YYAT_REDUCE, 53 },
+	{ -30, 1, YYAT_ERROR, 0 },
+	{ -250, 1, YYAT_ERROR, 0 },
+	{ 0, 0, YYAT_REDUCE, 44 },
+	{ 0, 0, YYAT_REDUCE, 47 },
 	{ 0, 0, YYAT_REDUCE, 54 },
-	{ -14, 1, YYAT_ERROR, 0 },
-	{ -251, 1, YYAT_ERROR, 0 },
-	{ 0, 0, YYAT_REDUCE, 45 },
-	{ 0, 0, YYAT_REDUCE, 48 },
-	{ 0, 0, YYAT_REDUCE, 55 },
-	{ 0, 0, YYAT_REDUCE, 19 },
-	{ -24, 1, YYAT_ERROR, 0 },
-	{ -36, 1, YYAT_ERROR, 0 },
-	{ 0, 0, YYAT_REDUCE, 44 }
+	{ 0, 0, YYAT_REDUCE, 20 },
+	{ -16, 1, YYAT_ERROR, 0 },
+	{ -49, 1, YYAT_ERROR, 0 },
+	{ 0, 0, YYAT_REDUCE, 43 }
 };
 
-int YYNEAR YYDCDECL yynontermgoto_size = 61;
+int YYNEAR YYDCDECL yynontermgoto_size = 63;
 
 YYCONST yynontermgoto_t YYNEARFAR YYBASED_CODE YYDCDECL yynontermgoto[] = {
-	{ 13, 39 },
-	{ 13, 14 },
-	{ 101, 33 },
-	{ 55, 69 },
-	{ 125, 107 },
-	{ 101, 34 },
-	{ 51, 64 },
-	{ 13, 15 },
-	{ 125, 131 },
-	{ 104, 78 },
-	{ 101, 121 },
-	{ 104, 124 },
-	{ 104, 75 },
-	{ 104, 76 },
-	{ 49, 61 },
-	{ 101, 122 },
-	{ 55, 68 },
-	{ 13, 16 },
-	{ 6, 35 },
-	{ 6, 31 },
-	{ 6, 32 },
-	{ 13, 10 },
-	{ 13, 9 },
-	{ 49, 60 },
+	{ 10, 41 },
+	{ 10, 9 },
+	{ 105, 33 },
+	{ 59, 72 },
+	{ 126, 107 },
+	{ 105, 34 },
+	{ 54, 67 },
+	{ 10, 14 },
+	{ 126, 132 },
+	{ 103, 79 },
+	{ 105, 125 },
+	{ 103, 120 },
+	{ 103, 81 },
+	{ 103, 82 },
 	{ 51, 63 },
-	{ 13, 11 },
-	{ 13, 17 },
-	{ 13, 18 },
-	{ 13, 19 },
-	{ 47, 57 },
-	{ 13, 20 },
-	{ 128, 133 },
-	{ 128, 93 },
-	{ 115, 130 },
-	{ 47, -1 },
-	{ 83, 110 },
-	{ 83, 67 },
-	{ 53, 65 },
-	{ 53, 66 },
-	{ 0, 13 },
-	{ 0, 12 },
-	{ 103, 123 },
-	{ 88, 113 },
-	{ 81, 108 },
-	{ 80, 106 },
-	{ 79, 105 },
-	{ 76, 101 },
+	{ 105, 124 },
+	{ 59, 73 },
+	{ 10, 21 },
+	{ 6, 36 },
+	{ 6, 37 },
+	{ 6, 35 },
+	{ 10, 19 },
+	{ 10, 16 },
+	{ 51, 64 },
+	{ 54, 68 },
+	{ 10, 15 },
+	{ 10, 11 },
+	{ 10, 20 },
+	{ 10, 13 },
+	{ 52, 65 },
+	{ 10, 17 },
+	{ 10, 12 },
+	{ 129, 134 },
+	{ 129, 97 },
+	{ 52, -1 },
+	{ 90, 112 },
+	{ 90, 69 },
+	{ 56, 70 },
+	{ 56, 71 },
+	{ 0, 10 },
+	{ 0, 18 },
+	{ 116, 131 },
+	{ 102, 119 },
+	{ 92, 114 },
+	{ 85, 109 },
+	{ 84, 108 },
+	{ 83, 106 },
+	{ 82, 105 },
+	{ 78, 100 },
+	{ 77, 99 },
+	{ 75, 98 },
 	{ 74, 96 },
-	{ 73, 95 },
-	{ 71, 94 },
-	{ 70, 92 },
-	{ 67, 86 },
-	{ 62, 77 },
-	{ 48, 59 },
-	{ 36, 50 },
-	{ 28, 46 },
-	{ 25, 44 },
-	{ 22, 41 },
-	{ 21, 40 },
-	{ 8, 38 },
-	{ 4, 27 }
+	{ 69, 88 },
+	{ 66, 80 },
+	{ 50, 62 },
+	{ 38, 53 },
+	{ 30, 49 },
+	{ 27, 47 },
+	{ 26, 46 },
+	{ 23, 43 },
+	{ 22, 42 },
+	{ 8, 40 },
+	{ 4, 29 }
 };
 
 YYCONST yystategoto_t YYNEARFAR YYBASED_CODE YYDCDECL yystategoto[] = {
-	{ 38, 13 },
+	{ 38, 10 },
 	{ 0, -1 },
 	{ 0, -1 },
 	{ 0, -1 },
-	{ 29, -1 },
+	{ 31, -1 },
 	{ 0, -1 },
-	{ 8, 47 },
+	{ 8, 52 },
 	{ 0, -1 },
-	{ 55, -1 },
-	{ 0, -1 },
-	{ 0, -1 },
-	{ 0, -1 },
+	{ 57, -1 },
 	{ 0, -1 },
 	{ -2, -1 },
 	{ 0, -1 },
@@ -1013,11 +1162,24 @@ YYCONST yystategoto_t YYNEARFAR YYBASED_CODE YYDCDECL yystategoto[] = {
 	{ 0, -1 },
 	{ 0, -1 },
 	{ 0, -1 },
+	{ 0, -1 },
+	{ 0, -1 },
+	{ 0, -1 },
+	{ 0, -1 },
+	{ 29, -1 },
+	{ 55, -1 },
+	{ 0, -1 },
+	{ 0, -1 },
 	{ 27, -1 },
 	{ 53, -1 },
 	{ 0, -1 },
 	{ 0, -1 },
 	{ 52, -1 },
+	{ 0, -1 },
+	{ 0, -1 },
+	{ 0, -1 },
+	{ 0, -1 },
+	{ 0, -1 },
 	{ 0, -1 },
 	{ 0, -1 },
 	{ 51, -1 },
@@ -1028,24 +1190,18 @@ YYCONST yystategoto_t YYNEARFAR YYBASED_CODE YYDCDECL yystategoto[] = {
 	{ 0, -1 },
 	{ 0, -1 },
 	{ 0, -1 },
-	{ 50, -1 },
 	{ 0, -1 },
 	{ 0, -1 },
 	{ 0, -1 },
 	{ 0, -1 },
-	{ 0, -1 },
-	{ 0, -1 },
-	{ 0, -1 },
-	{ 0, -1 },
-	{ 0, -1 },
-	{ 0, -1 },
-	{ 17, 101 },
-	{ 46, -1 },
+	{ 47, -1 },
 	{ 10, -1 },
+	{ 17, 105 },
 	{ 0, -1 },
 	{ -1, -1 },
 	{ 0, -1 },
-	{ 32, 83 },
+	{ 32, 90 },
+	{ 0, -1 },
 	{ 0, -1 },
 	{ -4, -1 },
 	{ 0, -1 },
@@ -1054,34 +1210,33 @@ YYCONST yystategoto_t YYNEARFAR YYBASED_CODE YYDCDECL yystategoto[] = {
 	{ 0, -1 },
 	{ 0, -1 },
 	{ 0, -1 },
-	{ 38, 104 },
+	{ 39, 103 },
+	{ 0, -1 },
+	{ 0, -1 },
+	{ 44, -1 },
 	{ 0, -1 },
 	{ 0, -1 },
 	{ 0, -1 },
 	{ 0, -1 },
-	{ 43, -1 },
+	{ 30, 129 },
+	{ 46, -1 },
+	{ 0, -1 },
+	{ 35, 103 },
+	{ 34, 103 },
 	{ 0, -1 },
 	{ 0, -1 },
-	{ 29, 128 },
-	{ 45, -1 },
 	{ 0, -1 },
-	{ 34, 104 },
-	{ 33, 104 },
-	{ 0, -1 },
-	{ 28, -1 },
-	{ 0, -1 },
-	{ 0, -1 },
+	{ 29, -1 },
+	{ 20, 126 },
 	{ 38, -1 },
-	{ 30, 104 },
-	{ 17, 125 },
+	{ 30, 103 },
+	{ 0, -1 },
+	{ 0, -1 },
+	{ 0, -1 },
 	{ 0, -1 },
 	{ 29, -1 },
 	{ 0, -1 },
-	{ 0, -1 },
-	{ 0, -1 },
-	{ 0, -1 },
-	{ 35, -1 },
-	{ 0, -1 },
+	{ 36, -1 },
 	{ 0, -1 },
 	{ 0, -1 },
 	{ 0, -1 },
@@ -1091,12 +1246,11 @@ YYCONST yystategoto_t YYNEARFAR YYBASED_CODE YYDCDECL yystategoto[] = {
 	{ 0, -1 },
 	{ 0, -1 },
 	{ 0, -1 },
-	{ 0, -1 },
+	{ 28, 103 },
+	{ -3, 52 },
 	{ 0, -1 },
 	{ -2, -1 },
 	{ 0, -1 },
-	{ 27, 104 },
-	{ -3, 47 },
 	{ 0, -1 },
 	{ 0, -1 },
 	{ 0, -1 },
@@ -1106,8 +1260,7 @@ YYCONST yystategoto_t YYNEARFAR YYBASED_CODE YYDCDECL yystategoto[] = {
 	{ 0, -1 },
 	{ 0, -1 },
 	{ 0, -1 },
-	{ 0, -1 },
-	{ 11, -1 },
+	{ 19, -1 },
 	{ 0, -1 },
 	{ 0, -1 },
 	{ 0, -1 },
@@ -1120,7 +1273,7 @@ YYCONST yystategoto_t YYNEARFAR YYBASED_CODE YYDCDECL yystategoto[] = {
 	{ -18, -1 },
 	{ 0, -1 },
 	{ 0, -1 },
-	{ 10, -1 },
+	{ 11, -1 },
 	{ 0, -1 },
 	{ 0, -1 },
 	{ 0, -1 },
@@ -1137,7 +1290,7 @@ int YYNEAR YYDCDECL yytokendest_size = 0;
 
 YYCONST yytokendestbase_t YYNEARFAR *YYNEAR YYDCDECL yytokendestbaseptr = NULL;
 int YYNEAR YYDCDECL yytokendestbase_size = 0;
-#line 130 ".\\myparser.y"
+#line 177 ".\\myparser.y"
 
 
 /////////////////////////////////////////////////////////////////////////////

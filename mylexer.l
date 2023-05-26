@@ -6,6 +6,9 @@ ParserWizard generated Lex file.
 Date: 2023年5月23日
 ****************************************************************************/
 #include "myparser.h"
+#include "string.h"
+#include "define.h"
+#include "stdlib.h"
 %}
 
 /////////////////////////////////////////////////////////////////////////////
@@ -33,6 +36,12 @@ optional_exponent	(E[+-]?{digits})?
 "/" |
 "." |
 ";" {return yytext[0];}
+"=" |
+">" |
+"<" |
+"!=" |
+">=" |
+"<=" {return OPERATOR;}
 CREATE	{
 	//printf("识别CREATE\n");
 	return CREATE;
@@ -64,7 +73,7 @@ TABLE	{
 CHAR	{
 	//printf("识别CHAR\n");
 	return CHAR;
-	}
+		}
 INT	{
 	//printf("识别INT\n");
 	return INT;
@@ -119,6 +128,7 @@ SET	{
 }
 {digits} {
 	//printf("识别INTEGER\n");
+	 yylval.int_num = atoi(yytext);
      return INTEGER;}
      
 {digits}{optional_fraction}{optional_exponent} {
@@ -127,6 +137,7 @@ SET	{
      
 {char}({char}|{digit}|_)*	{ 
 //printf("识别ID\n");
+	yylval.yych = strdup(yytext);
     return ID;
 }
 
