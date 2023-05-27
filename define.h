@@ -2,12 +2,13 @@
 #include "stdio.h"
 #include "stdio.h"
 #include "stdlib.h"
+#include "define.c"
 
 enum Type {enum_INT,enum_CHAR}; //字段可用类型
 
 struct Createfieldsdef{ /*create语句中的字段定义*/
 	char *field; //字段名称
-	enum TYPE type; //字段类型
+	enum Type type; //字段类型
 	int length; //字段长度
 	struct Createfieldsdef *next_fdef; //下一字段
 };
@@ -20,3 +21,5 @@ struct Col_type{
 	enum Type col_type;//类型
 	int len;//如果是字符串，存储长度
 };
+
+int createTable(char * table,struct Createfieldsdef * cfdef_var);

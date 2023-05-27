@@ -1,27 +1,27 @@
 [Application]
-WindowPlacement=2 3 -32000 -32000 -1 -1 206 -5 1286 650
+WindowPlacement=2 3 -1 -1 -1 -1 206 -5 1286 650
 [Editor1]
 FileName=.\mylexer.l
 ReadOnly=0
 WindowPlacement1=0 1 -1 -1 -8 -31 26 26 1202 582
 WindowOrder1=5
 Position001=0 1
-Cursor001=18 11 18 11
+Cursor001=2 11 2 11
 SyntaxColouring=1
 TargetSyntaxColouring=3
 [Editor2]
 FileName=.\myparser.y
 ReadOnly=0
 WindowPlacement1=0 1 -1 -1 -8 -31 69 85 1245 641
-WindowOrder1=1
+WindowOrder1=2
 Position001=0 45
-Cursor001=35 59 35 59
+Cursor001=20 57 20 57
 SyntaxColouring=2
 TargetSyntaxColouring=3
 [Editor3]
 FileName=..\..\..\编译原理\test\XDU-SQLInterrupter\SQL解释器源代码\yacc.y
 ReadOnly=0
-WindowPlacement1=0 1 -1 -1 -8 -31 262 48 1438 604
+WindowPlacement1=0 1 -1 -1 -8 -31 93 386 1269 942
 WindowOrder1=3
 Position001=0 3
 Cursor001=14 28 14 28
@@ -56,6 +56,6 @@ FolderName2=Output Files
 FolderExpanded2=0
 [Output]
 WindowPlacement1=0 1 -1 -1 -8 -31 105 199 1281 755
-WindowOrder1=2
+WindowOrder1=1
 Position1=0 1
-Cursor1=0 14 0 14
+Cursor1=0 1 0 1

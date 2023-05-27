@@ -53,7 +53,14 @@ Date: 2023Äê5ÔÂ19ÈÕ
 			  |statement{return 0;}
 			  ;
 	statement:createtablesql{
-				printf("Table name:%s Table field1:%s\n",$1->table,$1->fdef->field);
+				//printf("Table name:%s Table field1:%s\n",$1->table,$1->fdef->field);
+				int isSuccess = 0;
+				isSuccess = createTable($1->table,$1->fdef);
+				if(isSuccess == 1){
+					printf("Table Created\n");
+				}else{
+					printf("Fail to Create Table\n");
+				}
 			 }
 			 |selectsql{printf("SELECT\n");}
 			 |insertsql{printf("INSERT\n");}

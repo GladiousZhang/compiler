@@ -7,7 +7,6 @@ Date: 2023Äê5ÔÂ23ÈÕ
 ****************************************************************************/
 #include "myparser.h"
 #include "string.h"
-#include "define.h"
 #include "stdlib.h"
 %}
 

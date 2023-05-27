@@ -1,7 +1,7 @@
 /****************************************************************************
 *                     U N R E G I S T E R E D   C O P Y
 * 
-* You are on day 42 of your 30 day trial period.
+* You are on day 43 of your 30 day trial period.
 * 
 * This file was produced by an UNREGISTERED COPY of Parser Generator. It is
 * for evaluation purposes only. If you continue to use Parser Generator 30
@@ -18,8 +18,8 @@
 * mylexer.c
 * C source file generated from mylexer.l.
 * 
-* Date: 05/25/23
-* Time: 18:02:12
+* Date: 05/26/23
+* Time: 17:50:54
 * 
 * ALex Version: 2.07
 ****************************************************************************/
@@ -46,10 +46,9 @@ Date: 2023年5月23日
 ****************************************************************************/
 #include "myparser.h"
 #include "string.h"
-#include "define.h"
 #include "stdlib.h"
 
-#line 53 "mylexer.c"
+#line 52 "mylexer.c"
 /* repeated because of possible precompiled header */
 #include <yylex.h>
 
@@ -176,9 +175,9 @@ int action;
 	case 8:
 	case 9:
 		{
-#line 38 ".\\mylexer.l"
+#line 37 ".\\mylexer.l"
 return yytext[0];
-#line 182 "mylexer.c"
+#line 181 "mylexer.c"
 		}
 		break;
 	case 10:
@@ -188,275 +187,275 @@ return yytext[0];
 	case 14:
 	case 15:
 		{
-#line 44 ".\\mylexer.l"
+#line 43 ".\\mylexer.l"
 return OPERATOR;
-#line 194 "mylexer.c"
+#line 193 "mylexer.c"
 		}
 		break;
 	case 16:
 		{
-#line 45 ".\\mylexer.l"
+#line 44 ".\\mylexer.l"
 
 	//printf("识别CREATE\n");
 	return CREATE;
 	
-#line 204 "mylexer.c"
+#line 203 "mylexer.c"
 		}
 		break;
 	case 17:
 		{
-#line 49 ".\\mylexer.l"
+#line 48 ".\\mylexer.l"
 
 	//printf("识别DATABASE\n");
 	return DATABASE;
 	
-#line 214 "mylexer.c"
+#line 213 "mylexer.c"
 		}
 		break;
 	case 18:
 		{
-#line 53 ".\\mylexer.l"
+#line 52 ".\\mylexer.l"
 
 	//printf("识别SHOW");
 	return SHOW;
 	
-#line 224 "mylexer.c"
+#line 223 "mylexer.c"
 		}
 		break;
 	case 19:
 		{
-#line 57 ".\\mylexer.l"
+#line 56 ".\\mylexer.l"
 
 	//printf("识别DATABASES\n");
 	return DATABASES;
 	
-#line 234 "mylexer.c"
+#line 233 "mylexer.c"
 		}
 		break;
 	case 20:
 		{
-#line 61 ".\\mylexer.l"
+#line 60 ".\\mylexer.l"
 
 	//printf("识别DROP\n");
 	return DROP;
 	
-#line 244 "mylexer.c"
+#line 243 "mylexer.c"
 		}
 		break;
 	case 21:
 		{
-#line 65 ".\\mylexer.l"
+#line 64 ".\\mylexer.l"
 
 	//printf("识别USE\n");
 	return USE;
 	
-#line 254 "mylexer.c"
+#line 253 "mylexer.c"
 		}
 		break;
 	case 22:
 		{
-#line 69 ".\\mylexer.l"
+#line 68 ".\\mylexer.l"
 
 	//printf("识别TABLE\n");
 	return TABLE;
 	
-#line 264 "mylexer.c"
+#line 263 "mylexer.c"
 		}
 		break;
 	case 23:
 		{
-#line 73 ".\\mylexer.l"
+#line 72 ".\\mylexer.l"
 
 	//printf("识别CHAR\n");
 	return CHAR;
 		
-#line 274 "mylexer.c"
+#line 273 "mylexer.c"
 		}
 		break;
 	case 24:
 		{
-#line 77 ".\\mylexer.l"
+#line 76 ".\\mylexer.l"
 
 	//printf("识别INT\n");
 	return INT;
 
-#line 284 "mylexer.c"
+#line 283 "mylexer.c"
 		}
 		break;
 	case 25:
 		{
-#line 81 ".\\mylexer.l"
+#line 80 ".\\mylexer.l"
 
 	//printf("识别TABLES\n");
 	return TABLES;
 
-#line 294 "mylexer.c"
+#line 293 "mylexer.c"
 		}
 		break;
 	case 26:
 		{
-#line 85 ".\\mylexer.l"
+#line 84 ".\\mylexer.l"
 
 	//printf("识别INSERT\n");
 	return INSERT;
 
-#line 304 "mylexer.c"
+#line 303 "mylexer.c"
 		}
 		break;
 	case 27:
 		{
-#line 89 ".\\mylexer.l"
+#line 88 ".\\mylexer.l"
 
 	//printf("识别INTO\n");
 	return INTO;
 
-#line 314 "mylexer.c"
+#line 313 "mylexer.c"
 		}
 		break;
 	case 28:
 		{
-#line 93 ".\\mylexer.l"
+#line 92 ".\\mylexer.l"
 
 	//printf("识别VALUES\n");
 	return VALUES;
 
-#line 324 "mylexer.c"
+#line 323 "mylexer.c"
 		}
 		break;
 	case 29:
 		{
-#line 97 ".\\mylexer.l"
+#line 96 ".\\mylexer.l"
 
 	//printf("识别SELECT\n");
 	return SELECT;
 
-#line 334 "mylexer.c"
+#line 333 "mylexer.c"
 		}
 		break;
 	case 30:
 		{
-#line 101 ".\\mylexer.l"
+#line 100 ".\\mylexer.l"
 
 	//printf("识别FROM\n");
 	return FROM;
 
-#line 344 "mylexer.c"
+#line 343 "mylexer.c"
 		}
 		break;
 	case 31:
 		{
-#line 105 ".\\mylexer.l"
+#line 104 ".\\mylexer.l"
 
 	//printf("识别WHERE\n");
 	return WHERE;
 
-#line 354 "mylexer.c"
+#line 353 "mylexer.c"
 		}
 		break;
 	case 32:
 		{
-#line 109 ".\\mylexer.l"
+#line 108 ".\\mylexer.l"
 
 	//printf("识别AND\n");
 	return AND;
 
-#line 364 "mylexer.c"
+#line 363 "mylexer.c"
 		}
 		break;
 	case 33:
 		{
-#line 113 ".\\mylexer.l"
+#line 112 ".\\mylexer.l"
 
 	//printf("识别OR\n");
 	return OR;
 
-#line 374 "mylexer.c"
+#line 373 "mylexer.c"
 		}
 		break;
 	case 34:
 		{
-#line 117 ".\\mylexer.l"
+#line 116 ".\\mylexer.l"
 
 	//printf("识别DELETE\n");
 	return DELETE;
 
-#line 384 "mylexer.c"
+#line 383 "mylexer.c"
 		}
 		break;
 	case 35:
 		{
-#line 121 ".\\mylexer.l"
+#line 120 ".\\mylexer.l"
 
 	//printf("识别UPDATE\n");
 	return UPDATE;
 
-#line 394 "mylexer.c"
+#line 393 "mylexer.c"
 		}
 		break;
 	case 36:
 		{
-#line 125 ".\\mylexer.l"
+#line 124 ".\\mylexer.l"
 
 	//printf("识别SET\n");
 	return SET;
 
-#line 404 "mylexer.c"
+#line 403 "mylexer.c"
 		}
 		break;
 	case 37:
 		{
-#line 129 ".\\mylexer.l"
+#line 128 ".\\mylexer.l"
 
 	//printf("识别INTEGER\n");
 	 yylval.int_num = atoi(yytext);
      return INTEGER;
-#line 414 "mylexer.c"
+#line 413 "mylexer.c"
 		}
 		break;
-#line 133 ".\\mylexer.l"
+#line 132 ".\\mylexer.l"
      
-#line 419 "mylexer.c"
+#line 418 "mylexer.c"
 	case 38:
 		{
-#line 134 ".\\mylexer.l"
+#line 133 ".\\mylexer.l"
 
 	//printf("识别FLOAT\n");
      return FLOAT;
-#line 426 "mylexer.c"
+#line 425 "mylexer.c"
 		}
 		break;
-#line 137 ".\\mylexer.l"
+#line 136 ".\\mylexer.l"
      
-#line 431 "mylexer.c"
+#line 430 "mylexer.c"
 	case 39:
 		{
-#line 138 ".\\mylexer.l"
+#line 137 ".\\mylexer.l"
  
 //printf("识别ID\n");
 	yylval.yych = strdup(yytext);
     return ID;
 
-#line 440 "mylexer.c"
+#line 439 "mylexer.c"
 		}
 		break;
 	case 40:
 		{
-#line 144 ".\\mylexer.l"
+#line 143 ".\\mylexer.l"
 
 //printf("识别STRING\n");
     return STRING;
 
-#line 450 "mylexer.c"
+#line 449 "mylexer.c"
 		}
 		break;
 	case 41:
 		{
-#line 148 ".\\mylexer.l"
+#line 147 ".\\mylexer.l"
 
 //printf("识别STRING\n");
     return STRING;
 
-#line 460 "mylexer.c"
+#line 459 "mylexer.c"
 		}
 		break;
 	default:
@@ -932,7 +931,7 @@ YYCONST yybackup_t YYNEARFAR YYBASED_CODE YYDCDECL yybackup[] = {
 	0
 };
 
-#line 166 ".\\mylexer.l"
+#line 165 ".\\mylexer.l"
 
 
 /////////////////////////////////////////////////////////////////////////////
