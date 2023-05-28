@@ -2,7 +2,6 @@
 #include "stdio.h"
 #include "stdio.h"
 #include "stdlib.h"
-#include "define.c"
 
 enum Type {enum_INT,enum_CHAR}; //字段可用类型
 
@@ -21,5 +20,7 @@ struct Col_type{
 	enum Type col_type;//类型
 	int len;//如果是字符串，存储长度
 };
+
+char * type_to_string(enum Type type);
 
 int createTable(char * table,struct Createfieldsdef * cfdef_var);

@@ -1,0 +1,24 @@
+mul 1 i INT
+mul 2 q INT
+mul 1 i INT
+mul 2 q INT
+mul 1 i INT
+ooo 1 o INT
+ooo 2 d INT
+spj 1 s CHAR 3
+spj 2 p CHAR 0
+spj 3 j CHAR 0
+spj 1 s CHAR 3
+spj 2 p CHAR 0
+spj 3 j CHAR 0
+spj 1 s CHAR 3
+spj 2 p INT
+spj 3 j INT
+ppnn 1 i INT
+zsy 1 i INT
+zsy1 1 i INT
+zsy2 1 i INT
+zsy2 2 cha CHAR 8
+z1sy 1 z INT
+z1sy 2 s CHAR 7
+z1sy 3 y INT

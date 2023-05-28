@@ -1,7 +1,7 @@
 #############################################################################
 #                     U N R E G I S T E R E D   C O P Y
 # 
-# You are on day 43 of your 30 day trial period.
+# You are on day 45 of your 30 day trial period.
 # 
 # This file was produced by an UNREGISTERED COPY of Parser Generator. It is
 # for evaluation purposes only. If you continue to use Parser Generator 30
@@ -18,8 +18,8 @@
 # mylexer.v
 # Lex verbose file generated from mylexer.l.
 # 
-# Date: 05/26/23
-# Time: 17:50:54
+# Date: 05/28/23
+# Time: 16:27:30
 # 
 # ALex Version: 2.07
 #############################################################################

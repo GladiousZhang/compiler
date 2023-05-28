@@ -136,7 +136,7 @@ SET	{
      
 {char}({char}|{digit}|_)*	{ 
 //printf("Ê¶±ðID\n");
-	yylval.yych = strdup(yytext);
+	yylval.yych = _strdup(yytext);
     return ID;
 }
 

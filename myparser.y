@@ -85,11 +85,16 @@ Date: 2023Äê5ÔÂ19ÈÕ
 	};
 	fieldsdefinition:fieldsdefinition','field_type{
 						$$ = (struct Createfieldsdef *)malloc(sizeof(struct Createfieldsdef));
-						$$=$1;
-						$$->next_fdef=$3;
+						$$ = $1;
+						struct Createfieldsdef *p=$$;
+						while(p->next_fdef!=NULL){
+							p=p->next_fdef;
+						}
+						p->next_fdef=$3;
 					}
 					|field_type{
 						$$ = (struct Createfieldsdef *)malloc(sizeof(struct Createfieldsdef));
+						
 						$$=$1;
 					}
 					;
