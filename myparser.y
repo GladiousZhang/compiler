@@ -10,6 +10,7 @@ Date: 2023年5月19日
 #include "stdlib.h"
 #include "string.h"
 #include "define.h"
+char *dbname=NULL;
 %}
 
 /////////////////////////////////////////////////////////////////////////////
@@ -23,7 +24,7 @@ Date: 2023年5月19日
 	struct Createstruct *cs_var; //整个create语句
 
 }
-%nonterm <yych> table field
+%nonterm <yych> table field createdatabasesql basename usesql
 %nonterm <c_type> type
 %nonterm <cfdef_var> fieldsdefinition field_type
 %nonterm <cs_var> createtablesql
@@ -55,7 +56,7 @@ Date: 2023年5月19日
 	statement:createtablesql{
 				//printf("Table name:%s Table field1:%s\n",$1->table,$1->fdef->field);
 				int isSuccess = 0;
-				isSuccess = createTable($1->table,$1->fdef);
+				isSuccess = createTable($1->table,$1->fdef,dbname);
 				if(isSuccess == 1){
 					printf("Table Created\n");
 				}else{
@@ -70,8 +71,23 @@ Date: 2023年5月19日
 			 |showdatabasessql{printf("SHOW DATABASES\n");}
 			 |droptablesql{printf("DROP TABLE\n");}
 			 |dropdatabasesql{printf("DROP DATABASE\n");}
-			 |usesql{printf("USE\n");}
-			 |createdatabase{printf("CREATE DATABASE\n");}
+			 |usesql{
+				int isSuccess=isDB($1);
+				if(isSuccess){
+					printf("Using %s\n",$1);
+					dbname = $1;
+				}
+				else
+					printf("Fail to Use %s\n",$1);
+			 }
+			 |createdatabasesql{
+				int isSuccess = 0;
+				isSuccess = createDatabase($1);
+				if(isSuccess)
+					printf("Database Created\n");
+				else
+					printf("Fail to Create Database\n");
+			 }
 			 ;
 	//CREATETABLE
 	createtablesql:CREATE TABLE table '('fieldsdefinition')'';'{
@@ -180,12 +196,19 @@ Date: 2023年5月19日
 	//DROPTABLE
 	droptablesql: DROP TABLE table ';';
 	//USE
-	usesql:USE basename ';';
+	usesql:USE basename ';'{
+		$$= $2;
+	};
 	basename:ID;
 	//CREATEDATABASE
-	createdatabase:CREATE DATABASE basename ';';
+	createdatabasesql:CREATE DATABASE basename ';'{
+		$$ = $3;
+	};
 	//DROPDATABASE
-	dropdatabasesql:DROP DATABASE basename ';';
+	dropdatabasesql:DROP DATABASE basename ';'{
+		
+		dbname = NULL;
+	};
 %%
 
 /////////////////////////////////////////////////////////////////////////////

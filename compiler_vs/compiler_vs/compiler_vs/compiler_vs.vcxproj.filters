@@ -15,24 +15,24 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\compiler\compiler\compiler\define.c">
+    <ClCompile Include="..\..\..\define.c">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\compiler\compiler\compiler\mylexer.c">
+    <ClCompile Include="..\..\..\mylexer.c">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\compiler\compiler\compiler\myparser.c">
+    <ClCompile Include="..\..\..\myparser.c">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\compiler\compiler\compiler\define.h">
+    <ClInclude Include="..\..\..\define.h">
       <Filter>源文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\compiler\compiler\compiler\mylexer.h">
+    <ClInclude Include="..\..\..\mylexer.h">
       <Filter>源文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\compiler\compiler\compiler\myparser.h">
+    <ClInclude Include="..\..\..\myparser.h">
       <Filter>源文件</Filter>
     </ClInclude>
   </ItemGroup>

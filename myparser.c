@@ -1,7 +1,7 @@
 /****************************************************************************
 *                     U N R E G I S T E R E D   C O P Y
 * 
-* You are on day 45 of your 30 day trial period.
+* You are on day 46 of your 30 day trial period.
 * 
 * This file was produced by an UNREGISTERED COPY of Parser Generator. It is
 * for evaluation purposes only. If you continue to use Parser Generator 30
@@ -19,7 +19,7 @@
 * C source file generated from myparser.y.
 * 
 * Date: 05/28/23
-* Time: 16:27:30
+* Time: 20:24:26
 * 
 * AYACC Version: 2.07
 ****************************************************************************/
@@ -49,8 +49,9 @@ Date: 2023Äê5ÔÂ19ÈÕ
 #include "stdlib.h"
 #include "string.h"
 #include "define.h"
+char *dbname=NULL;
 
-#line 54 "myparser.c"
+#line 55 "myparser.c"
 /* repeated because of possible precompiled header */
 #include <yypars.h>
 
@@ -174,9 +175,9 @@ int action;
 			yyinitdebug(yya, 3);
 #endif
 			{
-#line 52 ".\\myparser.y"
+#line 53 ".\\myparser.y"
 return 0;
-#line 180 "myparser.c"
+#line 181 "myparser.c"
 			}
 		}
 		break;
@@ -187,9 +188,9 @@ return 0;
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 53 ".\\myparser.y"
+#line 54 ".\\myparser.y"
 return 0;
-#line 193 "myparser.c"
+#line 194 "myparser.c"
 			}
 		}
 		break;
@@ -200,18 +201,18 @@ return 0;
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 55 ".\\myparser.y"
+#line 56 ".\\myparser.y"
 
 				//printf("Table name:%s Table field1:%s\n",$1->table,$1->fdef->field);
 				int isSuccess = 0;
-				isSuccess = createTable(yyattribute(1 - 1).cs_var->table,yyattribute(1 - 1).cs_var->fdef);
+				isSuccess = createTable(yyattribute(1 - 1).cs_var->table,yyattribute(1 - 1).cs_var->fdef,dbname);
 				if(isSuccess == 1){
 					printf("Table Created\n");
 				}else{
 					printf("Fail to Create Table\n");
 				}
 			 
-#line 215 "myparser.c"
+#line 216 "myparser.c"
 			}
 		}
 		break;
@@ -222,9 +223,9 @@ return 0;
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 65 ".\\myparser.y"
+#line 66 ".\\myparser.y"
 printf("SELECT\n");
-#line 228 "myparser.c"
+#line 229 "myparser.c"
 			}
 		}
 		break;
@@ -235,9 +236,9 @@ printf("SELECT\n");
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 66 ".\\myparser.y"
+#line 67 ".\\myparser.y"
 printf("INSERT\n");
-#line 241 "myparser.c"
+#line 242 "myparser.c"
 			}
 		}
 		break;
@@ -248,9 +249,9 @@ printf("INSERT\n");
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 67 ".\\myparser.y"
+#line 68 ".\\myparser.y"
 printf("DELETE\n");
-#line 254 "myparser.c"
+#line 255 "myparser.c"
 			}
 		}
 		break;
@@ -261,9 +262,9 @@ printf("DELETE\n");
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 68 ".\\myparser.y"
+#line 69 ".\\myparser.y"
 printf("UPDATE\n");
-#line 267 "myparser.c"
+#line 268 "myparser.c"
 			}
 		}
 		break;
@@ -274,9 +275,9 @@ printf("UPDATE\n");
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 69 ".\\myparser.y"
+#line 70 ".\\myparser.y"
 printf("SHOW TABLE\n");
-#line 280 "myparser.c"
+#line 281 "myparser.c"
 			}
 		}
 		break;
@@ -287,9 +288,9 @@ printf("SHOW TABLE\n");
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 70 ".\\myparser.y"
+#line 71 ".\\myparser.y"
 printf("SHOW DATABASES\n");
-#line 293 "myparser.c"
+#line 294 "myparser.c"
 			}
 		}
 		break;
@@ -300,9 +301,9 @@ printf("SHOW DATABASES\n");
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 71 ".\\myparser.y"
+#line 72 ".\\myparser.y"
 printf("DROP TABLE\n");
-#line 306 "myparser.c"
+#line 307 "myparser.c"
 			}
 		}
 		break;
@@ -313,9 +314,9 @@ printf("DROP TABLE\n");
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 72 ".\\myparser.y"
+#line 73 ".\\myparser.y"
 printf("DROP DATABASE\n");
-#line 319 "myparser.c"
+#line 320 "myparser.c"
 			}
 		}
 		break;
@@ -326,9 +327,17 @@ printf("DROP DATABASE\n");
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 73 ".\\myparser.y"
-printf("USE\n");
-#line 332 "myparser.c"
+#line 74 ".\\myparser.y"
+
+				int isSuccess=isDB(yyattribute(1 - 1).yych);
+				if(isSuccess){
+					printf("Using %s\n",yyattribute(1 - 1).yych);
+					dbname = yyattribute(1 - 1).yych;
+				}
+				else
+					printf("Fail to Use %s\n",yyattribute(1 - 1).yych);
+			 
+#line 341 "myparser.c"
 			}
 		}
 		break;
@@ -339,9 +348,16 @@ printf("USE\n");
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 74 ".\\myparser.y"
-printf("CREATE DATABASE\n");
-#line 345 "myparser.c"
+#line 83 ".\\myparser.y"
+
+				int isSuccess = 0;
+				isSuccess = createDatabase(yyattribute(1 - 1).yych);
+				if(isSuccess)
+					printf("Database Created\n");
+				else
+					printf("Fail to Create Database\n");
+			 
+#line 361 "myparser.c"
 			}
 		}
 		break;
@@ -352,14 +368,14 @@ printf("CREATE DATABASE\n");
 			yyinitdebug(yya, 8);
 #endif
 			{
-#line 77 ".\\myparser.y"
+#line 93 ".\\myparser.y"
 
 						yyval.cs_var = (struct Createstruct *)malloc(sizeof(struct Createstruct));
 						memset(yyval.cs_var,0,sizeof(struct Createstruct));
 						yyval.cs_var->table=yyattribute(3 - 7).yych;
 						yyval.cs_var->fdef=yyattribute(5 - 7).cfdef_var;
 				  
-#line 363 "myparser.c"
+#line 379 "myparser.c"
 			}
 		}
 		break;
@@ -370,11 +386,11 @@ printf("CREATE DATABASE\n");
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 83 ".\\myparser.y"
+#line 99 ".\\myparser.y"
 
 		yyval.yych=yyattribute(1 - 1).yych;
 	
-#line 378 "myparser.c"
+#line 394 "myparser.c"
 			}
 		}
 		break;
@@ -385,7 +401,7 @@ printf("CREATE DATABASE\n");
 			yyinitdebug(yya, 4);
 #endif
 			{
-#line 86 ".\\myparser.y"
+#line 102 ".\\myparser.y"
 
 						yyval.cfdef_var = (struct Createfieldsdef *)malloc(sizeof(struct Createfieldsdef));
 						yyval.cfdef_var = yyattribute(1 - 3).cfdef_var;
@@ -395,7 +411,7 @@ printf("CREATE DATABASE\n");
 						}
 						p->next_fdef=yyattribute(3 - 3).cfdef_var;
 					
-#line 399 "myparser.c"
+#line 415 "myparser.c"
 			}
 		}
 		break;
@@ -406,13 +422,13 @@ printf("CREATE DATABASE\n");
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 95 ".\\myparser.y"
+#line 111 ".\\myparser.y"
 
 						yyval.cfdef_var = (struct Createfieldsdef *)malloc(sizeof(struct Createfieldsdef));
 						
 						yyval.cfdef_var=yyattribute(1 - 1).cfdef_var;
 					
-#line 416 "myparser.c"
+#line 432 "myparser.c"
 			}
 		}
 		break;
@@ -423,7 +439,7 @@ printf("CREATE DATABASE\n");
 			yyinitdebug(yya, 3);
 #endif
 			{
-#line 101 ".\\myparser.y"
+#line 117 ".\\myparser.y"
 
 		yyval.cfdef_var = (struct Createfieldsdef *)malloc(sizeof(struct Createfieldsdef));
 		memset(yyval.cfdef_var,0,sizeof(struct Createfieldsdef));
@@ -432,7 +448,7 @@ printf("CREATE DATABASE\n");
 		yyval.cfdef_var->length = yyattribute(2 - 2).c_type->len;
 		yyval.cfdef_var->next_fdef=NULL;
 	
-#line 436 "myparser.c"
+#line 452 "myparser.c"
 			}
 		}
 		break;
@@ -443,11 +459,11 @@ printf("CREATE DATABASE\n");
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 109 ".\\myparser.y"
+#line 125 ".\\myparser.y"
 
 		yyval.yych = yyattribute(1 - 1).yych;
 	
-#line 451 "myparser.c"
+#line 467 "myparser.c"
 			}
 		}
 		break;
@@ -458,13 +474,13 @@ printf("CREATE DATABASE\n");
 			yyinitdebug(yya, 5);
 #endif
 			{
-#line 112 ".\\myparser.y"
+#line 128 ".\\myparser.y"
 
 			yyval.c_type = (struct Col_type *)malloc(sizeof(struct Col_type));
 			yyval.c_type->col_type = enum_CHAR;
 			yyval.c_type->len = yyattribute(3 - 4).int_num;
 		
-#line 468 "myparser.c"
+#line 484 "myparser.c"
 			}
 		}
 		break;
@@ -475,13 +491,59 @@ printf("CREATE DATABASE\n");
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 117 ".\\myparser.y"
+#line 133 ".\\myparser.y"
 
 			yyval.c_type = (struct Col_type *)malloc(sizeof(struct Col_type));
 			yyval.c_type->col_type = enum_INT;
 			yyval.c_type->len = 0;
 		
-#line 485 "myparser.c"
+#line 501 "myparser.c"
+			}
+		}
+		break;
+	case 21:
+		{
+#ifdef YYDEBUG
+			YYSTYPE YYFAR *yya[4];
+			yyinitdebug(yya, 4);
+#endif
+			{
+#line 199 ".\\myparser.y"
+
+		yyval.yych= yyattribute(2 - 3).yych;
+	
+#line 516 "myparser.c"
+			}
+		}
+		break;
+	case 22:
+		{
+#ifdef YYDEBUG
+			YYSTYPE YYFAR *yya[5];
+			yyinitdebug(yya, 5);
+#endif
+			{
+#line 204 ".\\myparser.y"
+
+		yyval.yych = yyattribute(3 - 4).yych;
+	
+#line 531 "myparser.c"
+			}
+		}
+		break;
+	case 23:
+		{
+#ifdef YYDEBUG
+			YYSTYPE YYFAR *yya[5];
+			yyinitdebug(yya, 5);
+#endif
+			{
+#line 208 ".\\myparser.y"
+
+		
+		dbname = NULL;
+	
+#line 547 "myparser.c"
 			}
 		}
 		break;
@@ -543,7 +605,7 @@ YYCONST char *YYCONST YYNEARFAR YYBASED_CODE YYDCDECL yyrule[] = {
 	"statement: droptablesql",
 	"statement: dropdatabasesql",
 	"statement: usesql",
-	"statement: createdatabase",
+	"statement: createdatabasesql",
 	"createtablesql: CREATE TABLE table \'(\' fieldsdefinition \')\' \';\'",
 	"table: ID",
 	"fieldsdefinition: fieldsdefinition \',\' field_type",
@@ -592,7 +654,7 @@ YYCONST char *YYCONST YYNEARFAR YYBASED_CODE YYDCDECL yyrule[] = {
 	"droptablesql: DROP TABLE table \';\'",
 	"usesql: USE basename \';\'",
 	"basename: ID",
-	"createdatabase: CREATE DATABASE basename \';\'",
+	"createdatabasesql: CREATE DATABASE basename \';\'",
 	"dropdatabasesql: DROP DATABASE basename \';\'"
 };
 #endif
@@ -658,21 +720,21 @@ YYCONST yyreduction_t YYNEARFAR YYBASED_CODE YYDCDECL yyreduction[] = {
 	{ 27, 3, -1 },
 	{ 28, 3, -1 },
 	{ 29, 4, -1 },
-	{ 30, 3, -1 },
+	{ 30, 3, 21 },
 	{ 31, 1, -1 },
-	{ 32, 4, -1 },
-	{ 33, 4, -1 }
+	{ 32, 4, 22 },
+	{ 33, 4, 23 }
 };
 
 int YYNEAR YYDCDECL yytokenaction_size = 279;
 YYCONST yytokenaction_t YYNEARFAR YYBASED_CODE YYDCDECL yytokenaction[] = {
-	{ 10, YYAT_ACCEPT, 0 },
+	{ 17, YYAT_ACCEPT, 0 },
 	{ 64, YYAT_SHIFT, 75 },
 	{ 49, YYAT_SHIFT, 59 },
 	{ 109, YYAT_SHIFT, 127 },
 	{ 68, YYAT_SHIFT, 84 },
 	{ 100, YYAT_SHIFT, 118 },
-	{ 70, YYAT_SHIFT, 88 },
+	{ 71, YYAT_SHIFT, 88 },
 	{ 3, YYAT_SHIFT, 26 },
 	{ 1, YYAT_SHIFT, 22 },
 	{ 129, YYAT_SHIFT, 93 },
@@ -683,12 +745,12 @@ YYCONST yytokenaction_t YYNEARFAR YYBASED_CODE YYDCDECL yytokenaction[] = {
 	{ 3, YYAT_SHIFT, 27 },
 	{ 1, YYAT_SHIFT, 23 },
 	{ 64, YYAT_SHIFT, 76 },
-	{ 70, YYAT_SHIFT, 89 },
-	{ 102, YYAT_SHIFT, 119 },
+	{ 71, YYAT_SHIFT, 89 },
+	{ 105, YYAT_SHIFT, 121 },
 	{ 2, YYAT_SHIFT, 24 },
 	{ 115, YYAT_SHIFT, 130 },
-	{ 102, YYAT_SHIFT, 120 },
-	{ 102, YYAT_SHIFT, 121 },
+	{ 105, YYAT_SHIFT, 122 },
+	{ 105, YYAT_SHIFT, 123 },
 	{ 100, YYAT_ERROR, 0 },
 	{ 2, YYAT_SHIFT, 25 },
 	{ 134, YYAT_SHIFT, 135 },
@@ -700,15 +762,15 @@ YYCONST yytokenaction_t YYNEARFAR YYBASED_CODE YYDCDECL yytokenaction[] = {
 	{ 113, YYAT_SHIFT, 129 },
 	{ 112, YYAT_SHIFT, 128 },
 	{ 108, YYAT_SHIFT, 126 },
-	{ 105, YYAT_SHIFT, 78 },
+	{ 103, YYAT_SHIFT, 78 },
 	{ 99, YYAT_SHIFT, 117 },
-	{ 97, YYAT_SHIFT, 115 },
+	{ 96, YYAT_SHIFT, 115 },
 	{ 92, YYAT_SHIFT, 61 },
 	{ 91, YYAT_SHIFT, 113 },
 	{ 88, YYAT_SHIFT, 112 },
 	{ 86, YYAT_SHIFT, 110 },
-	{ 82, YYAT_SHIFT, 103 },
-	{ 81, YYAT_SHIFT, 101 },
+	{ 81, YYAT_SHIFT, 104 },
+	{ 80, YYAT_SHIFT, 101 },
 	{ 75, YYAT_SHIFT, 39 },
 	{ 67, YYAT_SHIFT, 83 },
 	{ 60, YYAT_SHIFT, 74 },
@@ -721,7 +783,7 @@ YYCONST yytokenaction_t YYNEARFAR YYBASED_CODE YYDCDECL yytokenaction[] = {
 	{ 40, YYAT_SHIFT, 54 },
 	{ 37, YYAT_SHIFT, 52 },
 	{ 36, YYAT_SHIFT, 51 },
-	{ 33, YYAT_SHIFT, 50 },
+	{ 34, YYAT_SHIFT, 50 },
 	{ 32, YYAT_REDUCE, 15 },
 	{ 29, YYAT_SHIFT, 48 },
 	{ 26, YYAT_SHIFT, 28 },
@@ -891,8 +953,8 @@ YYCONST yytokenaction_t YYNEARFAR YYBASED_CODE YYDCDECL yytokenaction[] = {
 	{ -1, YYAT_ERROR, 0 },
 	{ -1, YYAT_ERROR, 0 },
 	{ -1, YYAT_ERROR, 0 },
-	{ 109, YYAT_SHIFT, 104 },
-	{ 109, YYAT_SHIFT, 105 },
+	{ 109, YYAT_SHIFT, 102 },
+	{ 109, YYAT_SHIFT, 103 },
 	{ -1, YYAT_ERROR, 0 },
 	{ -1, YYAT_ERROR, 0 },
 	{ -1, YYAT_ERROR, 0 },
@@ -926,29 +988,29 @@ YYCONST yytokenaction_t YYNEARFAR YYBASED_CODE YYDCDECL yytokenaction[] = {
 	{ -1, YYAT_ERROR, 0 },
 	{ -1, YYAT_ERROR, 0 },
 	{ -1, YYAT_ERROR, 0 },
-	{ 10, YYAT_SHIFT, 1 },
+	{ 17, YYAT_SHIFT, 1 },
 	{ -1, YYAT_ERROR, 0 },
 	{ -1, YYAT_ERROR, 0 },
 	{ -1, YYAT_ERROR, 0 },
-	{ 10, YYAT_SHIFT, 2 },
+	{ 17, YYAT_SHIFT, 2 },
 	{ -1, YYAT_ERROR, 0 },
-	{ 10, YYAT_SHIFT, 3 },
-	{ 10, YYAT_SHIFT, 4 },
-	{ -1, YYAT_ERROR, 0 },
-	{ -1, YYAT_ERROR, 0 },
-	{ -1, YYAT_ERROR, 0 },
-	{ 10, YYAT_SHIFT, 5 },
+	{ 17, YYAT_SHIFT, 3 },
+	{ 17, YYAT_SHIFT, 4 },
 	{ -1, YYAT_ERROR, 0 },
 	{ -1, YYAT_ERROR, 0 },
-	{ 10, YYAT_SHIFT, 6 },
+	{ -1, YYAT_ERROR, 0 },
+	{ 17, YYAT_SHIFT, 5 },
 	{ -1, YYAT_ERROR, 0 },
 	{ -1, YYAT_ERROR, 0 },
-	{ 10, YYAT_SHIFT, 7 },
-	{ 10, YYAT_SHIFT, 8 }
+	{ 17, YYAT_SHIFT, 6 },
+	{ -1, YYAT_ERROR, 0 },
+	{ -1, YYAT_ERROR, 0 },
+	{ 17, YYAT_SHIFT, 7 },
+	{ 17, YYAT_SHIFT, 8 }
 };
 
 YYCONST yystateaction_t YYNEARFAR YYBASED_CODE YYDCDECL yystateaction[] = {
-	{ 64, 1, YYAT_DEFAULT, 10 },
+	{ 64, 1, YYAT_DEFAULT, 17 },
 	{ -253, 1, YYAT_ERROR, 0 },
 	{ -246, 1, YYAT_ERROR, 0 },
 	{ -254, 1, YYAT_ERROR, 0 },
@@ -958,18 +1020,18 @@ YYCONST yystateaction_t YYNEARFAR YYBASED_CODE YYDCDECL yystateaction[] = {
 	{ -214, 1, YYAT_ERROR, 0 },
 	{ 0, 0, YYAT_DEFAULT, 75 },
 	{ 0, 0, YYAT_REDUCE, 3 },
-	{ 0, 1, YYAT_ERROR, 0 },
 	{ 0, 0, YYAT_REDUCE, 12 },
-	{ 0, 0, YYAT_REDUCE, 11 },
 	{ 0, 0, YYAT_REDUCE, 13 },
-	{ 0, 0, YYAT_REDUCE, 6 },
-	{ 0, 0, YYAT_REDUCE, 7 },
-	{ 0, 0, YYAT_REDUCE, 9 },
-	{ 0, 0, YYAT_REDUCE, 8 },
-	{ 0, 0, YYAT_REDUCE, 4 },
 	{ 0, 0, YYAT_REDUCE, 2 },
-	{ 0, 0, YYAT_REDUCE, 5 },
+	{ 0, 0, YYAT_REDUCE, 8 },
+	{ 0, 0, YYAT_REDUCE, 6 },
 	{ 0, 0, YYAT_REDUCE, 10 },
+	{ 0, 0, YYAT_REDUCE, 5 },
+	{ 0, 1, YYAT_ERROR, 0 },
+	{ 0, 0, YYAT_REDUCE, 4 },
+	{ 0, 0, YYAT_REDUCE, 11 },
+	{ 0, 0, YYAT_REDUCE, 9 },
+	{ 0, 0, YYAT_REDUCE, 7 },
 	{ 0, 0, YYAT_DEFAULT, 26 },
 	{ 0, 0, YYAT_DEFAULT, 75 },
 	{ 1, 1, YYAT_ERROR, 0 },
@@ -981,8 +1043,8 @@ YYCONST yystateaction_t YYNEARFAR YYBASED_CODE YYDCDECL yystateaction[] = {
 	{ 0, 0, YYAT_DEFAULT, 75 },
 	{ 0, 0, YYAT_REDUCE, 25 },
 	{ 10, 1, YYAT_REDUCE, 19 },
-	{ 9, 1, YYAT_ERROR, 0 },
 	{ 0, 0, YYAT_REDUCE, 28 },
+	{ 9, 1, YYAT_ERROR, 0 },
 	{ 0, 0, YYAT_REDUCE, 26 },
 	{ -221, 1, YYAT_ERROR, 0 },
 	{ 9, 1, YYAT_REDUCE, 24 },
@@ -1014,26 +1076,26 @@ YYCONST yystateaction_t YYNEARFAR YYBASED_CODE YYDCDECL yystateaction[] = {
 	{ 0, 0, YYAT_REDUCE, 30 },
 	{ -43, 1, YYAT_ERROR, 0 },
 	{ 0, 0, YYAT_REDUCE, 27 },
-	{ 0, 0, YYAT_DEFAULT, 105 },
+	{ 0, 0, YYAT_DEFAULT, 103 },
 	{ -236, 1, YYAT_ERROR, 0 },
 	{ -40, 1, YYAT_ERROR, 0 },
 	{ -14, 1, YYAT_ERROR, 0 },
-	{ -252, 1, YYAT_ERROR, 0 },
 	{ 0, 0, YYAT_REDUCE, 17 },
+	{ -252, 1, YYAT_ERROR, 0 },
 	{ 0, 0, YYAT_REDUCE, 46 },
 	{ -15, 1, YYAT_ERROR, 0 },
 	{ 0, 0, YYAT_DEFAULT, 129 },
 	{ -214, 1, YYAT_ERROR, 0 },
 	{ 0, 0, YYAT_REDUCE, 22 },
-	{ 0, 0, YYAT_DEFAULT, 105 },
-	{ 0, 0, YYAT_DEFAULT, 105 },
+	{ 0, 0, YYAT_DEFAULT, 103 },
+	{ 0, 0, YYAT_DEFAULT, 103 },
 	{ 0, 0, YYAT_REDUCE, 37 },
+	{ -17, 1, YYAT_DEFAULT, 109 },
+	{ -239, 1, YYAT_ERROR, 0 },
 	{ 0, 0, YYAT_REDUCE, 32 },
-	{ -238, 1, YYAT_ERROR, 0 },
-	{ -18, 1, YYAT_DEFAULT, 109 },
 	{ 0, 0, YYAT_DEFAULT, 129 },
 	{ 0, 0, YYAT_DEFAULT, 92 },
-	{ 0, 0, YYAT_DEFAULT, 105 },
+	{ 0, 0, YYAT_DEFAULT, 103 },
 	{ -19, 1, YYAT_ERROR, 0 },
 	{ 0, 0, YYAT_DEFAULT, 92 },
 	{ -1, 1, YYAT_ERROR, 0 },
@@ -1044,18 +1106,18 @@ YYCONST yystateaction_t YYNEARFAR YYBASED_CODE YYDCDECL yystateaction[] = {
 	{ 0, 0, YYAT_REDUCE, 50 },
 	{ 0, 0, YYAT_REDUCE, 51 },
 	{ 0, 0, YYAT_REDUCE, 49 },
-	{ 0, 0, YYAT_REDUCE, 48 },
 	{ -5, 1, YYAT_DEFAULT, 134 },
+	{ 0, 0, YYAT_REDUCE, 48 },
 	{ 0, 0, YYAT_REDUCE, 31 },
 	{ -24, 1, YYAT_DEFAULT, 109 },
 	{ -36, 1, YYAT_DEFAULT, 109 },
+	{ 0, 0, YYAT_REDUCE, 52 },
+	{ 0, 0, YYAT_DEFAULT, 103 },
+	{ -6, 1, YYAT_DEFAULT, 52 },
 	{ 0, 0, YYAT_REDUCE, 42 },
 	{ -241, 1, YYAT_DEFAULT, 52 },
-	{ 0, 0, YYAT_REDUCE, 52 },
-	{ 0, 0, YYAT_DEFAULT, 105 },
-	{ -6, 1, YYAT_DEFAULT, 52 },
-	{ 0, 0, YYAT_REDUCE, 55 },
 	{ 0, 0, YYAT_REDUCE, 56 },
+	{ 0, 0, YYAT_REDUCE, 55 },
 	{ -247, 1, YYAT_ERROR, 0 },
 	{ -56, 1, YYAT_ERROR, 0 },
 	{ 0, 0, YYAT_REDUCE, 14 },
@@ -1067,13 +1129,13 @@ YYCONST yystateaction_t YYNEARFAR YYBASED_CODE YYDCDECL yystateaction[] = {
 	{ 0, 0, YYAT_DEFAULT, 129 },
 	{ 0, 0, YYAT_REDUCE, 23 },
 	{ 0, 0, YYAT_REDUCE, 33 },
+	{ 0, 0, YYAT_REDUCE, 34 },
+	{ 0, 0, YYAT_REDUCE, 35 },
 	{ 0, 0, YYAT_REDUCE, 39 },
 	{ 0, 0, YYAT_REDUCE, 40 },
 	{ 0, 0, YYAT_REDUCE, 41 },
 	{ 0, 0, YYAT_REDUCE, 38 },
 	{ 0, 0, YYAT_REDUCE, 36 },
-	{ 0, 0, YYAT_REDUCE, 34 },
-	{ 0, 0, YYAT_REDUCE, 35 },
 	{ 0, 0, YYAT_DEFAULT, 129 },
 	{ 0, 0, YYAT_REDUCE, 53 },
 	{ -30, 1, YYAT_ERROR, 0 },
@@ -1090,60 +1152,60 @@ YYCONST yystateaction_t YYNEARFAR YYBASED_CODE YYDCDECL yystateaction[] = {
 int YYNEAR YYDCDECL yynontermgoto_size = 63;
 
 YYCONST yynontermgoto_t YYNEARFAR YYBASED_CODE YYDCDECL yynontermgoto[] = {
-	{ 10, 41 },
-	{ 10, 9 },
-	{ 102, 33 },
+	{ 17, 41 },
+	{ 17, 9 },
+	{ 105, 34 },
 	{ 59, 72 },
-	{ 126, 107 },
-	{ 102, 34 },
+	{ 126, 106 },
+	{ 105, 33 },
 	{ 54, 67 },
-	{ 10, 18 },
+	{ 17, 18 },
 	{ 126, 132 },
-	{ 105, 79 },
-	{ 102, 122 },
-	{ 105, 125 },
-	{ 105, 80 },
-	{ 105, 81 },
+	{ 103, 79 },
+	{ 105, 124 },
+	{ 103, 120 },
+	{ 103, 82 },
+	{ 103, 81 },
 	{ 51, 63 },
-	{ 102, 123 },
+	{ 105, 125 },
 	{ 59, 73 },
-	{ 10, 20 },
+	{ 17, 16 },
 	{ 6, 36 },
 	{ 6, 37 },
 	{ 6, 35 },
-	{ 10, 14 },
-	{ 10, 15 },
+	{ 17, 14 },
+	{ 17, 21 },
 	{ 51, 64 },
 	{ 54, 68 },
-	{ 10, 17 },
-	{ 10, 16 },
-	{ 10, 21 },
-	{ 10, 11 },
+	{ 17, 13 },
+	{ 17, 20 },
+	{ 17, 15 },
+	{ 17, 10 },
 	{ 52, 65 },
-	{ 10, 13 },
-	{ 10, 12 },
+	{ 17, 11 },
+	{ 17, 19 },
 	{ 129, 134 },
-	{ 129, 96 },
+	{ 129, 97 },
 	{ 52, -1 },
 	{ 87, 111 },
-	{ 87, 70 },
+	{ 87, 71 },
 	{ 56, 69 },
-	{ 56, 71 },
-	{ 0, 10 },
-	{ 0, 19 },
+	{ 56, 70 },
+	{ 0, 17 },
+	{ 0, 12 },
 	{ 116, 131 },
-	{ 104, 124 },
+	{ 102, 119 },
 	{ 92, 114 },
 	{ 85, 109 },
 	{ 84, 108 },
-	{ 83, 106 },
-	{ 81, 102 },
+	{ 83, 107 },
+	{ 81, 105 },
 	{ 78, 100 },
 	{ 77, 99 },
 	{ 75, 98 },
-	{ 74, 97 },
-	{ 70, 90 },
-	{ 66, 82 },
+	{ 74, 96 },
+	{ 71, 90 },
+	{ 66, 80 },
 	{ 50, 62 },
 	{ 38, 53 },
 	{ 30, 49 },
@@ -1156,7 +1218,7 @@ YYCONST yynontermgoto_t YYNEARFAR YYBASED_CODE YYDCDECL yynontermgoto[] = {
 };
 
 YYCONST yystategoto_t YYNEARFAR YYBASED_CODE YYDCDECL yystategoto[] = {
-	{ 38, 10 },
+	{ 38, 17 },
 	{ 0, -1 },
 	{ 0, -1 },
 	{ 0, -1 },
@@ -1166,14 +1228,14 @@ YYCONST yystategoto_t YYNEARFAR YYBASED_CODE YYDCDECL yystategoto[] = {
 	{ 0, -1 },
 	{ 57, -1 },
 	{ 0, -1 },
+	{ 0, -1 },
+	{ 0, -1 },
+	{ 0, -1 },
+	{ 0, -1 },
+	{ 0, -1 },
+	{ 0, -1 },
+	{ 0, -1 },
 	{ -2, -1 },
-	{ 0, -1 },
-	{ 0, -1 },
-	{ 0, -1 },
-	{ 0, -1 },
-	{ 0, -1 },
-	{ 0, -1 },
-	{ 0, -1 },
 	{ 0, -1 },
 	{ 0, -1 },
 	{ 0, -1 },
@@ -1208,7 +1270,7 @@ YYCONST yystategoto_t YYNEARFAR YYBASED_CODE YYDCDECL yystategoto[] = {
 	{ 0, -1 },
 	{ 47, -1 },
 	{ 10, -1 },
-	{ 17, 102 },
+	{ 17, 105 },
 	{ 0, -1 },
 	{ -1, -1 },
 	{ 0, -1 },
@@ -1222,26 +1284,26 @@ YYCONST yystategoto_t YYNEARFAR YYBASED_CODE YYDCDECL yystategoto[] = {
 	{ 0, -1 },
 	{ 0, -1 },
 	{ 0, -1 },
-	{ 39, 105 },
+	{ 39, 103 },
+	{ 0, -1 },
 	{ 0, -1 },
 	{ 0, -1 },
 	{ 0, -1 },
 	{ 44, -1 },
 	{ 0, -1 },
 	{ 0, -1 },
-	{ 0, -1 },
 	{ 30, 129 },
 	{ 46, -1 },
 	{ 0, -1 },
-	{ 35, 105 },
-	{ 34, 105 },
+	{ 35, 103 },
+	{ 34, 103 },
 	{ 0, -1 },
 	{ 0, -1 },
 	{ 29, -1 },
 	{ 0, -1 },
 	{ 20, 126 },
 	{ 38, -1 },
-	{ 30, 105 },
+	{ 30, 103 },
 	{ 0, -1 },
 	{ 29, -1 },
 	{ 0, -1 },
@@ -1258,10 +1320,10 @@ YYCONST yystategoto_t YYNEARFAR YYBASED_CODE YYDCDECL yystategoto[] = {
 	{ 0, -1 },
 	{ 0, -1 },
 	{ 0, -1 },
-	{ -2, -1 },
-	{ 0, -1 },
-	{ 28, 105 },
+	{ 28, 103 },
 	{ -3, 52 },
+	{ 0, -1 },
+	{ -2, -1 },
 	{ 0, -1 },
 	{ 0, -1 },
 	{ 0, -1 },
@@ -1302,7 +1364,7 @@ int YYNEAR YYDCDECL yytokendest_size = 0;
 
 YYCONST yytokendestbase_t YYNEARFAR *YYNEAR YYDCDECL yytokendestbaseptr = NULL;
 int YYNEAR YYDCDECL yytokendestbase_size = 0;
-#line 189 ".\\myparser.y"
+#line 212 ".\\myparser.y"
 
 
 /////////////////////////////////////////////////////////////////////////////

@@ -23,4 +23,6 @@ struct Col_type{
 
 char * type_to_string(enum Type type);
 
-int createTable(char * table,struct Createfieldsdef * cfdef_var);
+int createTable(char *table, struct Createfieldsdef *cfdef_var, char *dbname);
+int createDatabase(char *dbname);
+int isDB(char *dbname);

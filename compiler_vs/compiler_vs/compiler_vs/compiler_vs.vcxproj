@@ -10,6 +10,16 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\define.c" />
+    <ClCompile Include="..\..\..\mylexer.c" />
+    <ClCompile Include="..\..\..\myparser.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\define.h" />
+    <ClInclude Include="..\..\..\mylexer.h" />
+    <ClInclude Include="..\..\..\myparser.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{FCD9DCB6-DDB7-405E-85AF-181E27EEEE63}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -82,16 +92,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\..\compiler\compiler\compiler\define.c" />
-    <ClCompile Include="..\..\..\compiler\compiler\compiler\mylexer.c" />
-    <ClCompile Include="..\..\..\compiler\compiler\compiler\myparser.c" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\..\compiler\compiler\compiler\define.h" />
-    <ClInclude Include="..\..\..\compiler\compiler\compiler\mylexer.h" />
-    <ClInclude Include="..\..\..\compiler\compiler\compiler\myparser.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

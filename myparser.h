@@ -1,7 +1,7 @@
 /****************************************************************************
 *                     U N R E G I S T E R E D   C O P Y
 * 
-* You are on day 45 of your 30 day trial period.
+* You are on day 46 of your 30 day trial period.
 * 
 * This file was produced by an UNREGISTERED COPY of Parser Generator. It is
 * for evaluation purposes only. If you continue to use Parser Generator 30
@@ -19,7 +19,7 @@
 * C header file generated from myparser.y.
 * 
 * Date: 05/28/23
-* Time: 16:27:30
+* Time: 20:24:26
 * 
 * AYACC Version: 2.07
 ****************************************************************************/
@@ -31,7 +31,7 @@
 
 #ifndef YYSTYPE
 union tagYYSTYPE {
-#line 18 ".\\myparser.y"
+#line 19 ".\\myparser.y"
 
 	char * yych; //字面量
 	int int_num; //存储整数值
@@ -74,7 +74,7 @@ extern YYSTYPE YYNEAR yylval;
 #define OPERATOR 280
 #define AND 281
 #define OR 282
-#line 38 ".\\myparser.y"
+#line 39 ".\\myparser.y"
 
 #ifndef YYSTYPE
 #define YYSTYPE int

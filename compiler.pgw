@@ -1,26 +1,53 @@
 [Application]
-WindowPlacement=0 1 -1 -1 -1 -1 156 156 1236 811
+WindowPlacement=2 3 -32000 -32000 -1 -1 206 -5 1286 650
 [Editor1]
 FileName=.\mylexer.l
 ReadOnly=0
-WindowPlacement1=0 1 -1 -1 -1 -1 209 128 1113 515
+WindowPlacement1=0 1 -1 -1 -8 -31 26 26 1202 582
 WindowOrder1=4
-Position001=0 1
-Cursor001=0 1 0 1
+Position001=0 121
+Cursor001=0 31 0 32
 SyntaxColouring=1
 TargetSyntaxColouring=3
 [Editor2]
 FileName=.\myparser.y
 ReadOnly=0
-WindowPlacement1=0 1 -1 -1 -1 -1 52 52 956 439
-WindowOrder1=2
-Position001=0 1
-Cursor001=0 1 0 1
+WindowPlacement1=0 1 -1 -1 -8 -31 41 49 1217 605
+WindowOrder1=1
+Position001=0 137
+Cursor001=0 149 0 149
 SyntaxColouring=2
 TargetSyntaxColouring=3
-[Project]
-WindowPlacement1=0 1 -1 -1 -1 -1 0 0 904 387
+[Editor3]
+FileName=..\..\..\编译原理\test\XDU-SQLInterrupter\SQL解释器源代码\yacc.y
+ReadOnly=0
+WindowPlacement1=0 1 -1 -1 -8 -31 105 223 1281 779
+WindowOrder1=6
+Position001=0 1
+Cursor001=12 12 18 12
+SyntaxColouring=2
+TargetSyntaxColouring=3
+[Editor4]
+FileName=..\..\..\编译原理\test\XDU-SQLInterrupter\SQL解释器源代码\lex.l
+ReadOnly=0
+WindowPlacement1=0 1 -1 -1 -8 -31 156 156 1332 712
 WindowOrder1=3
+Position001=0 20
+Cursor001=19 42 19 42
+SyntaxColouring=1
+TargetSyntaxColouring=3
+[Editor5]
+FileName=..\..\..\编译原理\Example\calc3\mylexer.l
+ReadOnly=0
+WindowPlacement1=0 1 -1 -1 -1 -1 129 130 1306 686
+WindowOrder1=7
+Position001=0 14
+Cursor001=16 16 16 16
+SyntaxColouring=1
+TargetSyntaxColouring=3
+[Project]
+WindowPlacement1=0 1 -1 -1 -8 -31 104 104 1280 659
+WindowOrder1=5
 [ProjectFolders1]
 FolderCount=2
 FolderName1=Source Files
@@ -28,7 +55,7 @@ FolderExpanded1=1
 FolderName2=Output Files
 FolderExpanded2=0
 [Output]
-WindowPlacement1=0 1 -1 -1 -1 -1 78 78 982 465
-WindowOrder1=1
+WindowPlacement1=0 1 -1 -1 -8 -31 105 199 1281 755
+WindowOrder1=2
 Position1=0 1
-Cursor1=0 14 0 14
+Cursor1=0 4 0 4

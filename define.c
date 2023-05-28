@@ -3,8 +3,6 @@
 #include <sys/stat.h>
 #include "define.h"
 
-//use database之后就记录数据库名称
-char * dbname = "xixi";
 //将枚举类型对应到字符串类型
 char *type_names[] = {"INT","CHAR"};
 
@@ -39,7 +37,7 @@ char * type_to_string(enum Type type){
 }
 
 //创建表格，成功则返回1，失败返回0
-int createTable(char *table, struct Createfieldsdef *cfdef_var){  
+int createTable(char *table, struct Createfieldsdef *cfdef_var,char *dbname){  
     
      
     if (dbname == NULL){
@@ -139,4 +137,22 @@ int createTable(char *table, struct Createfieldsdef *cfdef_var){
 		free(p);
         return 1;
     }
+}
+
+//建立数据库，成功返回1，失败返回0
+int createDatabase(char *dbname){
+	return 1;
+}
+//判断是否属于已存在的数据库
+int isDB(char *dbname){
+	char *path = "./data/sys.dat";
+	FILE *fp = fopen(path, "r");
+	char word[100];
+	while (fscanf(fp,"%s",word) != EOF){
+		if (strcmp(dbname, word) == 0){
+			return 1;
+		}
+	}
+	printf("Database not Exist\n");
+	return 0;
 }
