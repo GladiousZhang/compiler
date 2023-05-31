@@ -142,10 +142,12 @@ SET	{
 
 \"[^\"]*\" {
 //printf("识别STRING\n");
+	yylval.yych = _strdup(yytext);
     return STRING;
 }
 \'[^\']*\' {
 //printf("识别STRING\n");
+	yylval.yych = _strdup(yytext);
     return STRING;
 }
 //"+"|"-"|"*"|"/"|sqrt	{

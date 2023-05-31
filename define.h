@@ -21,8 +21,30 @@ struct Col_type{
 	int len;//如果是字符串，存储长度
 };
 
-char * type_to_string(enum Type type);
 
+//列名的链表
+struct Field
+{
+	char * field;//列的名称
+	struct Field * next_field;//指向下一个列
+};
+
+//值的链表
+struct Value
+{
+	char * value;//值的内容
+	struct Value * next_value;//指向下一个值
+};
+
+//汇总插入的数据列名和内容
+struct Insertvalues
+{
+	struct Value * value;//列的名称
+	struct Field * field;//插入的值
+};
+
+char * type_to_string(enum Type type);
 int createTable(char *table, struct Createfieldsdef *cfdef_var, char *dbname);
 int createDatabase(char *dbname);
 int isDB(char *dbname);
+int insertTable(char * table, struct Insertvalues *insert,char * dbname);

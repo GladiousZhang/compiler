@@ -22,13 +22,19 @@ char *dbname=NULL;
 	struct Col_type *c_type;//存储type类型及长度
 	struct Createfieldsdef *cfdef_var; //table字段定义
 	struct Createstruct *cs_var; //整个create语句
+	struct Insertvalues *isrt_vals;//插入内容
+	struct Field *fld;//插入的列名
+	struct Value *val;//插入的值
 
 }
-%nonterm <yych> table field createdatabasesql basename usesql
+%nonterm <yych> table field createdatabasesql basename usesql insert_value 
 %nonterm <c_type> type
 %nonterm <cfdef_var> fieldsdefinition field_type
 %nonterm <cs_var> createtablesql
-%term <yych> ID CHAR
+%nonterm <isrt_vals> insertsql
+%nonterm <val> insert_values
+%nonterm <fld> insert_fields
+%term <yych> ID CHAR STRING
 %term <int_num>INTEGER
 %token ID,CREATE,DATABASE,INTEGER,FLOAT,STRING
 %token SHOW,DATABASES,DROP,USE,TABLE,CHAR
@@ -58,35 +64,35 @@ char *dbname=NULL;
 				int isSuccess = 0;
 				isSuccess = createTable($1->table,$1->fdef,dbname);
 				if(isSuccess == 1){
-					printf("Table Created\n");
+					printf("\rTable Created\n");
 				}else{
-					printf("Fail to Create Table\n");
+					printf("\rFail to Create Table\n");
 				}
 			 }
-			 |selectsql{printf("SELECT\n");}
-			 |insertsql{printf("INSERT\n");}
-			 |deletesql{printf("DELETE\n");}
-			 |updatesql{printf("UPDATE\n");}
-			 |showtablesql{printf("SHOW TABLE\n");}
-			 |showdatabasessql{printf("SHOW DATABASES\n");}
+			 |selectsql{printf("\rSELECT\n");}
+			 |insertsql
+			 |deletesql{printf("\rDELETE\n");}
+			 |updatesql{printf("\rUPDATE\n");}
+			 |showtablesql{printf("\rSHOW TABLE\n");}
+			 |showdatabasessql{printf("\rSHOW DATABASES\n");}
 			 |droptablesql{printf("DROP TABLE\n");}
-			 |dropdatabasesql{printf("DROP DATABASE\n");}
+			 |dropdatabasesql{printf("\rDROP DATABASE\n");}
 			 |usesql{
 				int isSuccess=isDB($1);
 				if(isSuccess){
-					printf("Using %s\n",$1);
+					printf("\rUsing %s\n",$1);
 					dbname = $1;
 				}
 				else
-					printf("Fail to Use %s\n",$1);
+					printf("\rFail to Use %s\n",$1);
 			 }
 			 |createdatabasesql{
 				int isSuccess = 0;
 				isSuccess = createDatabase($1);
 				if(isSuccess)
-					printf("Database Created\n");
+					printf("\rDatabase Created\n");
 				else
-					printf("Fail to Create Database\n");
+					printf("\rFail to Create Database\n");
 			 }
 			 ;
 	//CREATETABLE
@@ -167,19 +173,90 @@ char *dbname=NULL;
 	comp_op: OPERATOR
 		   ;
 	//INSERT
-	insertsql:INSERT INTO table '(' insert_fields ')' VALUES '(' insert_values ')' ';'
-			 |INSERT INTO table VALUES '(' insert_values ')'';'
+	insertsql:INSERT INTO table '(' insert_fields ')' VALUES '(' insert_values ')' ';'{
+				$$ = (struct Insertvalues *)malloc(sizeof(struct Insertvalues));
+				$$->value = $9;
+				$$->field = $5;
+				int isSuccess = insertTable($3,$$,dbname);
+				if(isSuccess){
+					printf("\rValues Inserted\n");
+				}
+				else{
+					printf("\rFail to Insert Value\n");
+				}
+				
+			 }
+			 |INSERT INTO table VALUES '(' insert_values ')'';'{
+				$$ = (struct Insertvalues *)malloc(sizeof(struct Insertvalues));
+				$$->value = $6;
+				$$->field = NULL;
+				int isSuccess = insertTable($3,$$,dbname);
+				if(isSuccess){
+					printf("\rValues Inserted\n");
+				}
+				else{
+					printf("\rFail to Insert Value\n");
+				}
+				//printf("识别sql\n");
+			 }
 			 ;
 			 
-	insert_fields:insert_fields ',' field
-				 |field
+	insert_fields:insert_fields ',' field{
+					$$ = (struct Field *)malloc(sizeof(struct Field));
+					$$ = $1;
+					struct Field *p=$$;
+					while(p->next_field!=NULL){
+						p=p->next_field;
+					}
+					struct Field *q=(struct Field *)malloc(sizeof(struct Field));
+					q->field = $3;
+					q->next_field = NULL;
+					p->next_field=q;
+					//printf("识别insert_fields,field\n");
+				 }
+				 |field{
+					$$=(struct Field *)malloc(sizeof(struct Field));
+					$$->field = $1;
+					$$->next_field = NULL;
+					//printf("识别field\n");
+				 }
 				 ;
-	insert_values:insert_values ',' insert_value
-				 |insert_value
+	insert_values:insert_values ',' insert_value{
+					$$ = $1;
+					struct Value *p=$$;
+					while(p->next_value!=NULL){
+						p=p->next_value;
+					}
+										//printf("找到最后一个\n");
+					struct Value *q=(struct Value *)malloc(sizeof(struct Value));
+					q->value = $3;
+					q->next_value = NULL;
+					p->next_value=q;
+					//printf("识别insert_values,insert_value");
+				 }
+				 |insert_value{
+					$$=(struct Value *)malloc(sizeof(struct Value));
+					$$->value = $1;
+					$$->next_value = NULL;
+					
+										//printf("识别insert_value\n");
+				 }
 				 ;
-	insert_value: STRING
-				|INTEGER
-				|FLOAT
+	insert_value: STRING{
+					$$ = $1;
+										//printf("\r识别STRING\n");
+				}
+				|INTEGER{
+					int cnt = 1;
+					int tmp = $1;
+					while(tmp/=10!=0){
+						tmp/=10;
+						cnt++;
+					}
+					$$=(char *)malloc(cnt+1);
+					sprintf($$,"%d",$1);
+					printf("识别INTERGER：%s\n",$$);
+				}
 				;
 	//DELETE
 	deletesql:DELETE FROM table WHERE conditions ';';

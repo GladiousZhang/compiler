@@ -1,7 +1,7 @@
 /****************************************************************************
 *                     U N R E G I S T E R E D   C O P Y
 * 
-* You are on day 46 of your 30 day trial period.
+* You are on day 48 of your 30 day trial period.
 * 
 * This file was produced by an UNREGISTERED COPY of Parser Generator. It is
 * for evaluation purposes only. If you continue to use Parser Generator 30
@@ -18,8 +18,8 @@
 * mylexer.c
 * C source file generated from mylexer.l.
 * 
-* Date: 05/28/23
-* Time: 20:24:26
+* Date: 05/30/23
+* Time: 18:56:20
 * 
 * ALex Version: 2.07
 ****************************************************************************/
@@ -443,19 +443,21 @@ return OPERATOR;
 #line 143 ".\\mylexer.l"
 
 //printf("识别STRING\n");
+	yylval.yych = _strdup(yytext);
     return STRING;
 
-#line 449 "mylexer.c"
+#line 450 "mylexer.c"
 		}
 		break;
 	case 41:
 		{
-#line 147 ".\\mylexer.l"
+#line 148 ".\\mylexer.l"
 
 //printf("识别STRING\n");
+	yylval.yych = _strdup(yytext);
     return STRING;
 
-#line 459 "mylexer.c"
+#line 461 "mylexer.c"
 		}
 		break;
 	default:
@@ -931,7 +933,7 @@ YYCONST yybackup_t YYNEARFAR YYBASED_CODE YYDCDECL yybackup[] = {
 	0
 };
 
-#line 165 ".\\mylexer.l"
+#line 167 ".\\mylexer.l"
 
 
 /////////////////////////////////////////////////////////////////////////////

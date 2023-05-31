@@ -1,7 +1,7 @@
 /****************************************************************************
 *                     U N R E G I S T E R E D   C O P Y
 * 
-* You are on day 46 of your 30 day trial period.
+* You are on day 48 of your 30 day trial period.
 * 
 * This file was produced by an UNREGISTERED COPY of Parser Generator. It is
 * for evaluation purposes only. If you continue to use Parser Generator 30
@@ -18,8 +18,8 @@
 * myparser.h
 * C header file generated from myparser.y.
 * 
-* Date: 05/28/23
-* Time: 20:24:26
+* Date: 05/30/23
+* Time: 18:56:20
 * 
 * AYACC Version: 2.07
 ****************************************************************************/
@@ -38,9 +38,12 @@ union tagYYSTYPE {
 	struct Col_type *c_type;//存储type类型及长度
 	struct Createfieldsdef *cfdef_var; //table字段定义
 	struct Createstruct *cs_var; //整个create语句
+	struct Insertvalues *isrt_vals;//插入内容
+	struct Field *fld;//插入的列名
+	struct Value *val;//插入的值
 
 
-#line 44 "myparser.h"
+#line 47 "myparser.h"
 };
 
 #define YYSTYPE union tagYYSTYPE
@@ -50,11 +53,11 @@ extern YYSTYPE YYNEAR yylval;
 
 #define ID 257
 #define CHAR 258
-#define INTEGER 259
-#define CREATE 260
-#define DATABASE 261
-#define FLOAT 262
-#define STRING 263
+#define STRING 259
+#define INTEGER 260
+#define CREATE 261
+#define DATABASE 262
+#define FLOAT 263
 #define SHOW 264
 #define DATABASES 265
 #define DROP 266
@@ -74,11 +77,11 @@ extern YYSTYPE YYNEAR yylval;
 #define OPERATOR 280
 #define AND 281
 #define OR 282
-#line 39 ".\\myparser.y"
+#line 45 ".\\myparser.y"
 
 #ifndef YYSTYPE
 #define YYSTYPE int
 #endif
 
-#line 84 "myparser.h"
+#line 87 "myparser.h"
 #endif
