@@ -1,4 +1,4 @@
-﻿生成启动时间为 2023/6/1 0:16:21。
+﻿生成启动时间为 2023/6/1 8:14:40。
      1>项目“C:\Users\Gladious\Desktop\compiler\compiler\compiler\compiler_vs\compiler_vs\compiler_vs\compiler_vs.vcxproj”在节点 2 上(Build 个目标)。
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _CRT_SECURE_NO_WARNINGS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MT /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:prompt ..\..\..\define.c
@@ -15,4 +15,4 @@
 
 生成成功。
 
-已用时间 00:00:00.52
+已用时间 00:00:00.51

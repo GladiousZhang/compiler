@@ -233,10 +233,10 @@ int insertTable(char * table, struct Insertvalues * insert,char * dbname){
 		return 0;
 	}
 	int col_len=0;
+	char *line=(char *)malloc(20);
 	if (fp != NULL)
 	{
-		char *line = (char *)malloc(sizeof(50));
-		while (fgets(line, 50, fp) != NULL){
+		while (fgets(line, 20, fp) != NULL){
 			char * str_cmp = strtok(line, " ");
 			if (strcmp(str_cmp, table) == 0){
 				str_cmp = strtok(NULL, " ");
@@ -251,9 +251,9 @@ int insertTable(char * table, struct Insertvalues * insert,char * dbname){
 				col_len++;
 			}
 		}
-
 		fclose(fp);
 	}
+	free(line);
 	struct Value * value = insert->value;
 	if (!col_len)
 	{
@@ -290,36 +290,40 @@ int insertTable(char * table, struct Insertvalues * insert,char * dbname){
 		}
 	}
 	else{
-		/*struct Field * field = insert->field;
+		struct Field * i_field = insert->field;
 		attr_value * av = head;
-		struct Field * f = field;
+		struct Field * f = i_field;
 		struct Value * v = value;
 		while (av->next != NULL){
 			av = av->next;
-			f = field;
+			f = i_field;
+			v = value;
 			int place = 0;
 			while (f!=NULL&&strcmp(av->field , f->field)!=0){
 				f = f->next_field;
 				place++;
 			}
 			if (f == NULL){
-				printf("\rColumn not Exist\n");
+				continue;
 			}
-			for (int i = 0; i <= place; i++){
+			for (int i = 0; i < place; i++){
 				v = v->next_value;
-				return 0;
 			}
 			av->value = (char *)malloc(strlen(v->value)+1);
 			strcpy(av->value, v->value);
 		}
-		av = head;
+		av = head->next;
 		char * insert_value=av->value;
 		while (av->next != NULL){
 			av = av->next;
+			if (av->value == NULL)
+			{
+				av->value = "NULL";
+			}
 			char *temp_val = malloc(strlen(insert_value) + strlen(av->value) + 2);
 			strcpy(temp_val, insert_value);
 			strcat(temp_val, " ");
-			strcat(temp_val, value->value);
+			strcat(temp_val, av->value);
 			insert_value = temp_val;
 		}
 		delQuote(insert_value);
@@ -334,8 +338,13 @@ int insertTable(char * table, struct Insertvalues * insert,char * dbname){
 		if (!flag)
 		{
 			return 0;
-		}*/
+		}
 	}
 	return 1;
+
+}
+
+//查询表格
+int selectRow(char *table, Column * col, Condition * con){
 
 }

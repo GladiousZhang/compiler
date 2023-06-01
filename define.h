@@ -43,8 +43,24 @@ struct Insertvalues
 	struct Field * field;//插入的值
 };
 
+//记录需要查询的列名
+typedef struct co
+{
+	char * name;//列名，或者为*
+	struct co * next;//下一个需要输出的列
+}Column;
+
+//记录每一列的条件
+typedef struct con{
+	char * left;//条件的左边，一般是列名
+	char * oper;//操作符，支持大于、等于、小于、大于等于、小于等于、不等于
+	char * right;//条件的右边，通常是数字或者列
+	struct con * next;
+}Condition;
+
 char * type_to_string(enum Type type);
 int createTable(char *table, struct Createfieldsdef *cfdef_var, char *dbname);
 int createDatabase(char *dbname);
 int isDB(char *dbname);
 int insertTable(char * table, struct Insertvalues *insert,char * dbname);
+int selectRow(char *table, Column * col, Condition * con);
