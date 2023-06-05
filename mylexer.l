@@ -34,13 +34,17 @@ optional_exponent	(E[+-]?{digits})?
 "*" |
 "/" |
 "." |
-";" {return yytext[0];}
+";" {
+yylval.yych = _strdup(yytext);
+return yytext[0];}
 "=" |
 ">" |
 "<" |
 "!=" |
 ">=" |
-"<=" {return OPERATOR;}
+"<=" {
+yylval.yych = _strdup(yytext);
+return OPERATOR;}
 CREATE	{
 	//printf("识别CREATE\n");
 	return CREATE;
@@ -132,6 +136,7 @@ SET	{
      
 {digits}{optional_fraction}{optional_exponent} {
 	//printf("识别FLOAT\n");
+	yylval.f_num = atof(yytext);
      return FLOAT;}
      
 {char}({char}|{digit}|_)*	{ 

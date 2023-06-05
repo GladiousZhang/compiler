@@ -1,34 +1,34 @@
 [Application]
-WindowPlacement=2 3 -32000 -32000 -1 -1 206 -5 1286 650
+WindowPlacement=0 1 -32000 -32000 -1 -1 206 -5 1286 650
 [Editor1]
 FileName=.\mylexer.l
 ReadOnly=0
-WindowPlacement1=0 1 -1 -1 -8 -31 52 52 1228 608
-WindowOrder1=3
-Position001=0 112
-Cursor001=5 132 5 132
+WindowPlacement1=0 1 -1 -1 -8 -31 110 149 627 705
+WindowOrder1=4
+Position001=0 1
+Cursor001=0 5 0 5
 SyntaxColouring=1
 TargetSyntaxColouring=3
 [Editor2]
 FileName=.\myparser.y
 ReadOnly=0
-WindowPlacement1=0 1 -1 -1 -8 -31 108 102 1284 659
+WindowPlacement1=0 1 -1 -1 -8 -31 13 94 621 651
 WindowOrder1=2
-Position001=0 172
-Cursor001=44 180 44 180
+Position001=0 50
+Cursor001=22 67 22 67
 SyntaxColouring=2
 TargetSyntaxColouring=3
-[Editor3]
-FileName=..\..\..\编译原理\test\XDU-SQLInterrupter\SQL解释器源代码\lex.l
-ReadOnly=0
-WindowPlacement1=0 1 -1 -1 -8 -31 78 78 1254 634
-WindowOrder1=4
-Position001=0 55
-Cursor001=21 33 21 33
-SyntaxColouring=1
-TargetSyntaxColouring=3
+[Project]
+WindowPlacement1=0 1 -1 -1 -8 -31 78 78 960 443
+WindowOrder1=3
+[ProjectFolders1]
+FolderCount=2
+FolderName1=Source Files
+FolderExpanded1=1
+FolderName2=Output Files
+FolderExpanded2=0
 [Output]
-WindowPlacement1=0 1 -1 -1 -1 -1 173 541 1349 1097
+WindowPlacement1=2 3 -1 -1 -8 -31 80 275 1256 831
 WindowOrder1=1
 Position1=0 1
-Cursor1=0 14 0 14
+Cursor1=0 9 0 9

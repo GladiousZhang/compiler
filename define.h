@@ -44,23 +44,41 @@ struct Insertvalues
 };
 
 //记录需要查询的列名
-typedef struct co
+struct Column
 {
+	char * table;//可能会存在table.name的情况
 	char * name;//列名，或者为*
 	struct co * next;//下一个需要输出的列
-}Column;
+};
+
+//记录一串表格名称
+struct Table{
+	char * table;//表格名
+	struct ta * next;//下一个表格名
+};
 
 //记录每一列的条件
-typedef struct con{
+typedef struct Condition{
+	char * table_left;//可能会存在table.name的情况
 	char * left;//条件的左边，一般是列名
 	char * oper;//操作符，支持大于、等于、小于、大于等于、小于等于、不等于
 	char * right;//条件的右边，通常是数字或者列
+	char * table_right;//可能会存在table.name的情况
+	char * rlt_to_last;//与上一字段的关系，可能为AND可能为OR
 	struct con * next;
-}Condition;
+};
+
+//定义一个表中所有需要信息的结构体
+typedef struct inf{
+	char * table;//表名
+	char * col_name;//列名
+	struct Value * value;//值
+	struct inf * next;//下一项
+}Inf;
 
 char * type_to_string(enum Type type);
 int createTable(char *table, struct Createfieldsdef *cfdef_var, char *dbname);
 int createDatabase(char *dbname);
 int isDB(char *dbname);
 int insertTable(char * table, struct Insertvalues *insert,char * dbname);
-int selectRow(char *table, Column * col, Condition * con);
+int selectRow(char * dbname,struct Table *table, struct Column * col, struct Condition * con);

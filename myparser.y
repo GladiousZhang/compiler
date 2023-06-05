@@ -19,27 +19,34 @@ char *dbname=NULL;
 %union{
 	char * yych; //字面量
 	int int_num; //存储整数值
+	float f_num; //比较浮点数
 	struct Col_type *c_type;//存储type类型及长度
 	struct Createfieldsdef *cfdef_var; //table字段定义
 	struct Createstruct *cs_var; //整个create语句
 	struct Insertvalues *isrt_vals;//插入内容
 	struct Field *fld;//插入的列名
 	struct Value *val;//插入的值
-
+	struct Column * col; //选择的列名
+	struct Condition * con; //选择的条件
+	struct Table * tab;//表格名称序列
 }
-%nonterm <yych> table field createdatabasesql basename usesql insert_value 
+%nonterm <yych> table field createdatabasesql basename usesql insert_value comp_op
 %nonterm <c_type> type
 %nonterm <cfdef_var> fieldsdefinition field_type
 %nonterm <cs_var> createtablesql
 %nonterm <isrt_vals> insertsql
 %nonterm <val> insert_values
 %nonterm <fld> insert_fields
-%term <yych> ID CHAR STRING
+%nonterm <col> fields_star table_fields table_field comp_left comp_right
+%nonterm <con> condition conditions
+%nonterm <tab> tables
+%term <yych> ID CHAR STRING AND OR OPERATOR
 %term <int_num>INTEGER
+%term <f_num> FLOAT
 %token ID,CREATE,DATABASE,INTEGER,FLOAT,STRING
 %token SHOW,DATABASES,DROP,USE,TABLE,CHAR
 %token INT,TABLES,INSERT,INTO,VALUES,SELECT
-%token FROM,WHERE,DELETE,UPDATE,SET,OPERATOR
+%token FROM,WHERE,DELETE,UPDATE,SET
 %token ',',';','(',')','.'
 %left AND,OR
 %include {
@@ -56,8 +63,8 @@ char *dbname=NULL;
 // rules section
 
 // place your YACC rules here (there must be at least one)
-	statements:statements statement{return 0;}
-			  |statement{return 0;}
+	statements:statement
+	|statements statement
 			  ;
 	statement:createtablesql{
 				//printf("Table name:%s Table field1:%s\n",$1->table,$1->fdef->field);
@@ -68,8 +75,9 @@ char *dbname=NULL;
 				}else{
 					printf("\rFail to Create Table\n");
 				}
+				
 			 }
-			 |selectsql{printf("\rSELECT\n");}
+			 |selectsql
 			 |insertsql
 			 |deletesql{printf("\rDELETE\n");}
 			 |updatesql{printf("\rUPDATE\n");}
@@ -143,35 +151,144 @@ char *dbname=NULL;
 		}
 		;
 	//SELECT
-	selectsql:SELECT fields_star FROM tables ';'
-			 |SELECT fields_star FROM tables WHERE conditions ';'
+	selectsql:SELECT fields_star FROM tables ';'{
+				int isSuccess = 0;
+				isSuccess = selectRow(dbname,$4,$2,NULL);
+				if(!isSuccess)
+					printf("\rFail to Select\n");
+			 }
+			 |SELECT fields_star FROM tables WHERE conditions ';'{
+				int isSuccess = 0;
+				isSuccess = selectRow(dbname,$4,$2,$6);
+				if(!isSuccess)
+					printf("\rFail to Select\n");
+			 }
 			 ;
-	fields_star:table_fields 
-			   | '*'
+	fields_star:table_fields {
+					$$ =$1;
+			   }
+			   | '*'{
+				$$ = (struct Column *)malloc (sizeof(struct Column));
+				$$->table = NULL;
+				$$->name ="*";
+				$$->next = NULL;
+			   }
 			   ;
-	table_fields:table_field 
-				| table_fields ',' table_field
+	table_fields:table_field {
+	$$ = (struct Column *)malloc (sizeof(struct Column));
+					$$ = $1;
+				}
+				| table_fields ',' table_field{
+				$$ = (struct Column *)malloc (sizeof(struct Column));
+						$$ = $1;
+						struct Column *p=$$;
+						while(p->next!=NULL){
+							p=p->next;
+						}
+						p->next=$3;
+				}
 				;
-	table_field: field 
-			   | table'.'field
+	table_field: field {
+					$$ = (struct Column *)malloc (sizeof(struct Column));
+					$$->table = NULL;
+					$$->name = $1;
+					$$->next = NULL;
+			   }
+			   | table'.'field{
+			   $$ = (struct Column *)malloc (sizeof(struct Column));
+					$$->table = $1;
+					$$->name = $3;
+					$$->next = NULL;
+			   }
 			   ;
-	tables:table
-		  |tables ',' table
+	tables:table{
+			$$ = (struct Table *)malloc(sizeof(struct Table));
+			$$->table = $1;
+			$$->next = NULL;
+		  }
+		  |tables ',' table{
+		  $$ = (struct Table *)malloc(sizeof(struct Table));
+			$$ = $1;
+						struct Table *p=$$;
+						while(p->next!=NULL){
+							p=p->next;
+						}
+						struct Table *q= (struct Table *)malloc(sizeof(struct Table));
+						q->table =$3;
+						q->next=NULL;
+						p->next=q;
+		  }
 		  ;
-	conditions: condition 
-			  | '('conditions')' 
-			  | conditions AND conditions 
-			  | conditions OR conditions
+	conditions: condition{
+	$$ =$1;
+	} 
+			  | '('conditions')' {
+				$$=$2;
+			  }
+			  | conditions AND conditions {
+			  $$=$1;
+			  struct Condition *p=$$;
+			  while(p->next!=NULL){
+				p=p->next;
+			  }
+			
+			  p->next = $3;
+			  $3->rlt_to_last = "AND";
+			  }
+			  | conditions OR conditions{
+			  $$=$1;
+			  struct Condition *p=$$;
+			  while(p->next!=NULL){
+				p=p->next;
+			  }
+			  p->next = $3;
+			  $3->rlt_to_last = "OR";}
 			  ;
-	condition: comp_left comp_op comp_right;
-	comp_left: table_field;
-	comp_right:table_field 
-			  |INTEGER
-			  |FLOAT
-			  |STRING
+	condition: comp_left comp_op comp_right{
+		$$ = (struct Condition *)malloc(sizeof(struct Condition));
+		$$->table_left = $1->table;
+		$$->left = $1->name;
+		$$->oper = $2;
+		$$->table_right = $3->table;
+		$$->right = $3->name;
+		$$->rlt_to_last="OR";
+		$$->next=NULL;
+	};
+	comp_left: table_field{
+		$$=$1;
+	};
+	comp_right:table_field {
+		$$=$1;
+	}
+			  |INTEGER{
+			  $$=(struct Column *)malloc(sizeof(struct Column));
+			  $$->table =NULL;
+			  int cnt=0;
+			  int tmp = $1;
+					while(tmp/=10!=0){
+						tmp/=10;
+						cnt++;
+					}
+					$$->name=(char *)malloc(cnt+1);
+					sprintf($$->name,"%d",$1);
+			  }
+			  |FLOAT{
+			  $$=(struct Column *)malloc(sizeof(struct Column));
+			  $$->table =NULL;
+			  		$$->name=(char *)malloc(10);
+					sprintf($$->name,"%f",$1);
+			  
+			  }
+			  |STRING{
+				$$=(struct Column *)malloc(sizeof(struct Column));
+			  $$->table =NULL;
+			  $$->name=$1;
+			  }
 			  ;
-	comp_op: OPERATOR
-		   ;
+	comp_op: OPERATOR{
+	$$=$1;
+	}
+	;
 	//INSERT
 	insertsql:INSERT INTO table '(' insert_fields ')' VALUES '(' insert_values ')' ';'{
 				$$ = (struct Insertvalues *)malloc(sizeof(struct Insertvalues));
@@ -255,7 +372,7 @@ char *dbname=NULL;
 					}
 					$$=(char *)malloc(cnt+1);
 					sprintf($$,"%d",$1);
-					printf("识别INTERGER：%s\n",$$);
+					//printf("识别INTERGER：%s\n",$$);
 				}
 				;
 	//DELETE

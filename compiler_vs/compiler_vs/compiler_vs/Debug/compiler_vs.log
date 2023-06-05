@@ -1,10 +1,22 @@
-﻿生成启动时间为 2023/6/1 8:14:40。
+﻿生成启动时间为 2023/6/5 11:31:54。
      1>项目“C:\Users\Gladious\Desktop\compiler\compiler\compiler\compiler_vs\compiler_vs\compiler_vs\compiler_vs.vcxproj”在节点 2 上(Build 个目标)。
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _CRT_SECURE_NO_WARNINGS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MT /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:prompt ..\..\..\define.c
          define.c
      1>c:\users\gladious\desktop\compiler\compiler\compiler\define.c : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
      1>c:\users\gladious\desktop\compiler\compiler\compiler\define.c(177): warning C4013: “mkdir”未定义；假设外部返回 int
+     1>c:\users\gladious\desktop\compiler\compiler\compiler\define.c(365): warning C4133: “=”: 从“co *”到“Column *”的类型不兼容
+     1>c:\users\gladious\desktop\compiler\compiler\compiler\define.c(397): warning C4047: “!=”:“char *”与“int”的间接级别不同
+     1>c:\users\gladious\desktop\compiler\compiler\compiler\define.c(401): warning C4047: “==”:“char *”与“int”的间接级别不同
+     1>c:\users\gladious\desktop\compiler\compiler\compiler\define.c(403): warning C4133: “=”: 从“ta *”到“Table *”的类型不兼容
+     1>c:\users\gladious\desktop\compiler\compiler\compiler\define.c(432): warning C4133: “=”: 从“ta *”到“Table *”的类型不兼容
+     1>c:\users\gladious\desktop\compiler\compiler\compiler\define.c(535): warning C4133: “=”: 从“Column *”到“co *”的类型不兼容
+     1>c:\users\gladious\desktop\compiler\compiler\compiler\define.c(540): warning C4133: “!=”: 从“Column *”到“co *”的类型不兼容
+     1>c:\users\gladious\desktop\compiler\compiler\compiler\define.c(541): warning C4133: “=”: 从“co *”到“Column *”的类型不兼容
+     1>c:\users\gladious\desktop\compiler\compiler\compiler\define.c(556): warning C4133: “=”: 从“co *”到“Column *”的类型不兼容
+     1>c:\users\gladious\desktop\compiler\compiler\compiler\define.c(577): warning C4133: “=”: 从“co *”到“Column *”的类型不兼容
+     1>c:\users\gladious\desktop\compiler\compiler\compiler\define.c(684): warning C4133: “=”: 从“char *”到“Value *”的类型不兼容
+     1>c:\users\gladious\desktop\compiler\compiler\compiler\define.c(688): warning C4133: “=”: 从“con *”到“Condition *”的类型不兼容
      1>c:\users\gladious\desktop\compiler\compiler\compiler\define.c(21): warning C4716: “delQuote”: 必须返回一个值
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Gladious\Desktop\compiler\compiler\compiler\compiler_vs\compiler_vs\Debug\compiler_vs.exe" /INCREMENTAL /NOLOGO ylmt.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Gladious\Desktop\compiler\compiler\compiler\compiler_vs\compiler_vs\Debug\compiler_vs.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Gladious\Desktop\compiler\compiler\compiler\compiler_vs\compiler_vs\Debug\compiler_vs.lib" /MACHINE:X86 Debug\define.obj
@@ -15,4 +27,4 @@
 
 生成成功。
 
-已用时间 00:00:00.51
+已用时间 00:00:00.50
