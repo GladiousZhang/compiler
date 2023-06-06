@@ -2,9 +2,19 @@
 #include "string.h"
 #include <sys/stat.h>
 #include "define.h"
+#include <ctype.h>
 
 //将枚举类型对应到字符串类型
-char *type_names[] = {"INT","CHAR"};
+char *type_names[] = {"int","char"};
+
+//输入字符转小写
+void toLowerCase(char *str) {
+	int i = 0;
+	while (str[i]) {
+		str[i] = tolower(str[i]);
+		i++;
+	}
+}
 
 //删除插入时的引号
 void * delQuote(char * str){
@@ -12,6 +22,20 @@ void * delQuote(char * str){
 	int j = 0;
 	for (; str[i] != '\0'; i++){
 		if (str[i] != '\''&&str[i] != '\"')
+		{
+			str[j++] = str[i];
+		}
+	}
+
+	str[j] = '\0';//字符串结束
+}
+
+//删除换行符
+void delNewLine(char * str){
+	int i = 0;
+	int j = 0;
+	for (; str[i] != '\0'; i++){
+		if (str[i] != '\n')
 		{
 			str[j++] = str[i];
 		}
@@ -35,7 +59,6 @@ int creatFile(char *str,char * place){
 		printf("\rUnable to Open File\n");
         return 0;
     }
-    
     
     fputs(str_temp,fp); //不存在相同的，写入文件
     fclose(fp); // 关闭文件
@@ -87,11 +110,11 @@ int createTable(char *table, struct Createfieldsdef *cfdef_var,char *dbname){
 		strcat(table_col, p->field);
 		strcat(table_col, " ");
 		char * type_str = type_to_string(cfdef_var->type);
-		if (strcmp(type_str, "INT") == 0){
-			strcat(table_col, "INT");
+		if (strcmp(type_str, "int") == 0){
+			strcat(table_col, "int");
 		}
 		else{
-			strcat(table_col, "CHAR");
+			strcat(table_col, "char");
 			strcat(table_col, " ");
 			sprintf(num, "%d", p->length);
 			strcat(table_col, num);
@@ -173,7 +196,6 @@ int createDatabase(char *dbname){
 		return 0;
 	}
 	//以下创建文件夹
-
 	 flag = mkdir(dirPath);
 	 if (-1==flag)
 	 {
@@ -405,15 +427,18 @@ void readInfo(Inf * info, struct Table *table,char * dbname){
 		}
 		char * str = (char *)malloc(sizeof(cmp));
 		strcpy(str, cmp);
+
 		while (strcmp(p->table, str) == 0)
 		{
 			q->table = (char *)malloc(sizeof(cmp));
 			strcpy(q->table, cmp);
+			delNewLine(q->table);
 			
 			cmp=strtok(NULL, " ");
 			cmp=strtok(NULL, " ");
 			q->col_name = (char *)malloc(sizeof(cmp));
 			strcpy(q->col_name, cmp);
+			delNewLine(q->col_name);
 			Inf *k = (Inf *)malloc(sizeof(Inf));
 			k->next = NULL;
 			q->next = k;
@@ -430,6 +455,7 @@ void readInfo(Inf * info, struct Table *table,char * dbname){
 			}
 		}
 		p = p->next;
+		fclose(tbfp);
 	}
 	Inf *k = info;
 	while (k->next != q){
@@ -464,6 +490,7 @@ void readInfo(Inf * info, struct Table *table,char * dbname){
 			}
 			val->value = (char *)malloc(sizeof(v));
 			strcpy(val->value, v);
+			delNewLine(val->value);
 			struct Value *v_temp = (struct Value *)malloc(sizeof(struct Value));
 			v_temp->value = NULL;
 			v_temp->next_value = NULL;
@@ -483,28 +510,41 @@ void readInfo(Inf * info, struct Table *table,char * dbname){
 		col_num++;
 	}
 	
-
 	free(dirPath);
 	
 }
 
-//删除一行中的回车符
-void delNewLine(char *str){
-	int i = 0;
-	int j = 0;
-	for (; str[i] != '\0'; i++){
-		if (str[i] != '\n')
-		{
-			str[j++] = str[i];
-		}
-	}
 
-	str[j] = '\0';//字符串结束
-}
 
 //按行显示表格内容
 void print(Inf * info,int * rec,int time){
+	Inf *disp;
+	
+	int flag = 0;
+	for (int row = 0; row < time&&flag==0; row++){
+		if (rec[row]==0)
+		{
+			continue;
+		}
+		else{
 
+			disp = info;
+			struct Value *p = disp->value;
+			printf("\r");
+			while (disp != NULL){
+				p = disp->value;
+				for (int j = 0; j < row; j++){
+					p = p->next_value;
+				}
+				printf("%s\t\t", p->value);
+				disp = disp->next;
+			}
+			printf("\n");
+			if (disp == NULL&&p->next_value == NULL){
+				flag = 1;
+			}
+		}
+	}
 }
 
 //查询表格
@@ -541,15 +581,15 @@ int selectRow(char * dbname,struct Table *table, struct Column * col, struct Con
 			k = k->next;
 		}
 		k->next = NULL;
-		
+		out = info;
 	}
 	else
 	{
 		Inf * q = info;
 		struct Column * colu = col;
-		while (q!=NULL&&((col->table!=NULL&&(strcmp(q->table, col->table) != 0 
-			|| strcmp(q->col_name, col->name) != 0)) || 
-			(col->table == NULL&&strcmp(q->col_name, col->name) != 0)))
+		while (q!=NULL&&((col->table!=NULL&&(strcmp(q->table, colu->table) != 0 
+			|| strcmp(q->col_name, colu->name) != 0)) || 
+			(colu->table == NULL&&strcmp(q->col_name, colu->name) != 0)))
 		{
 			q = q->next;
 		}
@@ -559,18 +599,19 @@ int selectRow(char * dbname,struct Table *table, struct Column * col, struct Con
 		strcpy(out->col_name, q->col_name);
 		strcpy(out->table, q->table);
 		out->value = q->value;
+		q = q->next;
 		Inf * l = (Inf *)malloc(sizeof(Inf));
 		out->next = l;
 		while (q != NULL&&colu!=NULL){
 			if (((colu->table != NULL && (strcmp(q->table, colu->table) == 0
 				&&strcmp(q->col_name, colu->name) == 0)) ||
-				(colu->table == NULL&&strcmp(q->col_name, colu->name) ==0))&&q!=info)
+				(colu->table == NULL&&strcmp(q->col_name, colu->name) ==0)))
 			{
 				l->col_name = (char *)malloc(sizeof(q->col_name));
 				l->table = (char *)malloc(sizeof(q->table));
 				strcpy(l->col_name, q->col_name);
 				strcpy(l->table, q->table);
-				out->value = q->value;
+				l->value = q->value;
 				Inf * j = (Inf *)malloc(sizeof(Inf));
 				l->next = j;
 				l = j;
@@ -590,147 +631,115 @@ int selectRow(char * dbname,struct Table *table, struct Column * col, struct Con
 	for (int i = 0; i < 50; i++){
 		rec[i] = 0;
 	}
-	//select SNAME from STUDENT where SAGE > 20 and SSEX = 1;
-	while (c != NULL){
-		Inf * p = info;
-
-		//找到的第一个与条件表名列名相同的
-		while (strcmp(p->col_name, c->left) != 0
-			&& (((c->table_left != NULL&&strcmp(c->table_left, p->table) != 0))
-			|| (c->table_left == NULL)))
-		{
-			p = p->next;
-		}
-		struct Value *pv = p->value;
-		int cnt = 0;
-		int rec_tp[50];
+	if (c == NULL){
 		for (int i = 0; i < 50; i++){
-			rec_tp[i] = 0;
+			rec[i] = 1;
 		}
-		if (!strcmp(c->oper, ">")){
-			while (pv!=NULL)
+	}
+	else
+	{
+
+		//select SNAME from STUDENT where SAGE > 20 and SSEX = 1;
+		while (c != NULL){
+			Inf * p = info;
+			//找到与条件表名列名相同的
+			while (strcmp(p->col_name, c->left) != 0
+				&& (((c->table_left != NULL&&strcmp(c->table_left, p->table) != 0))
+				|| (c->table_left == NULL)))
 			{
-				//不正确，应该按位相与，待修改
-				
-				if (atoi(pv->value) > atoi(con->right) && strcmp(con->rlt_to_last, "OR") == 0){
-					rec_tp[cnt] = 1;
-					for (int i = 0; i < 50; i++){
-						rec[i] = rec[i] | rec_tp[i];
-					}
-				}
-				else if (atoi(pv->value) > atoi(con->right) && strcmp(con->rlt_to_last, "AND") == 0)
-				{
-					rec_tp[cnt] = 1;
-					for (int i = 0; i < 50; i++){
-						rec[i] = rec[i] & rec_tp[i];
-					}
-				}
-				pv = pv->next_value;
+				p = p->next;
 			}
-		}
-		else if (!strcmp(c->oper, "<"))
-		{
-			while (pv != NULL)
+			struct Value *pv = p->value;
+			int cnt = 0;
+			int rec_tp[50];
+			for (int i = 0; i < 50; i++){
+				rec_tp[i] = 0;
+			}
+			if (!strcmp(c->oper, ">")){
+				while (pv != NULL)
+				{
+					//不正确，应该按位相与，待修改
+
+					if (atoi(pv->value) > atoi(c->right)){
+						rec_tp[cnt] = 1;
+
+					}
+					pv = pv->next_value;
+					cnt++;
+				}
+			}
+			else if (!strcmp(c->oper, "<"))
 			{
-				if (atoi(pv->value) < atoi(con->right) && strcmp(con->rlt_to_last, "OR") == 0){
-					rec[cnt] = 1;
-					for (int i = 0; i < 50; i++){
-						rec[i] = rec[i] | rec_tp[i];
-					}
-				}
-				else if (atoi(pv->value) < atoi(con->right) && strcmp(con->rlt_to_last, "AND") == 0)
+				while (pv != NULL)
 				{
-					rec[cnt] = rec[cnt] & 1;
-					for (int i = 0; i < 50; i++){
-						rec[i] = rec[i] & rec_tp[i];
+					if (atoi(pv->value) < atoi(c->right)){
+						rec_tp[cnt] = 1;
+
 					}
+					cnt++;
+					pv = pv->next_value;
 				}
-				pv = pv->next_value;
 			}
-		}
-		else if (!strcmp(c->oper, "=")){
-			while (pv != NULL)
+			else if (!strcmp(c->oper, "=")){
+				while (pv != NULL)
+				{
+					//select sname from student where sname = 'lisi';
+					if (strcmp(pv->value, c->right) == 0){
+						rec_tp[cnt] = 1;
+
+					}
+					cnt++;
+					pv = pv->next_value;
+				}
+			}
+			else if (!strcmp(c->oper, ">="))
 			{
-				if (strcmp(pv->value, con->right) == 0 && strcmp(con->rlt_to_last, "OR") == 0){
-					rec[cnt] = 1;
-					for (int i = 0; i < 50; i++){
-						rec[i] = rec[i] | rec_tp[i];
-					}
-				}
-				else if (strcmp(pv->value, con->right) == 0 && strcmp(con->rlt_to_last, "AND") == 0)
+				while (pv != NULL)
 				{
-					rec[cnt] = rec[cnt] & 1;
-					for (int i = 0; i < 50; i++){
-						rec[i] = rec[i] & rec_tp[i];
+					if (atoi(pv->value) >= atoi(c->right)){
+						rec_tp[cnt] = 1;
+
 					}
+					cnt++;
+					pv = pv->next_value;
 				}
-				pv = pv->next_value;
 			}
-		}
-		else if (!strcmp(c->oper, ">="))
-		{
-			while (pv != NULL)
+			else if (!strcmp(c->oper, "<=")){
+				while (pv != NULL)
+				{
+					if (atoi(pv->value) <= atoi(c->right)){
+						rec_tp[cnt] = 1;
+					}
+					cnt++;
+					pv = pv->next_value;
+				}
+			}
+			else if (!strcmp(c->oper, "!="))
 			{
-				if (atoi(pv->value) >= atoi(con->right) && strcmp(con->rlt_to_last, "OR") == 0){
-					rec[cnt] = 1;
-					for (int i = 0; i < 50; i++){
-						rec[i] = rec[i] | rec_tp[i];
-					}
-				}
-				else if (atoi(pv->value) >= atoi(con->right) && strcmp(con->rlt_to_last, "AND") == 0)
+				while (pv != NULL)
 				{
-					rec[cnt] = rec[cnt] & 1;
-					for (int i = 0; i < 50; i++){
-						rec[i] = rec[i] & rec_tp[i];
+					if (strcmp(pv->value, c->right) != 0){
+						rec_tp[cnt] = 1;
 					}
+					cnt++;
+					pv = pv->next_value;
 				}
-				pv = pv->next_value;
 			}
-		}
-		else if (!strcmp(c->oper, "<=")){
-			while (pv != NULL)
+			if (strcmp(c->rlt_to_last, "or") == 0){
+				for (int i = 0; i < 50; i++){
+					rec[i] = rec[i] | rec_tp[i];
+				}
+			}
+			else if (strcmp(c->rlt_to_last, "and") == 0)
 			{
-				if (atoi(pv->value) <= atoi(con->right) && strcmp(con->rlt_to_last, "OR") == 0){
-					rec[cnt] = 1;
-					for (int i = 0; i < 50; i++){
-						rec[i] = rec[i] |rec_tp[i];
-					}
+				for (int i = 0; i < 50; i++){
+					rec[i] = rec[i] & rec_tp[i];
 				}
-				else if (atoi(pv->value) <= atoi(con->right) && strcmp(con->rlt_to_last, "AND") == 0)
-				{
-					rec[cnt] = rec[cnt] & 1;
-					for (int i = 0; i < 50; i++){
-						rec[i] = rec[i] & rec_tp[i];
-					}
-				}
-				pv = pv->next_value;
 			}
+			c = c->next;
 		}
-		else if (!strcmp(c->oper, "!="))
-		{
-			while (pv != NULL)
-			{
-				if (strcmp(pv->value, con->right) == 0 && strcmp(con->rlt_to_last, "OR") == 0){
-					rec[cnt] = 1;
-					for (int i = 0; i < 50; i++){
-						rec[i] = rec[i] | rec_tp[i];
-					}
-				}
-				else if (strcmp(pv->value, con->right) == 0 && strcmp(con->rlt_to_last, "AND") == 0)
-				{
-					rec[cnt] = rec[cnt] & 1;
-					for (int i = 0; i < 50; i++){
-						rec[i] = rec[i] & rec_tp[i];
-					}
-				}
-				pv = pv->value;
-			}
-		}
-		cnt++;
-		c = c->next;
 	}
 	print(out, rec, 50);
-	free(dbname);
 	free(table);
 	free(col);
 	free(con);

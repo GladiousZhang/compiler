@@ -1,7 +1,7 @@
 /****************************************************************************
 *                     U N R E G I S T E R E D   C O P Y
 * 
-* You are on day 53 of your 30 day trial period.
+* You are on day 54 of your 30 day trial period.
 * 
 * This file was produced by an UNREGISTERED COPY of Parser Generator. It is
 * for evaluation purposes only. If you continue to use Parser Generator 30
@@ -18,8 +18,8 @@
 * myparser.h
 * C header file generated from myparser.y.
 * 
-* Date: 06/05/23
-* Time: 11:22:31
+* Date: 06/06/23
+* Time: 13:54:53
 * 
 * AYACC Version: 2.07
 ****************************************************************************/
@@ -55,20 +55,20 @@ union tagYYSTYPE {
 extern YYSTYPE YYNEAR yylval;
 
 #define ID 257
-#define CHAR 258
-#define STRING 259
-#define AND 260
-#define OR 261
-#define OPERATOR 262
-#define INTEGER 263
-#define FLOAT 264
-#define CREATE 265
-#define DATABASE 266
-#define SHOW 267
-#define DATABASES 268
-#define DROP 269
-#define USE 270
-#define TABLE 271
+#define STRING 258
+#define AND 259
+#define OR 260
+#define OPERATOR 261
+#define INTEGER 262
+#define FLOAT 263
+#define CREATE 264
+#define DATABASE 265
+#define SHOW 266
+#define DATABASES 267
+#define DROP 268
+#define USE 269
+#define TABLE 270
+#define CHAR 271
 #define INT 272
 #define TABLES 273
 #define INSERT 274

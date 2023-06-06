@@ -82,3 +82,5 @@ int createDatabase(char *dbname);
 int isDB(char *dbname);
 int insertTable(char * table, struct Insertvalues *insert,char * dbname);
 int selectRow(char * dbname,struct Table *table, struct Column * col, struct Condition * con);
+void toLowerCase(char * str);
+void * delQuote(char * str);

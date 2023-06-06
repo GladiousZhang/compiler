@@ -1,2 +1,7 @@
-ZHANGSAN 22 1
-lisi 19 0
+zhangsan 22 1
+lisi 21 1
+lisi 23 0
+wangwu 21 NULL
+zhaoliu 22 1
+xiaobai 23 0
+xiaohei 19 0

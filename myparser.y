@@ -40,10 +40,10 @@ char *dbname=NULL;
 %nonterm <col> fields_star table_fields table_field comp_left comp_right
 %nonterm <con> condition conditions
 %nonterm <tab> tables
-%term <yych> ID CHAR STRING AND OR OPERATOR
+%term <yych> ID STRING AND OR OPERATOR
 %term <int_num>INTEGER
 %term <f_num> FLOAT
-%token ID,CREATE,DATABASE,INTEGER,FLOAT,STRING
+%token ID,CREATE,DATABASE,INTEGER,FLOAT
 %token SHOW,DATABASES,DROP,USE,TABLE,CHAR
 %token INT,TABLES,INSERT,INTO,VALUES,SELECT
 %token FROM,WHERE,DELETE,UPDATE,SET
@@ -107,10 +107,12 @@ char *dbname=NULL;
 	createtablesql:CREATE TABLE table '('fieldsdefinition')'';'{
 						$$ = (struct Createstruct *)malloc(sizeof(struct Createstruct));
 						memset($$,0,sizeof(struct Createstruct));
+						toLowerCase($3);
 						$$->table=$3;
 						$$->fdef=$5;
 				  };
 	table:ID{
+	toLowerCase($1);
 		$$=$1;
 	};
 	fieldsdefinition:fieldsdefinition','field_type{
@@ -131,12 +133,14 @@ char *dbname=NULL;
 	field_type:field type{
 		$$ = (struct Createfieldsdef *)malloc(sizeof(struct Createfieldsdef));
 		memset($$,0,sizeof(struct Createfieldsdef));
+		toLowerCase($1);
 		$$->field = $1;
 		$$->type = $2->col_type;
 		$$->length = $2->len;
 		$$->next_fdef=NULL;
 	};
 	field:ID{
+	toLowerCase($1);
 		$$ = $1;
 	};
 	type:CHAR '('INTEGER')'{
@@ -233,7 +237,7 @@ char *dbname=NULL;
 			  }
 			
 			  p->next = $3;
-			  $3->rlt_to_last = "AND";
+			  $3->rlt_to_last = "and";
 			  }
 			  | conditions OR conditions{
 			  $$=$1;
@@ -242,7 +246,7 @@ char *dbname=NULL;
 				p=p->next;
 			  }
 			  p->next = $3;
-			  $3->rlt_to_last = "OR";}
+			  $3->rlt_to_last = "or";}
 			  ;
 	condition: comp_left comp_op comp_right{
 		$$ = (struct Condition *)malloc(sizeof(struct Condition));
@@ -251,7 +255,7 @@ char *dbname=NULL;
 		$$->oper = $2;
 		$$->table_right = $3->table;
 		$$->right = $3->name;
-		$$->rlt_to_last="OR";
+		$$->rlt_to_last="or";
 		$$->next=NULL;
 	};
 	comp_left: table_field{
@@ -282,6 +286,8 @@ char *dbname=NULL;
 			  |STRING{
 				$$=(struct Column *)malloc(sizeof(struct Column));
 			  $$->table =NULL;
+			  delQuote($1);
+			  toLowerCase($1);
 			  $$->name=$1;
 			  }
 			  ;
@@ -360,6 +366,8 @@ char *dbname=NULL;
 				 }
 				 ;
 	insert_value: STRING{
+	toLowerCase($1);
+	delQuote($1);
 					$$ = $1;
 										//printf("\rÊ¶±ðSTRING\n");
 				}
@@ -391,16 +399,19 @@ char *dbname=NULL;
 	droptablesql: DROP TABLE table ';';
 	//USE
 	usesql:USE basename ';'{
+	toLowerCase($2);
 		$$= $2;
 	};
-	basename:ID;
+	basename:ID{
+	toLowerCase($1);
+	$$=$1;
+	};
 	//CREATEDATABASE
 	createdatabasesql:CREATE DATABASE basename ';'{
 		$$ = $3;
 	};
 	//DROPDATABASE
 	dropdatabasesql:DROP DATABASE basename ';'{
-		
 		dbname = NULL;
 	};
 %%
