@@ -30,7 +30,8 @@ char *dbname=NULL;
 	struct Condition * con; //选择的条件
 	struct Table * tab;//表格名称序列
 }
-%nonterm <yych> table field createdatabasesql basename usesql insert_value comp_op
+%nonterm <yych> table field createdatabasesql basename usesql insert_value comp_op dropdatabasesql
+%nonterm <yych> droptablesql
 %nonterm <c_type> type
 %nonterm <cfdef_var> fieldsdefinition field_type
 %nonterm <cs_var> createtablesql
@@ -81,10 +82,34 @@ char *dbname=NULL;
 			 |insertsql
 			 |deletesql{printf("\rDELETE\n");}
 			 |updatesql{printf("\rUPDATE\n");}
-			 |showtablesql{printf("\rSHOW TABLE\n");}
-			 |showdatabasessql{printf("\rSHOW DATABASES\n");}
-			 |droptablesql{printf("DROP TABLE\n");}
-			 |dropdatabasesql{printf("\rDROP DATABASE\n");}
+			 |showtablesql{
+			 int isSuccess=showTB(dbname);
+				if(!isSuccess){
+					printf("Unable to Show Database\n");
+				}
+			 }
+			 |showdatabasessql{
+				int isSuccess=showDB();
+				if(!isSuccess){
+					printf("Unable to Show Database\n");
+				}
+			 }
+			 |droptablesql{
+			 int isSuccess=dropTB(dbname,$1);
+				if(isSuccess){
+					printf("\r%s Dropped\n",$1);
+				}
+				else
+					printf("\rFail to Drop %s\n",$1);
+			 }
+			 |dropdatabasesql{
+			 int isSuccess=dropDB($1);
+				if(isSuccess){
+					printf("\r%s Dropped\n",$1);
+				}
+				else
+					printf("\rFail to Drop %s\n",$1);
+			 }
 			 |usesql{
 				int isSuccess=isDB($1);
 				if(isSuccess){
@@ -396,7 +421,10 @@ char *dbname=NULL;
 	//SHOWDATABASES
 	showdatabasessql: SHOW DATABASES';';
 	//DROPTABLE
-	droptablesql: DROP TABLE table ';';
+	droptablesql: DROP TABLE table ';'{
+	toLowerCase($3);
+	$$=$3;
+	};
 	//USE
 	usesql:USE basename ';'{
 	toLowerCase($2);
@@ -412,6 +440,9 @@ char *dbname=NULL;
 	};
 	//DROPDATABASE
 	dropdatabasesql:DROP DATABASE basename ';'{
+	toLowerCase($3);
+	$$=$3;
+	if(dbname!=NULL&&strcmp($3,dbname)==0)
 		dbname = NULL;
 	};
 %%

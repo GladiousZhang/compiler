@@ -514,8 +514,6 @@ void readInfo(Inf * info, struct Table *table,char * dbname){
 	
 }
 
-
-
 //按行显示表格内容
 void print(Inf * info,int * rec,int time){
 	Inf *disp;
@@ -743,5 +741,161 @@ int selectRow(char * dbname,struct Table *table, struct Column * col, struct Con
 	free(table);
 	free(col);
 	free(con);
+	return 1;
+}
+
+//删除数据库
+int dropDB(char * dbname){
+		FILE *file, *temp;
+		char word[100], line[1000];
+		int found = 0;
+		file = fopen("./data/sys.dat", "r");
+		if (file == NULL) {
+			return 0;
+		}
+		temp = fopen("./data/temp.dat", "w");
+		if (temp == NULL) {
+			return 0;
+		}
+		while (fgets(line, sizeof(line), file)) {
+			if (strstr(line, dbname) != NULL) {
+				continue; // 跳过包含单词的行
+				found++;
+			}
+
+			// 将不包含单词的行写入临时文件
+			fputs(line, temp);
+		}
+		fclose(file);
+		fclose(temp);
+		if (found != 0){
+			return 0;
+		}
+		// 删除原文件
+		remove("./data/sys.dat");
+		// 重命名临时文件为原文件名
+		rename("./data/temp.dat", "./data/sys.dat");
+		char * dirPath = (char *)malloc(strlen("./data/") + strlen(dbname) + 1);
+		strcpy(dirPath, "./data/");
+		strcat(dirPath, dbname);
+		rmdir(dirPath);
+		return 1;
+
+}
+
+//删除表格
+int dropTB(char *dbname, char * table){
+	if (dbname == NULL){
+		printf("Database Undefined");
+		return 0;
+	}
+	FILE *file, *temp;
+	char word[100], line[1000];
+	int found = 0;
+	char * datPath = (char *)malloc(strlen("./data/") + strlen(dbname) +"/sys.dat"+ 1);
+	strcpy(datPath, "./data/");
+	strcat(datPath, dbname);
+	strcat(datPath, "/sys.dat");
+	file = fopen(datPath, "r");
+	if (file == NULL) {
+		return 0;
+	}
+	char * tmpPath = (char *)malloc(strlen("./data/") + strlen(dbname) + "/tmp.dat" + 1);
+	strcpy(tmpPath, "./data/");
+	strcat(tmpPath, dbname);
+	strcat(tmpPath, "/tmp.dat");
+	temp = fopen(tmpPath, "w");
+	if (temp == NULL) {
+		return 0;
+	}
+	while (fgets(line, sizeof(line), file)) {
+		if (strstr(line, table) != NULL) {
+			continue; // 跳过包含单词的行
+			found++;
+		}
+
+		// 将不包含单词的行写入临时文件
+		fputs(line, temp);
+	}
+	fclose(file);
+	fclose(temp);
+	if (found != 0){
+		return 0;
+	}
+	// 删除原文件
+	remove(datPath);
+	// 重命名临时文件为原文件名
+	rename(tmpPath, datPath);
+	//删除文件夹
+	char * txtPath = (char *)malloc(strlen("./data/") + strlen(dbname) +strlen(table)
+		+strlen(".txt")+ 2);
+	strcpy(txtPath, "./data/");
+	strcat(txtPath, dbname);
+	strcat(txtPath, "/");
+	strcat(txtPath, table);
+	strcat(txtPath, ".txt");
+	remove(txtPath);
+	return 1;
+}
+
+//显示所有的数据库名称
+int showDB(){
+	FILE *fp;
+	char buffer[1000];
+	fp = fopen("./data/sys.dat", "r");
+	if (fp == NULL) {
+		return 0;
+	}
+	memset(buffer, 0, sizeof(buffer));
+	// 读取文件全部内容并输出
+	fread(buffer, sizeof(char), 1000, fp);
+	printf("\r%s", buffer);
+	fclose(fp);
+	return 1;
+}
+
+//显示所有的表格名称
+int showTB(char * dbname){
+	FILE *fp;
+	char buffer[100][100]; // 存储文件内容
+	char first_words[10][100]; // 存储每行第一个单词
+	int num_lines = 0; // 文件行数
+	int num_first_words = 0; // 不重复第一个单词个数
+	char * datPath = (char *)malloc(strlen("./data/") + strlen(dbname) + "/sys.dat" + 1);
+	strcpy(datPath, "./data/");
+	strcat(datPath, dbname);
+	strcat(datPath, "/sys.dat");
+	// 打开文件
+	fp = fopen(datPath, "r");
+
+	// 检查文件是否打开成功
+	if (fp == NULL) {
+		printf("无法打开文件\n");
+		return 1;
+	}
+	while (num_lines < 100 && fgets(buffer[num_lines], 100, fp)) {
+		char *word = strtok(buffer[num_lines], " ");
+		if (word != NULL) {
+			// 存储第一个单词
+			strcpy(first_words[num_first_words], word);
+			num_first_words++;
+			// 判断是否重复
+			for (int i = 0; i < num_first_words - 1; i++) {
+				if (strcmp(first_words[i], word) == 0) {
+					num_first_words--;
+					break;
+				}
+			}
+		}
+
+		num_lines++;
+	}
+
+	// 输出不重复的第一个单词
+	for (int i = 0; i < num_first_words; i++) {
+		printf("\r%s\n", first_words[i]);
+	}
+	fclose(fp);
+
 	return 1;
 }

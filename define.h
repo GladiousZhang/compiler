@@ -84,3 +84,7 @@ int insertTable(char * table, struct Insertvalues *insert,char * dbname);
 int selectRow(char * dbname,struct Table *table, struct Column * col, struct Condition * con);
 void toLowerCase(char * str);
 void * delQuote(char * str);
+int dropDB(char * dbname);
+int dropTB(char *dbname, char * table);
+int showDB();
+int showTB(char * dbname);

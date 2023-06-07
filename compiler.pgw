@@ -1,25 +1,25 @@
 [Application]
-WindowPlacement=0 1 -32000 -32000 -1 -1 206 -5 1286 650
+WindowPlacement=2 3 -32000 -32000 -1 -1 206 -5 1286 650
 [Editor1]
 FileName=.\mylexer.l
 ReadOnly=0
-WindowPlacement1=0 1 -1 -1 -8 -31 110 149 627 705
+WindowPlacement1=0 1 -1 -1 -8 -31 0 0 1176 556
 WindowOrder1=4
-Position001=0 1
+Position001=0 145
 Cursor001=0 5 0 5
 SyntaxColouring=1
 TargetSyntaxColouring=3
 [Editor2]
 FileName=.\myparser.y
 ReadOnly=0
-WindowPlacement1=0 1 -1 -1 -8 -31 13 94 621 651
-WindowOrder1=2
-Position001=0 50
-Cursor001=22 67 22 67
+WindowPlacement1=0 1 -1 -1 -8 -31 91 132 1267 688
+WindowOrder1=1
+Position001=0 61
+Cursor001=0 64 16 63
 SyntaxColouring=2
 TargetSyntaxColouring=3
 [Project]
-WindowPlacement1=0 1 -1 -1 -8 -31 78 78 960 443
+WindowPlacement1=0 1 -1 -1 -8 -31 26 26 1202 582
 WindowOrder1=3
 [ProjectFolders1]
 FolderCount=2
@@ -28,7 +28,7 @@ FolderExpanded1=1
 FolderName2=Output Files
 FolderExpanded2=0
 [Output]
-WindowPlacement1=2 3 -1 -1 -8 -31 80 275 1256 831
-WindowOrder1=1
+WindowPlacement1=0 1 -1 -1 -8 -31 78 78 1254 634
+WindowOrder1=2
 Position1=0 1
 Cursor1=0 9 0 9

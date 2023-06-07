@@ -1,7 +1,7 @@
 #############################################################################
 #                     U N R E G I S T E R E D   C O P Y
 # 
-# You are on day 54 of your 30 day trial period.
+# You are on day 55 of your 30 day trial period.
 # 
 # This file was produced by an UNREGISTERED COPY of Parser Generator. It is
 # for evaluation purposes only. If you continue to use Parser Generator 30
@@ -18,8 +18,8 @@
 # myparser.v
 # YACC verbose file generated from myparser.y.
 # 
-# Date: 06/06/23
-# Time: 13:54:53
+# Date: 06/07/23
+# Time: 09:52:45
 # 
 # AYACC Version: 2.07
 #############################################################################
@@ -143,19 +143,19 @@ state 0
 	DELETE  shift 7
 	UPDATE  shift 8
 
-	createdatabasesql  goto 9
-	usesql  goto 10
-	insertsql  goto 11
-	createtablesql  goto 12
-	showdatabasessql  goto 13
-	selectsql  goto 14
-	statements  goto 15
-	deletesql  goto 16
-	statement  goto 17
-	showtablesql  goto 18
-	droptablesql  goto 19
+	usesql  goto 9
+	dropdatabasesql  goto 10
+	droptablesql  goto 11
+	createdatabasesql  goto 12
+	insertsql  goto 13
+	createtablesql  goto 14
+	statement  goto 15
+	selectsql  goto 16
+	showtablesql  goto 17
+	deletesql  goto 18
+	statements  goto 19
 	updatesql  goto 20
-	dropdatabasesql  goto 21
+	showdatabasessql  goto 21
 
 
 state 1
@@ -175,8 +175,8 @@ state 2
 
 
 state 3
-	dropdatabasesql : DROP . DATABASE basename ';'
 	droptablesql : DROP . TABLE table ';'
+	dropdatabasesql : DROP . DATABASE basename ';'
 
 	DATABASE  shift 26
 	TABLE  shift 27
@@ -191,8 +191,8 @@ state 4
 
 
 state 5
-	insertsql : INSERT . INTO table '(' insert_fields ')' VALUES '(' insert_values ')' ';'
 	insertsql : INSERT . INTO table VALUES '(' insert_values ')' ';'
+	insertsql : INSERT . INTO table '(' insert_fields ')' VALUES '(' insert_values ')' ';'
 
 	INTO  shift 30
 
@@ -206,9 +206,9 @@ state 6
 
 	table  goto 33
 	field  goto 34
-	table_field  goto 35
+	fields_star  goto 35
 	table_fields  goto 36
-	fields_star  goto 37
+	table_field  goto 37
 
 
 state 7
@@ -226,42 +226,66 @@ state 8
 
 
 state 9
-	statement : createdatabasesql .  (13)
-
-	.  reduce 13
-
-
-state 10
 	statement : usesql .  (12)
 
 	.  reduce 12
 
 
+state 10
+	statement : dropdatabasesql .  (11)
+
+	.  reduce 11
+
+
 state 11
+	statement : droptablesql .  (10)
+
+	.  reduce 10
+
+
+state 12
+	statement : createdatabasesql .  (13)
+
+	.  reduce 13
+
+
+state 13
 	statement : insertsql .  (5)
 
 	.  reduce 5
 
 
-state 12
+state 14
 	statement : createtablesql .  (3)
 
 	.  reduce 3
 
 
-state 13
-	statement : showdatabasessql .  (9)
+state 15
+	statements : statement .  (1)
 
-	.  reduce 9
+	.  reduce 1
 
 
-state 14
+state 16
 	statement : selectsql .  (4)
 
 	.  reduce 4
 
 
-state 15
+state 17
+	statement : showtablesql .  (8)
+
+	.  reduce 8
+
+
+state 18
+	statement : deletesql .  (6)
+
+	.  reduce 6
+
+
+state 19
 	$accept : statements . $end  (0)
 	statements : statements . statement
 
@@ -275,42 +299,18 @@ state 15
 	DELETE  shift 7
 	UPDATE  shift 8
 
-	createdatabasesql  goto 9
-	usesql  goto 10
-	insertsql  goto 11
-	createtablesql  goto 12
-	showdatabasessql  goto 13
-	selectsql  goto 14
-	deletesql  goto 16
+	usesql  goto 9
+	dropdatabasesql  goto 10
+	droptablesql  goto 11
+	createdatabasesql  goto 12
+	insertsql  goto 13
+	createtablesql  goto 14
 	statement  goto 41
-	showtablesql  goto 18
-	droptablesql  goto 19
+	selectsql  goto 16
+	showtablesql  goto 17
+	deletesql  goto 18
 	updatesql  goto 20
-	dropdatabasesql  goto 21
-
-
-state 16
-	statement : deletesql .  (6)
-
-	.  reduce 6
-
-
-state 17
-	statements : statement .  (1)
-
-	.  reduce 1
-
-
-state 18
-	statement : showtablesql .  (8)
-
-	.  reduce 8
-
-
-state 19
-	statement : droptablesql .  (10)
-
-	.  reduce 10
+	showdatabasessql  goto 21
 
 
 state 20
@@ -320,9 +320,9 @@ state 20
 
 
 state 21
-	statement : dropdatabasesql .  (11)
+	statement : showdatabasessql .  (9)
 
-	.  reduce 11
+	.  reduce 9
 
 
 state 22
@@ -382,8 +382,8 @@ state 29
 
 
 state 30
-	insertsql : INSERT INTO . table '(' insert_fields ')' VALUES '(' insert_values ')' ';'
 	insertsql : INSERT INTO . table VALUES '(' insert_values ')' ';'
+	insertsql : INSERT INTO . table '(' insert_fields ')' VALUES '(' insert_values ')' ';'
 
 	ID  shift 39
 
@@ -417,24 +417,24 @@ state 34
 
 
 state 35
-	table_fields : table_field .  (26)
+	selectsql : SELECT fields_star . FROM tables ';'
+	selectsql : SELECT fields_star . FROM tables WHERE conditions ';'
 
-	.  reduce 26
+	FROM  shift 51
 
 
 state 36
 	fields_star : table_fields .  (24)
 	table_fields : table_fields . ',' table_field
 
-	','  shift 51
+	','  shift 52
 	.  reduce 24
 
 
 state 37
-	selectsql : SELECT fields_star . FROM tables ';'
-	selectsql : SELECT fields_star . FROM tables WHERE conditions ';'
+	table_fields : table_field .  (26)
 
-	FROM  shift 52
+	.  reduce 26
 
 
 state 38
@@ -506,8 +506,8 @@ state 48
 
 
 state 49
-	insertsql : INSERT INTO table . '(' insert_fields ')' VALUES '(' insert_values ')' ';'
 	insertsql : INSERT INTO table . VALUES '(' insert_values ')' ';'
+	insertsql : INSERT INTO table . '(' insert_fields ')' VALUES '(' insert_values ')' ';'
 
 	'('  shift 59
 	VALUES  shift 60
@@ -522,23 +522,23 @@ state 50
 
 
 state 51
+	selectsql : SELECT fields_star FROM . tables ';'
+	selectsql : SELECT fields_star FROM . tables WHERE conditions ';'
+
+	ID  shift 39
+
+	table  goto 63
+	tables  goto 64
+
+
+state 52
 	table_fields : table_fields ',' . table_field
 
 	ID  shift 32
 
 	table  goto 33
 	field  goto 34
-	table_field  goto 63
-
-
-state 52
-	selectsql : SELECT fields_star FROM . tables ';'
-	selectsql : SELECT fields_star FROM . tables WHERE conditions ';'
-
-	ID  shift 39
-
-	table  goto 64
-	tables  goto 65
+	table_field  goto 65
 
 
 state 53
@@ -567,9 +567,9 @@ state 56
 
 	ID  shift 61
 
-	fieldsdefinition  goto 69
-	field_type  goto 70
-	field  goto 71
+	field  goto 69
+	fieldsdefinition  goto 70
+	field_type  goto 71
 
 
 state 57
@@ -612,25 +612,25 @@ state 62
 
 
 state 63
-	table_fields : table_fields ',' table_field .  (27)
-
-	.  reduce 27
-
-
-state 64
 	tables : table .  (30)
 
 	.  reduce 30
 
 
-state 65
+state 64
 	selectsql : SELECT fields_star FROM tables . ';'
-	tables : tables . ',' table
 	selectsql : SELECT fields_star FROM tables . WHERE conditions ';'
+	tables : tables . ',' table
 
 	','  shift 75
 	';'  shift 76
 	WHERE  shift 77
+
+
+state 65
+	table_fields : table_fields ',' table_field .  (27)
+
+	.  reduce 27
 
 
 state 66
@@ -641,10 +641,10 @@ state 66
 
 	table  goto 33
 	field  goto 34
-	table_field  goto 79
+	conditions  goto 79
 	condition  goto 80
-	conditions  goto 81
-	comp_left  goto 82
+	comp_left  goto 81
+	table_field  goto 82
 
 
 state 67
@@ -654,34 +654,34 @@ state 67
 
 
 state 68
-	updatesql : UPDATE table SET setinfo . WHERE conditions ';'
 	setinfo : setinfo . ',' field OPERATOR value
+	updatesql : UPDATE table SET setinfo . WHERE conditions ';'
 
 	','  shift 84
 	WHERE  shift 85
 
 
 state 69
-	createtablesql : CREATE TABLE table '(' fieldsdefinition . ')' ';'
-	fieldsdefinition : fieldsdefinition . ',' field_type
+	field_type : field . type
 
-	')'  shift 86
-	','  shift 87
+	CHAR  shift 86
+	INT  shift 87
+
+	type  goto 88
 
 
 state 70
-	fieldsdefinition : field_type .  (17)
+	createtablesql : CREATE TABLE table '(' fieldsdefinition . ')' ';'
+	fieldsdefinition : fieldsdefinition . ',' field_type
 
-	.  reduce 17
+	')'  shift 89
+	','  shift 90
 
 
 state 71
-	field_type : field . type
+	fieldsdefinition : field_type .  (17)
 
-	CHAR  shift 88
-	INT  shift 89
-
-	type  goto 90
+	.  reduce 17
 
 
 state 72
@@ -730,10 +730,10 @@ state 77
 
 	table  goto 33
 	field  goto 34
-	table_field  goto 79
-	condition  goto 80
 	conditions  goto 98
-	comp_left  goto 82
+	condition  goto 80
+	comp_left  goto 81
+	table_field  goto 82
 
 
 state 78
@@ -744,16 +744,20 @@ state 78
 
 	table  goto 33
 	field  goto 34
-	table_field  goto 79
-	condition  goto 80
 	conditions  goto 99
-	comp_left  goto 82
+	condition  goto 80
+	comp_left  goto 81
+	table_field  goto 82
 
 
 state 79
-	comp_left : table_field .  (37)
+	conditions : conditions . AND conditions
+	conditions : conditions . OR conditions
+	deletesql : DELETE FROM table WHERE conditions . ';'
 
-	.  reduce 37
+	';'  shift 100
+	AND  shift 101
+	OR  shift 102
 
 
 state 80
@@ -763,21 +767,17 @@ state 80
 
 
 state 81
-	conditions : conditions . AND conditions
-	deletesql : DELETE FROM table WHERE conditions . ';'
-	conditions : conditions . OR conditions
-
-	';'  shift 100
-	AND  shift 101
-	OR  shift 102
-
-
-state 82
 	condition : comp_left . comp_op comp_right
 
 	OPERATOR  shift 103
 
 	comp_op  goto 104
+
+
+state 82
+	comp_left : table_field .  (37)
+
+	.  reduce 37
 
 
 state 83
@@ -806,43 +806,43 @@ state 85
 
 	table  goto 33
 	field  goto 34
-	table_field  goto 79
-	condition  goto 80
 	conditions  goto 108
-	comp_left  goto 82
+	condition  goto 80
+	comp_left  goto 81
+	table_field  goto 82
 
 
 state 86
-	createtablesql : CREATE TABLE table '(' fieldsdefinition ')' . ';'
+	type : CHAR . '(' INTEGER ')'
 
-	';'  shift 109
+	'('  shift 109
 
 
 state 87
-	fieldsdefinition : fieldsdefinition ',' . field_type
-
-	ID  shift 61
-
-	field_type  goto 110
-	field  goto 71
-
-
-state 88
-	type : CHAR . '(' INTEGER ')'
-
-	'('  shift 111
-
-
-state 89
 	type : INT .  (21)
 
 	.  reduce 21
 
 
-state 90
+state 88
 	field_type : field type .  (18)
 
 	.  reduce 18
+
+
+state 89
+	createtablesql : CREATE TABLE table '(' fieldsdefinition ')' . ';'
+
+	';'  shift 110
+
+
+state 90
+	fieldsdefinition : fieldsdefinition ',' . field_type
+
+	ID  shift 61
+
+	field  goto 69
+	field_type  goto 111
 
 
 state 91
@@ -925,10 +925,10 @@ state 101
 
 	table  goto 33
 	field  goto 34
-	table_field  goto 79
-	condition  goto 80
 	conditions  goto 118
-	comp_left  goto 82
+	condition  goto 80
+	comp_left  goto 81
+	table_field  goto 82
 
 
 state 102
@@ -939,10 +939,10 @@ state 102
 
 	table  goto 33
 	field  goto 34
-	table_field  goto 79
-	condition  goto 80
 	conditions  goto 119
-	comp_left  goto 82
+	condition  goto 80
+	comp_left  goto 81
+	table_field  goto 82
 
 
 state 103
@@ -961,8 +961,8 @@ state 104
 
 	table  goto 33
 	field  goto 34
-	table_field  goto 123
-	comp_right  goto 124
+	comp_right  goto 123
+	table_field  goto 124
 
 
 state 105
@@ -984,9 +984,9 @@ state 107
 
 
 state 108
-	updatesql : UPDATE table SET setinfo WHERE conditions . ';'
 	conditions : conditions . AND conditions
 	conditions : conditions . OR conditions
+	updatesql : UPDATE table SET setinfo WHERE conditions . ';'
 
 	';'  shift 126
 	AND  shift 101
@@ -994,21 +994,21 @@ state 108
 
 
 state 109
+	type : CHAR '(' . INTEGER ')'
+
+	INTEGER  shift 127
+
+
+state 110
 	createtablesql : CREATE TABLE table '(' fieldsdefinition ')' ';' .  (14)
 
 	.  reduce 14
 
 
-state 110
+state 111
 	fieldsdefinition : fieldsdefinition ',' field_type .  (16)
 
 	.  reduce 16
-
-
-state 111
-	type : CHAR '(' . INTEGER ')'
-
-	INTEGER  shift 127
 
 
 state 112
@@ -1085,15 +1085,15 @@ state 122
 
 
 state 123
-	comp_right : table_field .  (38)
-
-	.  reduce 38
-
-
-state 124
 	condition : comp_left comp_op comp_right .  (36)
 
 	.  reduce 36
+
+
+state 124
+	comp_right : table_field .  (38)
+
+	.  reduce 38
 
 
 state 125
