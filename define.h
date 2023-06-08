@@ -39,8 +39,8 @@ struct Value
 //汇总插入的数据列名和内容
 struct Insertvalues
 {
-	struct Value * value;//列的名称
-	struct Field * field;//插入的值
+	struct Value * value;//插入的值
+	struct Field * field;//列的名称
 };
 
 //记录需要查询的列名
@@ -48,13 +48,13 @@ struct Column
 {
 	char * table;//可能会存在table.name的情况
 	char * name;//列名，或者为*
-	struct co * next;//下一个需要输出的列
+	struct Column * next;//下一个需要输出的列
 };
 
 //记录一串表格名称
 struct Table{
 	char * table;//表格名
-	struct ta * next;//下一个表格名
+	struct Table * next;//下一个表格名
 };
 
 //记录每一列的条件
@@ -65,7 +65,14 @@ typedef struct Condition{
 	char * right;//条件的右边，通常是数字或者列
 	char * table_right;//可能会存在table.name的情况
 	char * rlt_to_last;//与上一字段的关系，可能为AND可能为OR
-	struct con * next;
+	struct Condition * next;
+};
+
+//存储set table的内容
+struct SetInfo{
+	char * field;
+	char * value;
+	struct SetInfo * next;
 };
 
 //定义一个表中所有需要信息的结构体
@@ -88,3 +95,5 @@ int dropDB(char * dbname);
 int dropTB(char *dbname, char * table);
 int showDB();
 int showTB(char * dbname);
+int deleteTB(char * dbname, char *table, struct Condition * con);
+int updateTB(char * dbname, char * table, struct SetInfo * setinfo, struct Condition * con);

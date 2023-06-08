@@ -29,15 +29,17 @@ char *dbname=NULL;
 	struct Column * col; //选择的列名
 	struct Condition * con; //选择的条件
 	struct Table * tab;//表格名称序列
+	struct SetInfo * sif;//set选择的列
 }
 %nonterm <yych> table field createdatabasesql basename usesql insert_value comp_op dropdatabasesql
-%nonterm <yych> droptablesql
+%nonterm <yych> droptablesql value
 %nonterm <c_type> type
 %nonterm <cfdef_var> fieldsdefinition field_type
 %nonterm <cs_var> createtablesql
 %nonterm <isrt_vals> insertsql
 %nonterm <val> insert_values
 %nonterm <fld> insert_fields
+%nonterm <sif> setinfo
 %nonterm <col> fields_star table_fields table_field comp_left comp_right
 %nonterm <con> condition conditions
 %nonterm <tab> tables
@@ -80,8 +82,8 @@ char *dbname=NULL;
 			 }
 			 |selectsql
 			 |insertsql
-			 |deletesql{printf("\rDELETE\n");}
-			 |updatesql{printf("\rUPDATE\n");}
+			 |deletesql
+			 |updatesql
 			 |showtablesql{
 			 int isSuccess=showTB(dbname);
 				if(!isSuccess){
@@ -409,13 +411,47 @@ char *dbname=NULL;
 				}
 				;
 	//DELETE
-	deletesql:DELETE FROM table WHERE conditions ';';
+	deletesql:DELETE FROM table WHERE conditions ';'{
+		toLowerCase($3);
+		int isSuccess=deleteTB(dbname,$3,$5);
+				if(isSuccess){
+					printf("\rData Deleted\n");
+				}
+				else
+					printf("\rFail to Delete\n");
+	};
 	//UPDATE
-	updatesql:UPDATE table SET setinfo WHERE conditions ';';
-	setinfo:setinfo ',' field OPERATOR value
-		   |field OPERATOR value
+	updatesql:UPDATE table SET setinfo WHERE conditions ';'{
+		int isSuccess=updateTB(dbname,$2,$4,$6);
+				if(isSuccess){
+					printf("\rTable Updated\n");
+				}
+				else
+					printf("\rFail to Update\n");
+	};
+	setinfo:setinfo ',' field OPERATOR value{
+	$$=$1;
+			  struct SetInfo *p=$$;
+			  while(p->next!=NULL){
+				p=p->next;
+			  }
+			  struct SetInfo *q=(struct SetInfo *)malloc(sizeof(struct SetInfo));
+			  p->next=q;
+			  q->field = $3;
+			  q->value = $5;
+			  q->next = NULL;
+			  }
+		   |field OPERATOR value{
+		   
+		   $$=(struct SetInfo *)malloc(sizeof(struct SetInfo));
+		   $$->field = $1;
+		   $$ -> value = $3;
+		   $$->next=NULL;
+		   }
 		   ;
-	value:insert_value;
+	value:insert_value{
+		$$=$1;
+	};
 	//SHOWTABLE
 	showtablesql:SHOW TABLES';';
 	//SHOWDATABASES

@@ -17,7 +17,7 @@ void toLowerCase(char *str) {
 }
 
 //删除插入时的引号
-void * delQuote(char * str){
+void *delQuote(char * str){
 	int i = 0;
 	int j = 0;
 	for (; str[i] != '\0'; i++){
@@ -60,7 +60,7 @@ int creatFile(char *str,char * place){
         return 0;
     }
     
-    fputs(str_temp,fp); //不存在相同的，写入文件
+    fputs(str_temp,fp); //写入文件
     fclose(fp); // 关闭文件
     return 1;
 }
@@ -656,7 +656,6 @@ int selectRow(char * dbname,struct Table *table, struct Column * col, struct Con
 			if (!strcmp(c->oper, ">")){
 				while (pv != NULL)
 				{
-					//不正确，应该按位相与，待修改
 
 					if (atoi(pv->value) > atoi(c->right)){
 						rec_tp[cnt] = 1;
@@ -786,13 +785,13 @@ int dropDB(char * dbname){
 //删除表格
 int dropTB(char *dbname, char * table){
 	if (dbname == NULL){
-		printf("Database Undefined");
+		printf("\rDatabase Undefined\n");
 		return 0;
 	}
 	FILE *file, *temp;
 	char word[100], line[1000];
 	int found = 0;
-	char * datPath = (char *)malloc(strlen("./data/") + strlen(dbname) +"/sys.dat"+ 1);
+	char * datPath = (char *)malloc(strlen("./data/") + strlen(dbname) +strlen("/sys.dat")+ 1);
 	strcpy(datPath, "./data/");
 	strcat(datPath, dbname);
 	strcat(datPath, "/sys.dat");
@@ -800,7 +799,7 @@ int dropTB(char *dbname, char * table){
 	if (file == NULL) {
 		return 0;
 	}
-	char * tmpPath = (char *)malloc(strlen("./data/") + strlen(dbname) + "/tmp.dat" + 1);
+	char * tmpPath = (char *)malloc(strlen("./data/") + strlen(dbname) +strlen( "/tmp.dat" )+ 1);
 	strcpy(tmpPath, "./data/");
 	strcat(tmpPath, dbname);
 	strcat(tmpPath, "/tmp.dat");
@@ -856,12 +855,15 @@ int showDB(){
 
 //显示所有的表格名称
 int showTB(char * dbname){
+	if (dbname == NULL){
+		printf("\rDatabase Undefined\n");
+	}
 	FILE *fp;
 	char buffer[100][100]; // 存储文件内容
 	char first_words[10][100]; // 存储每行第一个单词
 	int num_lines = 0; // 文件行数
 	int num_first_words = 0; // 不重复第一个单词个数
-	char * datPath = (char *)malloc(strlen("./data/") + strlen(dbname) + "/sys.dat" + 1);
+	char * datPath = (char *)malloc(strlen("./data/") + strlen(dbname) + strlen("/sys.dat") + 1);
 	strcpy(datPath, "./data/");
 	strcat(datPath, dbname);
 	strcat(datPath, "/sys.dat");
@@ -870,8 +872,7 @@ int showTB(char * dbname){
 
 	// 检查文件是否打开成功
 	if (fp == NULL) {
-		printf("无法打开文件\n");
-		return 1;
+		return 0;
 	}
 	while (num_lines < 100 && fgets(buffer[num_lines], 100, fp)) {
 		char *word = strtok(buffer[num_lines], " ");
@@ -897,5 +898,354 @@ int showTB(char * dbname){
 	}
 	fclose(fp);
 
+	return 1;
+}
+
+//删除表格中符合条件的行
+int deleteTB(char * dbname, char * table, struct Condition * con){
+	if (dbname == NULL){
+		printf("\rDatabase Undefined\n");
+		return 0;
+	}
+	Inf * info = (Inf *)malloc(sizeof(Inf));
+	struct Table * tab = (struct Table *)malloc(sizeof(struct Table));
+	tab->table = table;
+	tab->next = NULL;
+	readInfo(info, tab, dbname);
+	int rec[50];
+	struct Condition * p = con;
+	for (int i = 0; i < 50; i++){
+		rec[i] = 0;
+	}
+	while (p != NULL){
+		Inf * in = info;
+		while (strcmp(in->col_name,p->left)!=0)
+		{
+			in = in->next;
+		}
+		int cnt = 0;
+		int rec_tp[50];
+		for (int i = 0; i < 50; i++){
+			rec_tp[i] = 0;
+		}
+		struct Value * v = in->value;
+			if (!strcmp(p->oper, ">")){
+				while (v != NULL)
+				{
+
+					if (atoi(v->value) > atoi(p->right)){
+						rec_tp[cnt] = 1;
+
+					}
+					cnt++;
+					v=v->next_value;
+				}
+			}
+			else if (!strcmp(p->oper, "<"))
+			{
+				while (v != NULL)
+				{
+					if (atoi(v->value) < atoi(p->right)){
+						rec_tp[cnt] = 1;
+
+					}
+					cnt++;
+					v = v->next_value;
+				}
+			}
+			else if (!strcmp(p->oper, "=")){
+				while (v != NULL)
+				{
+					if (strcmp(v->value, p->right) == 0){
+						rec_tp[cnt] = 1;
+
+					}
+					cnt++;
+					v = v->next_value;
+				}
+			}
+			else if (!strcmp(p->oper, ">="))
+			{
+				while (v != NULL)
+				{
+					if (atoi(v->value) >= atoi(p->right)){
+						rec_tp[cnt] = 1;
+
+					}
+					cnt++;
+					v = v->next_value;
+				}
+			}
+			else if (!strcmp(p->oper, "<=")){
+				while (v != NULL)
+				{
+					if (atoi(v->value) <= atoi(p->right)){
+						rec_tp[cnt] = 1;
+					}
+					cnt++;
+					v = v->next_value;
+				}
+			}
+			else if (!strcmp(p->oper, "!="))
+			{
+				while (v != NULL)
+				{
+					if (strcmp(v->value, p->right) != 0){
+						rec_tp[cnt] = 1;
+					}
+					cnt++;
+					v = v->next_value;
+				}
+			}
+			if (strcmp(p->rlt_to_last, "or") == 0){
+				for (int i = 0; i < 50; i++){
+					rec[i] = rec[i] | rec_tp[i];
+				}
+			}
+			else if (strcmp(p->rlt_to_last, "and") == 0)
+			{
+				for (int i = 0; i < 50; i++){
+					rec[i] = rec[i] & rec_tp[i];
+				}
+			}
+		
+		p = p->next;
+	}
+	struct Value * head = (struct Value*)malloc(sizeof(struct Value));
+	head->next_value= info->value;
+
+	struct Value * q = head;
+	Inf * in = info;
+	while (in != NULL){
+		head->next_value = in->value;
+		q = head;
+		for (int i = 0; i < 50&&q!=NULL; i++){
+			if (rec[i]==1)
+			{
+				if (q->next_value != NULL&&q->next_value->next_value!=NULL)
+					q->next_value = q->next_value->next_value;
+				else
+					q->next_value = NULL;
+				continue;
+			}
+			q = q->next_value;
+		}
+		in->value = head->next_value;
+		in = in->next;
+	}
+	//以上筛选出所有保留下的数据
+	//以下实现写入操作
+	struct Value * wt = info->value;
+	char * txtPath = (char *)malloc(strlen("./data/") + strlen(dbname) + strlen("/temp.txt")+1);
+	strcpy(txtPath, "./data/");
+	strcat(txtPath, dbname);
+	strcat(txtPath, "/temp.txt");
+	int cnt = 0;
+	FILE * fp = fopen(txtPath, "w");
+	while (wt != NULL){
+		Inf * ip = info;
+		while (ip!=NULL)
+		{
+			struct Value * vp = ip->value;
+			for (int i = 0; i < cnt; i++)
+			{
+				vp=vp->next_value;
+			}
+			fputs(vp->value, fp);
+
+			ip = ip->next;
+			if (ip != NULL){
+				fputc(' ', fp);
+			}
+			else
+			{
+				fputc('\n', fp);
+			}
+		}
+		cnt++;
+		wt = wt->next_value;
+	}
+	fclose(fp);
+	char * init = (char *)malloc(strlen("./data/") + strlen(dbname) + strlen(".txt") + strlen(table) + 2);
+	strcpy(init, "./data/");
+	strcat(init, dbname);
+	strcat(init, "/");
+	strcat(init, table);
+	strcat(init, ".txt");
+	remove(init);
+	rename(txtPath, init);
+	return 1;
+	
+}
+
+//修改表格中满足条件的行
+int updateTB(char * dbname, char * table, struct SetInfo * setinfo, struct Condition * con){
+	if (dbname == NULL){
+		printf("\rDatabase Undefined\n");
+		return 0;
+	}
+	Inf * info = (Inf *)malloc(sizeof(Inf));
+	struct Table * tab = (struct Table *)malloc(sizeof(struct Table));
+	tab->table = table;
+	tab->next = NULL;
+	readInfo(info, tab, dbname);
+	int rec[50];
+	struct Condition * p = con;
+	for (int i = 0; i < 50; i++){
+		rec[i] = 0;
+	}
+	while (p != NULL){
+		Inf * in = info;
+		while (strcmp(in->col_name, p->left) != 0)
+		{
+			in = in->next;
+		}
+		int cnt = 0;
+		int rec_tp[50];
+		for (int i = 0; i < 50; i++){
+			rec_tp[i] = 0;
+		}
+		struct Value * v = in->value;
+		if (!strcmp(p->oper, ">")){
+			while (v != NULL)
+			{
+
+				if (atoi(v->value) > atoi(p->right)){
+					rec_tp[cnt] = 1;
+
+				}
+				cnt++;
+				v = v->next_value;
+			}
+		}
+		else if (!strcmp(p->oper, "<"))
+		{
+			while (v != NULL)
+			{
+				if (atoi(v->value) < atoi(p->right)){
+					rec_tp[cnt] = 1;
+
+				}
+				cnt++;
+				v = v->next_value;
+			}
+		}
+		else if (!strcmp(p->oper, "=")){
+			while (v != NULL)
+			{
+				if (strcmp(v->value, p->right) == 0){
+					rec_tp[cnt] = 1;
+
+				}
+				cnt++;
+				v = v->next_value;
+			}
+		}
+		else if (!strcmp(p->oper, ">="))
+		{
+			while (v != NULL)
+			{
+				if (atoi(v->value) >= atoi(p->right)){
+					rec_tp[cnt] = 1;
+
+				}
+				cnt++;
+				v = v->next_value;
+			}
+		}
+		else if (!strcmp(p->oper, "<=")){
+			while (v != NULL)
+			{
+				if (atoi(v->value) <= atoi(p->right)){
+					rec_tp[cnt] = 1;
+				}
+				cnt++;
+				v = v->next_value;
+			}
+		}
+		else if (!strcmp(p->oper, "!="))
+		{
+			while (v != NULL)
+			{
+				if (strcmp(v->value, p->right) != 0){
+					rec_tp[cnt] = 1;
+				}
+				cnt++;
+				v = v->next_value;
+			}
+		}
+		if (strcmp(p->rlt_to_last, "or") == 0){
+			for (int i = 0; i < 50; i++){
+				rec[i] = rec[i] | rec_tp[i];
+			}
+		}
+		else if (strcmp(p->rlt_to_last, "and") == 0)
+		{
+			for (int i = 0; i < 50; i++){
+				rec[i] = rec[i] & rec_tp[i];
+			}
+		}
+
+		p = p->next;
+	}
+	//以上提取出所有符合conditions的行
+	//以下模块对setinfo中的列进行操作
+	struct SetInfo * sp = setinfo;
+	while (sp != NULL){
+		Inf * ip = info;
+		while (strcmp(ip->col_name,sp->field)!=0)
+		{
+			ip = ip->next;
+		}
+		struct Value * vp = ip->value;
+		for (int i = 0; i < 50 && vp != NULL; i++){
+			if (rec[i] == 1){
+				vp->value = sp->value;
+			}
+			vp = vp->next_value;
+		}
+		sp = sp->next;
+	}
+
+	//以下模块实现将结构体写入文件
+	struct Value * wt = info->value;
+	char * txtPath = (char *)malloc(strlen("./data/") + strlen(dbname) + strlen("/temp.txt") + 1);
+	strcpy(txtPath, "./data/");
+	strcat(txtPath, dbname);
+	strcat(txtPath, "/temp.txt");
+	int cnt = 0;
+	FILE * fp = fopen(txtPath, "w");
+	while (wt != NULL){
+		Inf * ip = info;
+		while (ip != NULL)
+		{
+			struct Value * vp = ip->value;
+			for (int i = 0; i < cnt; i++)
+			{
+				vp = vp->next_value;
+			}
+			fputs(vp->value, fp);
+
+			ip = ip->next;
+			if (ip != NULL){
+				fputc(' ', fp);
+			}
+			else
+			{
+				fputc('\n', fp);
+			}
+		}
+		cnt++;
+		wt = wt->next_value;
+	}
+	fclose(fp);
+	char * init = (char *)malloc(strlen("./data/") + strlen(dbname) + strlen(".txt") + strlen(table) + 2);
+	strcpy(init, "./data/");
+	strcat(init, dbname);
+	strcat(init, "/");
+	strcat(init, table);
+	strcat(init, ".txt");
+	remove(init);
+	rename(txtPath, init);
 	return 1;
 }

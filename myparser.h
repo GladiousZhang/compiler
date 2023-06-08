@@ -1,7 +1,7 @@
 /****************************************************************************
 *                     U N R E G I S T E R E D   C O P Y
 * 
-* You are on day 55 of your 30 day trial period.
+* You are on day 56 of your 30 day trial period.
 * 
 * This file was produced by an UNREGISTERED COPY of Parser Generator. It is
 * for evaluation purposes only. If you continue to use Parser Generator 30
@@ -18,8 +18,8 @@
 * myparser.h
 * C header file generated from myparser.y.
 * 
-* Date: 06/07/23
-* Time: 09:52:45
+* Date: 06/08/23
+* Time: 10:45:22
 * 
 * AYACC Version: 2.07
 ****************************************************************************/
@@ -45,8 +45,9 @@ union tagYYSTYPE {
 	struct Column * col; //选择的列名
 	struct Condition * con; //选择的条件
 	struct Table * tab;//表格名称序列
+	struct SetInfo * sif;//set选择的列
 
-#line 50 "myparser.h"
+#line 51 "myparser.h"
 };
 
 #define YYSTYPE union tagYYSTYPE
@@ -80,11 +81,11 @@ extern YYSTYPE YYNEAR yylval;
 #define DELETE 280
 #define UPDATE 281
 #define SET 282
-#line 53 ".\\myparser.y"
+#line 55 ".\\myparser.y"
 
 #ifndef YYSTYPE
 #define YYSTYPE int
 #endif
 
-#line 90 "myparser.h"
+#line 91 "myparser.h"
 #endif

@@ -1,7 +1,7 @@
 /****************************************************************************
 *                     U N R E G I S T E R E D   C O P Y
 * 
-* You are on day 55 of your 30 day trial period.
+* You are on day 56 of your 30 day trial period.
 * 
 * This file was produced by an UNREGISTERED COPY of Parser Generator. It is
 * for evaluation purposes only. If you continue to use Parser Generator 30
@@ -18,8 +18,8 @@
 * myparser.c
 * C source file generated from myparser.y.
 * 
-* Date: 06/07/23
-* Time: 09:52:45
+* Date: 06/08/23
+* Time: 10:45:22
 * 
 * AYACC Version: 2.07
 ****************************************************************************/
@@ -175,7 +175,7 @@ int action;
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 70 ".\\myparser.y"
+#line 72 ".\\myparser.y"
 
 				//printf("Table name:%s Table field1:%s\n",$1->table,$1->fdef->field);
 				int isSuccess = 0;
@@ -198,9 +198,14 @@ int action;
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 83 ".\\myparser.y"
-printf("\rDELETE\n");
-#line 204 "myparser.c"
+#line 87 ".\\myparser.y"
+
+			 int isSuccess=showTB(dbname);
+				if(!isSuccess){
+					printf("Unable to Show Database\n");
+				}
+			 
+#line 209 "myparser.c"
 			}
 		}
 		break;
@@ -211,9 +216,14 @@ printf("\rDELETE\n");
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 84 ".\\myparser.y"
-printf("\rUPDATE\n");
-#line 217 "myparser.c"
+#line 93 ".\\myparser.y"
+
+				int isSuccess=showDB();
+				if(!isSuccess){
+					printf("Unable to Show Database\n");
+				}
+			 
+#line 227 "myparser.c"
 			}
 		}
 		break;
@@ -224,14 +234,16 @@ printf("\rUPDATE\n");
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 85 ".\\myparser.y"
+#line 99 ".\\myparser.y"
 
-			 int isSuccess=showTB(dbname);
-				if(!isSuccess){
-					printf("Unable to Show Database\n");
+			 int isSuccess=dropTB(dbname,yyattribute(1 - 1).yych);
+				if(isSuccess){
+					printf("\r%s Dropped\n",yyattribute(1 - 1).yych);
 				}
+				else
+					printf("\rFail to Drop %s\n",yyattribute(1 - 1).yych);
 			 
-#line 235 "myparser.c"
+#line 247 "myparser.c"
 			}
 		}
 		break;
@@ -242,14 +254,16 @@ printf("\rUPDATE\n");
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 91 ".\\myparser.y"
+#line 107 ".\\myparser.y"
 
-				int isSuccess=showDB();
-				if(!isSuccess){
-					printf("Unable to Show Database\n");
+			 int isSuccess=dropDB(yyattribute(1 - 1).yych);
+				if(isSuccess){
+					printf("\r%s Dropped\n",yyattribute(1 - 1).yych);
 				}
+				else
+					printf("\rFail to Drop %s\n",yyattribute(1 - 1).yych);
 			 
-#line 253 "myparser.c"
+#line 267 "myparser.c"
 			}
 		}
 		break;
@@ -260,16 +274,17 @@ printf("\rUPDATE\n");
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 97 ".\\myparser.y"
+#line 115 ".\\myparser.y"
 
-			 int isSuccess=dropTB(dbname,yyattribute(1 - 1).yych);
+				int isSuccess=isDB(yyattribute(1 - 1).yych);
 				if(isSuccess){
-					printf("\r%s Dropped\n",yyattribute(1 - 1).yych);
+					printf("\rUsing %s\n",yyattribute(1 - 1).yych);
+					dbname = yyattribute(1 - 1).yych;
 				}
 				else
-					printf("\rFail to Drop %s\n",yyattribute(1 - 1).yych);
+					printf("\rFail to Use %s\n",yyattribute(1 - 1).yych);
 			 
-#line 273 "myparser.c"
+#line 288 "myparser.c"
 			}
 		}
 		break;
@@ -280,37 +295,35 @@ printf("\rUPDATE\n");
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 105 ".\\myparser.y"
+#line 124 ".\\myparser.y"
 
-			 int isSuccess=dropDB(yyattribute(1 - 1).yych);
-				if(isSuccess){
-					printf("\r%s Dropped\n",yyattribute(1 - 1).yych);
-				}
+				int isSuccess = 0;
+				isSuccess = createDatabase(yyattribute(1 - 1).yych);
+				if(isSuccess)
+					printf("\rDatabase Created\n");
 				else
-					printf("\rFail to Drop %s\n",yyattribute(1 - 1).yych);
+					printf("\rFail to Create Database\n");
 			 
-#line 293 "myparser.c"
+#line 308 "myparser.c"
 			}
 		}
 		break;
 	case 7:
 		{
 #ifdef YYDEBUG
-			YYSTYPE YYFAR *yya[2];
-			yyinitdebug(yya, 2);
+			YYSTYPE YYFAR *yya[8];
+			yyinitdebug(yya, 8);
 #endif
 			{
-#line 113 ".\\myparser.y"
+#line 134 ".\\myparser.y"
 
-				int isSuccess=isDB(yyattribute(1 - 1).yych);
-				if(isSuccess){
-					printf("\rUsing %s\n",yyattribute(1 - 1).yych);
-					dbname = yyattribute(1 - 1).yych;
-				}
-				else
-					printf("\rFail to Use %s\n",yyattribute(1 - 1).yych);
-			 
-#line 314 "myparser.c"
+						yyval.cs_var = (struct Createstruct *)malloc(sizeof(struct Createstruct));
+						memset(yyval.cs_var,0,sizeof(struct Createstruct));
+						toLowerCase(yyattribute(3 - 7).yych);
+						yyval.cs_var->table=yyattribute(3 - 7).yych;
+						yyval.cs_var->fdef=yyattribute(5 - 7).cfdef_var;
+				  
+#line 327 "myparser.c"
 			}
 		}
 		break;
@@ -321,35 +334,33 @@ printf("\rUPDATE\n");
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 122 ".\\myparser.y"
+#line 141 ".\\myparser.y"
 
-				int isSuccess = 0;
-				isSuccess = createDatabase(yyattribute(1 - 1).yych);
-				if(isSuccess)
-					printf("\rDatabase Created\n");
-				else
-					printf("\rFail to Create Database\n");
-			 
-#line 334 "myparser.c"
+	toLowerCase(yyattribute(1 - 1).yych);
+		yyval.yych=yyattribute(1 - 1).yych;
+	
+#line 343 "myparser.c"
 			}
 		}
 		break;
 	case 9:
 		{
 #ifdef YYDEBUG
-			YYSTYPE YYFAR *yya[8];
-			yyinitdebug(yya, 8);
+			YYSTYPE YYFAR *yya[4];
+			yyinitdebug(yya, 4);
 #endif
 			{
-#line 132 ".\\myparser.y"
+#line 145 ".\\myparser.y"
 
-						yyval.cs_var = (struct Createstruct *)malloc(sizeof(struct Createstruct));
-						memset(yyval.cs_var,0,sizeof(struct Createstruct));
-						toLowerCase(yyattribute(3 - 7).yych);
-						yyval.cs_var->table=yyattribute(3 - 7).yych;
-						yyval.cs_var->fdef=yyattribute(5 - 7).cfdef_var;
-				  
-#line 353 "myparser.c"
+						yyval.cfdef_var = (struct Createfieldsdef *)malloc(sizeof(struct Createfieldsdef));
+						yyval.cfdef_var = yyattribute(1 - 3).cfdef_var;
+						struct Createfieldsdef *p=yyval.cfdef_var;
+						while(p->next_fdef!=NULL){
+							p=p->next_fdef;
+						}
+						p->next_fdef=yyattribute(3 - 3).cfdef_var;
+					
+#line 364 "myparser.c"
 			}
 		}
 		break;
@@ -360,33 +371,34 @@ printf("\rUPDATE\n");
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 139 ".\\myparser.y"
+#line 154 ".\\myparser.y"
 
-	toLowerCase(yyattribute(1 - 1).yych);
-		yyval.yych=yyattribute(1 - 1).yych;
-	
-#line 369 "myparser.c"
+						yyval.cfdef_var = (struct Createfieldsdef *)malloc(sizeof(struct Createfieldsdef));
+						
+						yyval.cfdef_var=yyattribute(1 - 1).cfdef_var;
+					
+#line 381 "myparser.c"
 			}
 		}
 		break;
 	case 11:
 		{
 #ifdef YYDEBUG
-			YYSTYPE YYFAR *yya[4];
-			yyinitdebug(yya, 4);
+			YYSTYPE YYFAR *yya[3];
+			yyinitdebug(yya, 3);
 #endif
 			{
-#line 143 ".\\myparser.y"
+#line 160 ".\\myparser.y"
 
-						yyval.cfdef_var = (struct Createfieldsdef *)malloc(sizeof(struct Createfieldsdef));
-						yyval.cfdef_var = yyattribute(1 - 3).cfdef_var;
-						struct Createfieldsdef *p=yyval.cfdef_var;
-						while(p->next_fdef!=NULL){
-							p=p->next_fdef;
-						}
-						p->next_fdef=yyattribute(3 - 3).cfdef_var;
-					
-#line 390 "myparser.c"
+		yyval.cfdef_var = (struct Createfieldsdef *)malloc(sizeof(struct Createfieldsdef));
+		memset(yyval.cfdef_var,0,sizeof(struct Createfieldsdef));
+		toLowerCase(yyattribute(1 - 2).yych);
+		yyval.cfdef_var->field = yyattribute(1 - 2).yych;
+		yyval.cfdef_var->type = yyattribute(2 - 2).c_type->col_type;
+		yyval.cfdef_var->length = yyattribute(2 - 2).c_type->len;
+		yyval.cfdef_var->next_fdef=NULL;
+	
+#line 402 "myparser.c"
 			}
 		}
 		break;
@@ -397,34 +409,29 @@ printf("\rUPDATE\n");
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 152 ".\\myparser.y"
+#line 169 ".\\myparser.y"
 
-						yyval.cfdef_var = (struct Createfieldsdef *)malloc(sizeof(struct Createfieldsdef));
-						
-						yyval.cfdef_var=yyattribute(1 - 1).cfdef_var;
-					
-#line 407 "myparser.c"
+	toLowerCase(yyattribute(1 - 1).yych);
+		yyval.yych = yyattribute(1 - 1).yych;
+	
+#line 418 "myparser.c"
 			}
 		}
 		break;
 	case 13:
 		{
 #ifdef YYDEBUG
-			YYSTYPE YYFAR *yya[3];
-			yyinitdebug(yya, 3);
+			YYSTYPE YYFAR *yya[5];
+			yyinitdebug(yya, 5);
 #endif
 			{
-#line 158 ".\\myparser.y"
+#line 173 ".\\myparser.y"
 
-		yyval.cfdef_var = (struct Createfieldsdef *)malloc(sizeof(struct Createfieldsdef));
-		memset(yyval.cfdef_var,0,sizeof(struct Createfieldsdef));
-		toLowerCase(yyattribute(1 - 2).yych);
-		yyval.cfdef_var->field = yyattribute(1 - 2).yych;
-		yyval.cfdef_var->type = yyattribute(2 - 2).c_type->col_type;
-		yyval.cfdef_var->length = yyattribute(2 - 2).c_type->len;
-		yyval.cfdef_var->next_fdef=NULL;
-	
-#line 428 "myparser.c"
+			yyval.c_type = (struct Col_type *)malloc(sizeof(struct Col_type));
+			yyval.c_type->col_type = enum_CHAR;
+			yyval.c_type->len = yyattribute(3 - 4).int_num;
+		
+#line 435 "myparser.c"
 			}
 		}
 		break;
@@ -435,82 +442,82 @@ printf("\rUPDATE\n");
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 167 ".\\myparser.y"
+#line 178 ".\\myparser.y"
 
-	toLowerCase(yyattribute(1 - 1).yych);
-		yyval.yych = yyattribute(1 - 1).yych;
-	
-#line 444 "myparser.c"
+			yyval.c_type = (struct Col_type *)malloc(sizeof(struct Col_type));
+			yyval.c_type->col_type = enum_INT;
+			yyval.c_type->len = 0;
+		
+#line 452 "myparser.c"
 			}
 		}
 		break;
 	case 15:
 		{
 #ifdef YYDEBUG
-			YYSTYPE YYFAR *yya[5];
-			yyinitdebug(yya, 5);
-#endif
-			{
-#line 171 ".\\myparser.y"
-
-			yyval.c_type = (struct Col_type *)malloc(sizeof(struct Col_type));
-			yyval.c_type->col_type = enum_CHAR;
-			yyval.c_type->len = yyattribute(3 - 4).int_num;
-		
-#line 461 "myparser.c"
-			}
-		}
-		break;
-	case 16:
-		{
-#ifdef YYDEBUG
-			YYSTYPE YYFAR *yya[2];
-			yyinitdebug(yya, 2);
-#endif
-			{
-#line 176 ".\\myparser.y"
-
-			yyval.c_type = (struct Col_type *)malloc(sizeof(struct Col_type));
-			yyval.c_type->col_type = enum_INT;
-			yyval.c_type->len = 0;
-		
-#line 478 "myparser.c"
-			}
-		}
-		break;
-	case 17:
-		{
-#ifdef YYDEBUG
 			YYSTYPE YYFAR *yya[6];
 			yyinitdebug(yya, 6);
 #endif
 			{
-#line 183 ".\\myparser.y"
+#line 185 ".\\myparser.y"
 
 				int isSuccess = 0;
 				isSuccess = selectRow(dbname,yyattribute(4 - 5).tab,yyattribute(2 - 5).col,NULL);
 				if(!isSuccess)
 					printf("\rFail to Select\n");
 			 
-#line 496 "myparser.c"
+#line 470 "myparser.c"
 			}
 		}
 		break;
-	case 18:
+	case 16:
 		{
 #ifdef YYDEBUG
 			YYSTYPE YYFAR *yya[8];
 			yyinitdebug(yya, 8);
 #endif
 			{
-#line 189 ".\\myparser.y"
+#line 191 ".\\myparser.y"
 
 				int isSuccess = 0;
 				isSuccess = selectRow(dbname,yyattribute(4 - 7).tab,yyattribute(2 - 7).col,yyattribute(6 - 7).con);
 				if(!isSuccess)
 					printf("\rFail to Select\n");
 			 
-#line 514 "myparser.c"
+#line 488 "myparser.c"
+			}
+		}
+		break;
+	case 17:
+		{
+#ifdef YYDEBUG
+			YYSTYPE YYFAR *yya[2];
+			yyinitdebug(yya, 2);
+#endif
+			{
+#line 198 ".\\myparser.y"
+
+					yyval.col =yyattribute(1 - 1).col;
+			   
+#line 503 "myparser.c"
+			}
+		}
+		break;
+	case 18:
+		{
+#ifdef YYDEBUG
+			YYSTYPE YYFAR *yya[2];
+			yyinitdebug(yya, 2);
+#endif
+			{
+#line 201 ".\\myparser.y"
+
+				yyval.col = (struct Column *)malloc (sizeof(struct Column));
+				yyval.col->table = NULL;
+				yyval.col->name ="*";
+				yyval.col->next = NULL;
+			   
+#line 521 "myparser.c"
 			}
 		}
 		break;
@@ -521,29 +528,33 @@ printf("\rUPDATE\n");
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 196 ".\\myparser.y"
+#line 208 ".\\myparser.y"
 
-					yyval.col =yyattribute(1 - 1).col;
-			   
-#line 529 "myparser.c"
+	yyval.col = (struct Column *)malloc (sizeof(struct Column));
+					yyval.col = yyattribute(1 - 1).col;
+				
+#line 537 "myparser.c"
 			}
 		}
 		break;
 	case 20:
 		{
 #ifdef YYDEBUG
-			YYSTYPE YYFAR *yya[2];
-			yyinitdebug(yya, 2);
+			YYSTYPE YYFAR *yya[4];
+			yyinitdebug(yya, 4);
 #endif
 			{
-#line 199 ".\\myparser.y"
+#line 212 ".\\myparser.y"
 
 				yyval.col = (struct Column *)malloc (sizeof(struct Column));
-				yyval.col->table = NULL;
-				yyval.col->name ="*";
-				yyval.col->next = NULL;
-			   
-#line 547 "myparser.c"
+						yyval.col = yyattribute(1 - 3).col;
+						struct Column *p=yyval.col;
+						while(p->next!=NULL){
+							p=p->next;
+						}
+						p->next=yyattribute(3 - 3).col;
+				
+#line 558 "myparser.c"
 			}
 		}
 		break;
@@ -554,12 +565,14 @@ printf("\rUPDATE\n");
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 206 ".\\myparser.y"
+#line 222 ".\\myparser.y"
 
-	yyval.col = (struct Column *)malloc (sizeof(struct Column));
-					yyval.col = yyattribute(1 - 1).col;
-				
-#line 563 "myparser.c"
+					yyval.col = (struct Column *)malloc (sizeof(struct Column));
+					yyval.col->table = NULL;
+					yyval.col->name = yyattribute(1 - 1).yych;
+					yyval.col->next = NULL;
+			   
+#line 576 "myparser.c"
 			}
 		}
 		break;
@@ -570,17 +583,14 @@ printf("\rUPDATE\n");
 			yyinitdebug(yya, 4);
 #endif
 			{
-#line 210 ".\\myparser.y"
+#line 228 ".\\myparser.y"
 
-				yyval.col = (struct Column *)malloc (sizeof(struct Column));
-						yyval.col = yyattribute(1 - 3).col;
-						struct Column *p=yyval.col;
-						while(p->next!=NULL){
-							p=p->next;
-						}
-						p->next=yyattribute(3 - 3).col;
-				
-#line 584 "myparser.c"
+			   yyval.col = (struct Column *)malloc (sizeof(struct Column));
+					yyval.col->table = yyattribute(1 - 3).yych;
+					yyval.col->name = yyattribute(3 - 3).yych;
+					yyval.col->next = NULL;
+			   
+#line 594 "myparser.c"
 			}
 		}
 		break;
@@ -591,14 +601,13 @@ printf("\rUPDATE\n");
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 220 ".\\myparser.y"
+#line 235 ".\\myparser.y"
 
-					yyval.col = (struct Column *)malloc (sizeof(struct Column));
-					yyval.col->table = NULL;
-					yyval.col->name = yyattribute(1 - 1).yych;
-					yyval.col->next = NULL;
-			   
-#line 602 "myparser.c"
+			yyval.tab = (struct Table *)malloc(sizeof(struct Table));
+			yyval.tab->table = yyattribute(1 - 1).yych;
+			yyval.tab->next = NULL;
+		  
+#line 611 "myparser.c"
 			}
 		}
 		break;
@@ -609,42 +618,7 @@ printf("\rUPDATE\n");
 			yyinitdebug(yya, 4);
 #endif
 			{
-#line 226 ".\\myparser.y"
-
-			   yyval.col = (struct Column *)malloc (sizeof(struct Column));
-					yyval.col->table = yyattribute(1 - 3).yych;
-					yyval.col->name = yyattribute(3 - 3).yych;
-					yyval.col->next = NULL;
-			   
-#line 620 "myparser.c"
-			}
-		}
-		break;
-	case 25:
-		{
-#ifdef YYDEBUG
-			YYSTYPE YYFAR *yya[2];
-			yyinitdebug(yya, 2);
-#endif
-			{
-#line 233 ".\\myparser.y"
-
-			yyval.tab = (struct Table *)malloc(sizeof(struct Table));
-			yyval.tab->table = yyattribute(1 - 1).yych;
-			yyval.tab->next = NULL;
-		  
-#line 637 "myparser.c"
-			}
-		}
-		break;
-	case 26:
-		{
-#ifdef YYDEBUG
-			YYSTYPE YYFAR *yya[4];
-			yyinitdebug(yya, 4);
-#endif
-			{
-#line 238 ".\\myparser.y"
+#line 240 ".\\myparser.y"
 
 		  yyval.tab = (struct Table *)malloc(sizeof(struct Table));
 			yyval.tab = yyattribute(1 - 3).tab;
@@ -657,48 +631,48 @@ printf("\rUPDATE\n");
 						q->next=NULL;
 						p->next=q;
 		  
-#line 661 "myparser.c"
+#line 635 "myparser.c"
 			}
 		}
 		break;
-	case 27:
+	case 25:
 		{
 #ifdef YYDEBUG
 			YYSTYPE YYFAR *yya[2];
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 251 ".\\myparser.y"
+#line 253 ".\\myparser.y"
 
 	yyval.con =yyattribute(1 - 1).con;
 	
-#line 676 "myparser.c"
+#line 650 "myparser.c"
 			}
 		}
 		break;
-	case 28:
+	case 26:
 		{
 #ifdef YYDEBUG
 			YYSTYPE YYFAR *yya[4];
 			yyinitdebug(yya, 4);
 #endif
 			{
-#line 254 ".\\myparser.y"
+#line 256 ".\\myparser.y"
 
 				yyval.con=yyattribute(2 - 3).con;
 			  
-#line 691 "myparser.c"
+#line 665 "myparser.c"
 			}
 		}
 		break;
-	case 29:
+	case 27:
 		{
 #ifdef YYDEBUG
 			YYSTYPE YYFAR *yya[4];
 			yyinitdebug(yya, 4);
 #endif
 			{
-#line 257 ".\\myparser.y"
+#line 259 ".\\myparser.y"
 
 			  yyval.con=yyattribute(1 - 3).con;
 			  struct Condition *p=yyval.con;
@@ -709,18 +683,18 @@ printf("\rUPDATE\n");
 			  p->next = yyattribute(3 - 3).con;
 			  yyattribute(3 - 3).con->rlt_to_last = "and";
 			  
-#line 713 "myparser.c"
+#line 687 "myparser.c"
 			}
 		}
 		break;
-	case 30:
+	case 28:
 		{
 #ifdef YYDEBUG
 			YYSTYPE YYFAR *yya[4];
 			yyinitdebug(yya, 4);
 #endif
 			{
-#line 267 ".\\myparser.y"
+#line 269 ".\\myparser.y"
 
 			  yyval.con=yyattribute(1 - 3).con;
 			  struct Condition *p=yyval.con;
@@ -729,18 +703,18 @@ printf("\rUPDATE\n");
 			  }
 			  p->next = yyattribute(3 - 3).con;
 			  yyattribute(3 - 3).con->rlt_to_last = "or";
-#line 733 "myparser.c"
+#line 707 "myparser.c"
 			}
 		}
 		break;
-	case 31:
+	case 29:
 		{
 #ifdef YYDEBUG
 			YYSTYPE YYFAR *yya[4];
 			yyinitdebug(yya, 4);
 #endif
 			{
-#line 276 ".\\myparser.y"
+#line 278 ".\\myparser.y"
 
 		yyval.con = (struct Condition *)malloc(sizeof(struct Condition));
 		yyval.con->table_left = yyattribute(1 - 3).col->table;
@@ -751,7 +725,37 @@ printf("\rUPDATE\n");
 		yyval.con->rlt_to_last="or";
 		yyval.con->next=NULL;
 	
-#line 755 "myparser.c"
+#line 729 "myparser.c"
+			}
+		}
+		break;
+	case 30:
+		{
+#ifdef YYDEBUG
+			YYSTYPE YYFAR *yya[2];
+			yyinitdebug(yya, 2);
+#endif
+			{
+#line 288 ".\\myparser.y"
+
+		yyval.col=yyattribute(1 - 1).col;
+	
+#line 744 "myparser.c"
+			}
+		}
+		break;
+	case 31:
+		{
+#ifdef YYDEBUG
+			YYSTYPE YYFAR *yya[2];
+			yyinitdebug(yya, 2);
+#endif
+			{
+#line 291 ".\\myparser.y"
+
+		yyval.col=yyattribute(1 - 1).col;
+	
+#line 759 "myparser.c"
 			}
 		}
 		break;
@@ -762,37 +766,7 @@ printf("\rUPDATE\n");
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 286 ".\\myparser.y"
-
-		yyval.col=yyattribute(1 - 1).col;
-	
-#line 770 "myparser.c"
-			}
-		}
-		break;
-	case 33:
-		{
-#ifdef YYDEBUG
-			YYSTYPE YYFAR *yya[2];
-			yyinitdebug(yya, 2);
-#endif
-			{
-#line 289 ".\\myparser.y"
-
-		yyval.col=yyattribute(1 - 1).col;
-	
-#line 785 "myparser.c"
-			}
-		}
-		break;
-	case 34:
-		{
-#ifdef YYDEBUG
-			YYSTYPE YYFAR *yya[2];
-			yyinitdebug(yya, 2);
-#endif
-			{
-#line 292 ".\\myparser.y"
+#line 294 ".\\myparser.y"
 
 			  yyval.col=(struct Column *)malloc(sizeof(struct Column));
 			  yyval.col->table =NULL;
@@ -805,7 +779,45 @@ printf("\rUPDATE\n");
 					yyval.col->name=(char *)malloc(cnt+1);
 					sprintf(yyval.col->name,"%d",yyattribute(1 - 1).int_num);
 			  
-#line 809 "myparser.c"
+#line 783 "myparser.c"
+			}
+		}
+		break;
+	case 33:
+		{
+#ifdef YYDEBUG
+			YYSTYPE YYFAR *yya[2];
+			yyinitdebug(yya, 2);
+#endif
+			{
+#line 306 ".\\myparser.y"
+
+			  yyval.col=(struct Column *)malloc(sizeof(struct Column));
+			  yyval.col->table =NULL;
+			  		yyval.col->name=(char *)malloc(10);
+					sprintf(yyval.col->name,"%f",yyattribute(1 - 1).f_num);
+			  
+			  
+#line 802 "myparser.c"
+			}
+		}
+		break;
+	case 34:
+		{
+#ifdef YYDEBUG
+			YYSTYPE YYFAR *yya[2];
+			yyinitdebug(yya, 2);
+#endif
+			{
+#line 313 ".\\myparser.y"
+
+				yyval.col=(struct Column *)malloc(sizeof(struct Column));
+			  yyval.col->table =NULL;
+			  delQuote(yyattribute(1 - 1).yych);
+			  toLowerCase(yyattribute(1 - 1).yych);
+			  yyval.col->name=yyattribute(1 - 1).yych;
+			  
+#line 821 "myparser.c"
 			}
 		}
 		break;
@@ -816,60 +828,22 @@ printf("\rUPDATE\n");
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 304 ".\\myparser.y"
+#line 321 ".\\myparser.y"
 
-			  yyval.col=(struct Column *)malloc(sizeof(struct Column));
-			  yyval.col->table =NULL;
-			  		yyval.col->name=(char *)malloc(10);
-					sprintf(yyval.col->name,"%f",yyattribute(1 - 1).f_num);
-			  
-			  
-#line 828 "myparser.c"
+	yyval.yych=yyattribute(1 - 1).yych;
+	
+#line 836 "myparser.c"
 			}
 		}
 		break;
 	case 36:
 		{
 #ifdef YYDEBUG
-			YYSTYPE YYFAR *yya[2];
-			yyinitdebug(yya, 2);
-#endif
-			{
-#line 311 ".\\myparser.y"
-
-				yyval.col=(struct Column *)malloc(sizeof(struct Column));
-			  yyval.col->table =NULL;
-			  delQuote(yyattribute(1 - 1).yych);
-			  toLowerCase(yyattribute(1 - 1).yych);
-			  yyval.col->name=yyattribute(1 - 1).yych;
-			  
-#line 847 "myparser.c"
-			}
-		}
-		break;
-	case 37:
-		{
-#ifdef YYDEBUG
-			YYSTYPE YYFAR *yya[2];
-			yyinitdebug(yya, 2);
-#endif
-			{
-#line 319 ".\\myparser.y"
-
-	yyval.yych=yyattribute(1 - 1).yych;
-	
-#line 862 "myparser.c"
-			}
-		}
-		break;
-	case 38:
-		{
-#ifdef YYDEBUG
 			YYSTYPE YYFAR *yya[12];
 			yyinitdebug(yya, 12);
 #endif
 			{
-#line 324 ".\\myparser.y"
+#line 326 ".\\myparser.y"
 
 				yyval.isrt_vals = (struct Insertvalues *)malloc(sizeof(struct Insertvalues));
 				yyval.isrt_vals->value = yyattribute(9 - 11).val;
@@ -883,18 +857,18 @@ printf("\rUPDATE\n");
 				}
 				
 			 
-#line 887 "myparser.c"
+#line 861 "myparser.c"
 			}
 		}
 		break;
-	case 39:
+	case 37:
 		{
 #ifdef YYDEBUG
 			YYSTYPE YYFAR *yya[9];
 			yyinitdebug(yya, 9);
 #endif
 			{
-#line 337 ".\\myparser.y"
+#line 339 ".\\myparser.y"
 
 				yyval.isrt_vals = (struct Insertvalues *)malloc(sizeof(struct Insertvalues));
 				yyval.isrt_vals->value = yyattribute(6 - 8).val;
@@ -908,18 +882,18 @@ printf("\rUPDATE\n");
 				}
 				//printf("识别sql\n");
 			 
-#line 912 "myparser.c"
+#line 886 "myparser.c"
 			}
 		}
 		break;
-	case 40:
+	case 38:
 		{
 #ifdef YYDEBUG
 			YYSTYPE YYFAR *yya[4];
 			yyinitdebug(yya, 4);
 #endif
 			{
-#line 352 ".\\myparser.y"
+#line 354 ".\\myparser.y"
 
 					yyval.fld = (struct Field *)malloc(sizeof(struct Field));
 					yyval.fld = yyattribute(1 - 3).fld;
@@ -933,36 +907,36 @@ printf("\rUPDATE\n");
 					p->next_field=q;
 					//printf("识别insert_fields,field\n");
 				 
-#line 937 "myparser.c"
+#line 911 "myparser.c"
 			}
 		}
 		break;
-	case 41:
+	case 39:
 		{
 #ifdef YYDEBUG
 			YYSTYPE YYFAR *yya[2];
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 365 ".\\myparser.y"
+#line 367 ".\\myparser.y"
 
 					yyval.fld=(struct Field *)malloc(sizeof(struct Field));
 					yyval.fld->field = yyattribute(1 - 1).yych;
 					yyval.fld->next_field = NULL;
 					//printf("识别field\n");
 				 
-#line 955 "myparser.c"
+#line 929 "myparser.c"
 			}
 		}
 		break;
-	case 42:
+	case 40:
 		{
 #ifdef YYDEBUG
 			YYSTYPE YYFAR *yya[4];
 			yyinitdebug(yya, 4);
 #endif
 			{
-#line 372 ".\\myparser.y"
+#line 374 ".\\myparser.y"
 
 					yyval.val = yyattribute(1 - 3).val;
 					struct Value *p=yyval.val;
@@ -976,7 +950,44 @@ printf("\rUPDATE\n");
 					p->next_value=q;
 					//printf("识别insert_values,insert_value");
 				 
-#line 980 "myparser.c"
+#line 954 "myparser.c"
+			}
+		}
+		break;
+	case 41:
+		{
+#ifdef YYDEBUG
+			YYSTYPE YYFAR *yya[2];
+			yyinitdebug(yya, 2);
+#endif
+			{
+#line 387 ".\\myparser.y"
+
+					yyval.val=(struct Value *)malloc(sizeof(struct Value));
+					yyval.val->value = yyattribute(1 - 1).yych;
+					yyval.val->next_value = NULL;
+					
+										//printf("识别insert_value\n");
+				 
+#line 973 "myparser.c"
+			}
+		}
+		break;
+	case 42:
+		{
+#ifdef YYDEBUG
+			YYSTYPE YYFAR *yya[2];
+			yyinitdebug(yya, 2);
+#endif
+			{
+#line 395 ".\\myparser.y"
+
+	toLowerCase(yyattribute(1 - 1).yych);
+	delQuote(yyattribute(1 - 1).yych);
+					yyval.yych = yyattribute(1 - 1).yych;
+										//printf("\r识别STRING\n");
+				
+#line 991 "myparser.c"
 			}
 		}
 		break;
@@ -987,44 +998,7 @@ printf("\rUPDATE\n");
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 385 ".\\myparser.y"
-
-					yyval.val=(struct Value *)malloc(sizeof(struct Value));
-					yyval.val->value = yyattribute(1 - 1).yych;
-					yyval.val->next_value = NULL;
-					
-										//printf("识别insert_value\n");
-				 
-#line 999 "myparser.c"
-			}
-		}
-		break;
-	case 44:
-		{
-#ifdef YYDEBUG
-			YYSTYPE YYFAR *yya[2];
-			yyinitdebug(yya, 2);
-#endif
-			{
-#line 393 ".\\myparser.y"
-
-	toLowerCase(yyattribute(1 - 1).yych);
-	delQuote(yyattribute(1 - 1).yych);
-					yyval.yych = yyattribute(1 - 1).yych;
-										//printf("\r识别STRING\n");
-				
-#line 1017 "myparser.c"
-			}
-		}
-		break;
-	case 45:
-		{
-#ifdef YYDEBUG
-			YYSTYPE YYFAR *yya[2];
-			yyinitdebug(yya, 2);
-#endif
-			{
-#line 399 ".\\myparser.y"
+#line 401 ".\\myparser.y"
 
 					int cnt = 1;
 					int tmp = yyattribute(1 - 1).int_num;
@@ -1036,23 +1010,72 @@ printf("\rUPDATE\n");
 					sprintf(yyval.yych,"%d",yyattribute(1 - 1).int_num);
 					//printf("识别INTERGER：%s\n",$$);
 				
-#line 1040 "myparser.c"
+#line 1014 "myparser.c"
+			}
+		}
+		break;
+	case 44:
+		{
+#ifdef YYDEBUG
+			YYSTYPE YYFAR *yya[7];
+			yyinitdebug(yya, 7);
+#endif
+			{
+#line 414 ".\\myparser.y"
+
+		toLowerCase(yyattribute(3 - 6).yych);
+		int isSuccess=deleteTB(dbname,yyattribute(3 - 6).yych,yyattribute(5 - 6).con);
+				if(isSuccess){
+					printf("\rData Deleted\n");
+				}
+				else
+					printf("\rFail to Delete\n");
+	
+#line 1035 "myparser.c"
+			}
+		}
+		break;
+	case 45:
+		{
+#ifdef YYDEBUG
+			YYSTYPE YYFAR *yya[8];
+			yyinitdebug(yya, 8);
+#endif
+			{
+#line 424 ".\\myparser.y"
+
+		int isSuccess=updateTB(dbname,yyattribute(2 - 7).yych,yyattribute(4 - 7).sif,yyattribute(6 - 7).con);
+				if(isSuccess){
+					printf("\rTable Updated\n");
+				}
+				else
+					printf("\rFail to Update\n");
+	
+#line 1055 "myparser.c"
 			}
 		}
 		break;
 	case 46:
 		{
 #ifdef YYDEBUG
-			YYSTYPE YYFAR *yya[5];
-			yyinitdebug(yya, 5);
+			YYSTYPE YYFAR *yya[6];
+			yyinitdebug(yya, 6);
 #endif
 			{
-#line 424 ".\\myparser.y"
+#line 432 ".\\myparser.y"
 
-	toLowerCase(yyattribute(3 - 4).yych);
-	yyval.yych=yyattribute(3 - 4).yych;
-	
-#line 1056 "myparser.c"
+	yyval.sif=yyattribute(1 - 5).sif;
+			  struct SetInfo *p=yyval.sif;
+			  while(p->next!=NULL){
+				p=p->next;
+			  }
+			  struct SetInfo *q=(struct SetInfo *)malloc(sizeof(struct SetInfo));
+			  p->next=q;
+			  q->field = yyattribute(3 - 5).yych;
+			  q->value = yyattribute(5 - 5).yych;
+			  q->next = NULL;
+			  
+#line 1079 "myparser.c"
 			}
 		}
 		break;
@@ -1063,12 +1086,15 @@ printf("\rUPDATE\n");
 			yyinitdebug(yya, 4);
 #endif
 			{
-#line 429 ".\\myparser.y"
+#line 444 ".\\myparser.y"
 
-	toLowerCase(yyattribute(2 - 3).yych);
-		yyval.yych= yyattribute(2 - 3).yych;
-	
-#line 1072 "myparser.c"
+		   
+		   yyval.sif=(struct SetInfo *)malloc(sizeof(struct SetInfo));
+		   yyval.sif->field = yyattribute(1 - 3).yych;
+		   yyval.sif -> value = yyattribute(3 - 3).yych;
+		   yyval.sif->next=NULL;
+		   
+#line 1098 "myparser.c"
 			}
 		}
 		break;
@@ -1079,12 +1105,11 @@ printf("\rUPDATE\n");
 			yyinitdebug(yya, 2);
 #endif
 			{
-#line 433 ".\\myparser.y"
+#line 452 ".\\myparser.y"
 
-	toLowerCase(yyattribute(1 - 1).yych);
-	yyval.yych=yyattribute(1 - 1).yych;
+		yyval.yych=yyattribute(1 - 1).yych;
 	
-#line 1088 "myparser.c"
+#line 1113 "myparser.c"
 			}
 		}
 		break;
@@ -1095,29 +1120,77 @@ printf("\rUPDATE\n");
 			yyinitdebug(yya, 5);
 #endif
 			{
-#line 438 ".\\myparser.y"
+#line 460 ".\\myparser.y"
 
-		yyval.yych = yyattribute(3 - 4).yych;
+	toLowerCase(yyattribute(3 - 4).yych);
+	yyval.yych=yyattribute(3 - 4).yych;
 	
-#line 1103 "myparser.c"
+#line 1129 "myparser.c"
 			}
 		}
 		break;
 	case 50:
 		{
 #ifdef YYDEBUG
+			YYSTYPE YYFAR *yya[4];
+			yyinitdebug(yya, 4);
+#endif
+			{
+#line 465 ".\\myparser.y"
+
+	toLowerCase(yyattribute(2 - 3).yych);
+		yyval.yych= yyattribute(2 - 3).yych;
+	
+#line 1145 "myparser.c"
+			}
+		}
+		break;
+	case 51:
+		{
+#ifdef YYDEBUG
+			YYSTYPE YYFAR *yya[2];
+			yyinitdebug(yya, 2);
+#endif
+			{
+#line 469 ".\\myparser.y"
+
+	toLowerCase(yyattribute(1 - 1).yych);
+	yyval.yych=yyattribute(1 - 1).yych;
+	
+#line 1161 "myparser.c"
+			}
+		}
+		break;
+	case 52:
+		{
+#ifdef YYDEBUG
 			YYSTYPE YYFAR *yya[5];
 			yyinitdebug(yya, 5);
 #endif
 			{
-#line 442 ".\\myparser.y"
+#line 474 ".\\myparser.y"
+
+		yyval.yych = yyattribute(3 - 4).yych;
+	
+#line 1176 "myparser.c"
+			}
+		}
+		break;
+	case 53:
+		{
+#ifdef YYDEBUG
+			YYSTYPE YYFAR *yya[5];
+			yyinitdebug(yya, 5);
+#endif
+			{
+#line 478 ".\\myparser.y"
 
 	toLowerCase(yyattribute(3 - 4).yych);
 	yyval.yych=yyattribute(3 - 4).yych;
 	if(dbname!=NULL&&strcmp(yyattribute(3 - 4).yych,dbname)==0)
 		dbname = NULL;
 	
-#line 1121 "myparser.c"
+#line 1194 "myparser.c"
 			}
 		}
 		break;
@@ -1239,68 +1312,68 @@ YYCONST yyreduction_t YYNEARFAR YYBASED_CODE YYDCDECL yyreduction[] = {
 	{ 2, 1, 0 },
 	{ 2, 1, -1 },
 	{ 2, 1, -1 },
+	{ 2, 1, -1 },
+	{ 2, 1, -1 },
 	{ 2, 1, 1 },
 	{ 2, 1, 2 },
 	{ 2, 1, 3 },
 	{ 2, 1, 4 },
 	{ 2, 1, 5 },
 	{ 2, 1, 6 },
-	{ 2, 1, 7 },
-	{ 2, 1, 8 },
-	{ 3, 7, 9 },
-	{ 4, 1, 10 },
-	{ 5, 3, 11 },
-	{ 5, 1, 12 },
-	{ 6, 2, 13 },
-	{ 7, 1, 14 },
-	{ 8, 4, 15 },
-	{ 8, 1, 16 },
-	{ 9, 5, 17 },
-	{ 9, 7, 18 },
-	{ 10, 1, 19 },
-	{ 10, 1, 20 },
-	{ 11, 1, 21 },
-	{ 11, 3, 22 },
-	{ 12, 1, 23 },
-	{ 12, 3, 24 },
-	{ 13, 1, 25 },
-	{ 13, 3, 26 },
-	{ 14, 1, 27 },
+	{ 3, 7, 7 },
+	{ 4, 1, 8 },
+	{ 5, 3, 9 },
+	{ 5, 1, 10 },
+	{ 6, 2, 11 },
+	{ 7, 1, 12 },
+	{ 8, 4, 13 },
+	{ 8, 1, 14 },
+	{ 9, 5, 15 },
+	{ 9, 7, 16 },
+	{ 10, 1, 17 },
+	{ 10, 1, 18 },
+	{ 11, 1, 19 },
+	{ 11, 3, 20 },
+	{ 12, 1, 21 },
+	{ 12, 3, 22 },
+	{ 13, 1, 23 },
+	{ 13, 3, 24 },
+	{ 14, 1, 25 },
+	{ 14, 3, 26 },
+	{ 14, 3, 27 },
 	{ 14, 3, 28 },
-	{ 14, 3, 29 },
-	{ 14, 3, 30 },
-	{ 15, 3, 31 },
-	{ 16, 1, 32 },
+	{ 15, 3, 29 },
+	{ 16, 1, 30 },
+	{ 17, 1, 31 },
+	{ 17, 1, 32 },
 	{ 17, 1, 33 },
 	{ 17, 1, 34 },
-	{ 17, 1, 35 },
-	{ 17, 1, 36 },
-	{ 18, 1, 37 },
-	{ 19, 11, 38 },
-	{ 19, 8, 39 },
-	{ 20, 3, 40 },
-	{ 20, 1, 41 },
-	{ 21, 3, 42 },
-	{ 21, 1, 43 },
-	{ 22, 1, 44 },
-	{ 22, 1, 45 },
-	{ 23, 6, -1 },
-	{ 24, 7, -1 },
-	{ 25, 5, -1 },
-	{ 25, 3, -1 },
-	{ 26, 1, -1 },
+	{ 18, 1, 35 },
+	{ 19, 11, 36 },
+	{ 19, 8, 37 },
+	{ 20, 3, 38 },
+	{ 20, 1, 39 },
+	{ 21, 3, 40 },
+	{ 21, 1, 41 },
+	{ 22, 1, 42 },
+	{ 22, 1, 43 },
+	{ 23, 6, 44 },
+	{ 24, 7, 45 },
+	{ 25, 5, 46 },
+	{ 25, 3, 47 },
+	{ 26, 1, 48 },
 	{ 27, 3, -1 },
 	{ 28, 3, -1 },
-	{ 29, 4, 46 },
-	{ 30, 3, 47 },
-	{ 31, 1, 48 },
-	{ 32, 4, 49 },
-	{ 33, 4, 50 }
+	{ 29, 4, 49 },
+	{ 30, 3, 50 },
+	{ 31, 1, 51 },
+	{ 32, 4, 52 },
+	{ 33, 4, 53 }
 };
 
 int YYNEAR YYDCDECL yytokenaction_size = 282;
 YYCONST yytokenaction_t YYNEARFAR YYBASED_CODE YYDCDECL yytokenaction[] = {
-	{ 19, YYAT_ACCEPT, 0 },
+	{ 15, YYAT_ACCEPT, 0 },
 	{ 64, YYAT_SHIFT, 75 },
 	{ 49, YYAT_SHIFT, 59 },
 	{ 108, YYAT_SHIFT, 126 },
@@ -1564,28 +1637,28 @@ YYCONST yytokenaction_t YYNEARFAR YYBASED_CODE YYDCDECL yytokenaction[] = {
 	{ -1, YYAT_ERROR, 0 },
 	{ -1, YYAT_ERROR, 0 },
 	{ -1, YYAT_ERROR, 0 },
-	{ 19, YYAT_SHIFT, 1 },
+	{ 15, YYAT_SHIFT, 1 },
 	{ -1, YYAT_ERROR, 0 },
-	{ 19, YYAT_SHIFT, 2 },
+	{ 15, YYAT_SHIFT, 2 },
 	{ -1, YYAT_ERROR, 0 },
-	{ 19, YYAT_SHIFT, 3 },
-	{ 19, YYAT_SHIFT, 4 },
-	{ -1, YYAT_ERROR, 0 },
-	{ -1, YYAT_ERROR, 0 },
+	{ 15, YYAT_SHIFT, 3 },
+	{ 15, YYAT_SHIFT, 4 },
 	{ -1, YYAT_ERROR, 0 },
 	{ -1, YYAT_ERROR, 0 },
-	{ 19, YYAT_SHIFT, 5 },
 	{ -1, YYAT_ERROR, 0 },
 	{ -1, YYAT_ERROR, 0 },
-	{ 19, YYAT_SHIFT, 6 },
+	{ 15, YYAT_SHIFT, 5 },
 	{ -1, YYAT_ERROR, 0 },
 	{ -1, YYAT_ERROR, 0 },
-	{ 19, YYAT_SHIFT, 7 },
-	{ 19, YYAT_SHIFT, 8 }
+	{ 15, YYAT_SHIFT, 6 },
+	{ -1, YYAT_ERROR, 0 },
+	{ -1, YYAT_ERROR, 0 },
+	{ 15, YYAT_SHIFT, 7 },
+	{ 15, YYAT_SHIFT, 8 }
 };
 
 YYCONST yystateaction_t YYNEARFAR YYBASED_CODE YYDCDECL yystateaction[] = {
-	{ 63, 1, YYAT_DEFAULT, 19 },
+	{ 63, 1, YYAT_DEFAULT, 15 },
 	{ -253, 1, YYAT_ERROR, 0 },
 	{ -260, 1, YYAT_ERROR, 0 },
 	{ -256, 1, YYAT_ERROR, 0 },
@@ -1594,19 +1667,19 @@ YYCONST yystateaction_t YYNEARFAR YYBASED_CODE YYDCDECL yystateaction[] = {
 	{ 19, 1, YYAT_DEFAULT, 52 },
 	{ -218, 1, YYAT_ERROR, 0 },
 	{ 0, 0, YYAT_DEFAULT, 75 },
-	{ 0, 0, YYAT_REDUCE, 12 },
 	{ 0, 0, YYAT_REDUCE, 11 },
 	{ 0, 0, YYAT_REDUCE, 10 },
 	{ 0, 0, YYAT_REDUCE, 13 },
-	{ 0, 0, YYAT_REDUCE, 5 },
+	{ 0, 0, YYAT_REDUCE, 12 },
 	{ 0, 0, YYAT_REDUCE, 3 },
+	{ 0, 0, YYAT_REDUCE, 5 },
+	{ 0, 1, YYAT_ERROR, 0 },
 	{ 0, 0, YYAT_REDUCE, 1 },
 	{ 0, 0, YYAT_REDUCE, 4 },
-	{ 0, 0, YYAT_REDUCE, 8 },
 	{ 0, 0, YYAT_REDUCE, 6 },
-	{ 0, 1, YYAT_ERROR, 0 },
 	{ 0, 0, YYAT_REDUCE, 7 },
 	{ 0, 0, YYAT_REDUCE, 9 },
+	{ 0, 0, YYAT_REDUCE, 8 },
 	{ 0, 0, YYAT_DEFAULT, 26 },
 	{ 0, 0, YYAT_DEFAULT, 75 },
 	{ 0, 1, YYAT_ERROR, 0 },
@@ -1708,8 +1781,8 @@ YYCONST yystateaction_t YYNEARFAR YYBASED_CODE YYDCDECL yystateaction[] = {
 	{ 0, 0, YYAT_REDUCE, 41 },
 	{ 0, 0, YYAT_REDUCE, 39 },
 	{ 0, 0, YYAT_REDUCE, 40 },
-	{ 0, 0, YYAT_REDUCE, 36 },
 	{ 0, 0, YYAT_REDUCE, 38 },
+	{ 0, 0, YYAT_REDUCE, 36 },
 	{ 0, 0, YYAT_DEFAULT, 128 },
 	{ 0, 0, YYAT_REDUCE, 52 },
 	{ -21, 1, YYAT_ERROR, 0 },
@@ -1726,38 +1799,38 @@ YYCONST yystateaction_t YYNEARFAR YYBASED_CODE YYDCDECL yystateaction[] = {
 int YYNEAR YYDCDECL yynontermgoto_size = 63;
 
 YYCONST yynontermgoto_t YYNEARFAR YYBASED_CODE YYDCDECL yynontermgoto[] = {
-	{ 19, 41 },
-	{ 19, 14 },
+	{ 15, 41 },
+	{ 15, 13 },
 	{ 104, 33 },
 	{ 59, 72 },
 	{ 125, 105 },
 	{ 104, 34 },
 	{ 54, 67 },
-	{ 19, 16 },
+	{ 15, 17 },
 	{ 125, 131 },
 	{ 102, 82 },
-	{ 104, 124 },
+	{ 104, 123 },
 	{ 102, 119 },
 	{ 102, 80 },
 	{ 102, 81 },
 	{ 51, 63 },
-	{ 104, 123 },
+	{ 104, 124 },
 	{ 59, 73 },
-	{ 19, 13 },
+	{ 15, 14 },
 	{ 6, 35 },
 	{ 6, 36 },
 	{ 6, 37 },
-	{ 19, 18 },
-	{ 19, 20 },
+	{ 15, 18 },
+	{ 15, 19 },
 	{ 51, 64 },
 	{ 54, 68 },
-	{ 19, 17 },
-	{ 19, 21 },
-	{ 19, 11 },
-	{ 19, 9 },
+	{ 15, 21 },
+	{ 15, 20 },
+	{ 15, 10 },
+	{ 15, 12 },
 	{ 52, 65 },
-	{ 19, 12 },
-	{ 19, 10 },
+	{ 15, 11 },
+	{ 15, 9 },
 	{ 128, 133 },
 	{ 128, 95 },
 	{ 52, -1 },
@@ -1765,8 +1838,8 @@ YYCONST yynontermgoto_t YYNEARFAR YYBASED_CODE YYDCDECL yynontermgoto[] = {
 	{ 90, 69 },
 	{ 56, 70 },
 	{ 56, 71 },
-	{ 0, 19 },
 	{ 0, 15 },
+	{ 0, 16 },
 	{ 115, 130 },
 	{ 101, 118 },
 	{ 92, 113 },
@@ -1792,7 +1865,7 @@ YYCONST yynontermgoto_t YYNEARFAR YYBASED_CODE YYDCDECL yynontermgoto[] = {
 };
 
 YYCONST yystategoto_t YYNEARFAR YYBASED_CODE YYDCDECL yystategoto[] = {
-	{ 38, 19 },
+	{ 38, 15 },
 	{ 0, -1 },
 	{ 0, -1 },
 	{ 0, -1 },
@@ -1807,11 +1880,11 @@ YYCONST yystategoto_t YYNEARFAR YYBASED_CODE YYDCDECL yystategoto[] = {
 	{ 0, -1 },
 	{ 0, -1 },
 	{ 0, -1 },
-	{ 0, -1 },
-	{ 0, -1 },
-	{ 0, -1 },
-	{ 0, -1 },
 	{ -2, -1 },
+	{ 0, -1 },
+	{ 0, -1 },
+	{ 0, -1 },
+	{ 0, -1 },
 	{ 0, -1 },
 	{ 0, -1 },
 	{ 29, -1 },
@@ -1937,7 +2010,7 @@ int YYNEAR YYDCDECL yytokendest_size = 0;
 
 YYCONST yytokendestbase_t YYNEARFAR *YYNEAR YYDCDECL yytokendestbaseptr = NULL;
 int YYNEAR YYDCDECL yytokendestbase_size = 0;
-#line 448 ".\\myparser.y"
+#line 484 ".\\myparser.y"
 
 
 /////////////////////////////////////////////////////////////////////////////
